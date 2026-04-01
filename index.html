@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Dashboard – Weidmüller Schweiz AG</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm:#FF6B00;--wmg:rgba(255,107,0,.06);--wmg2:rgba(255,107,0,.12);--wmb:rgba(255,107,0,.18);
+  --bg:#0C0C0E;--s1:#141416;--s2:#1C1C1F;--s3:#242427;--s4:#2C2C30;
+  --t1:#F5F5F7;--t2:#98989F;--t3:#636369;
+  --bd:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.1);
+  --grn:#30D158;--grn2:rgba(48,209,88,.08);
+  --blu:#0A84FF;--blu2:rgba(10,132,255,.08);
+  --pur:#BF5AF2;--pur2:rgba(191,90,242,.08);
+  --red:#FF453A;--red2:rgba(255,69,58,.08);
+  --yel:#FFD60A;--yel2:rgba(255,214,10,.08);
+  --teal:#64D2FF;--teal2:rgba(100,210,255,.08);
+  --sans:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+  --shadow:0 2px 8px rgba(0,0,0,.3),0 0 1px rgba(255,255,255,.05);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.4),0 0 1px rgba(255,255,255,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;}
+
+/* HEADER */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:44px;background:rgba(20,20,22,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);}
+.hdr-l{display:flex;align-items:center;gap:10px;}
+.logo{width:26px;height:26px;background:var(--wm);border-radius:6px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:12px;color:#fff;}
+.hdr-t{font-size:14px;font-weight:600;letter-spacing:-.3px;}.hdr-t span{color:var(--wm);}
+.hdr-r{display:flex;align-items:center;gap:12px;}
+.clock{font-family:var(--mono);font-size:12px;color:var(--t2);font-weight:400;}
+.kwb{background:var(--wmg2);padding:4px 10px;border-radius:8px;font-size:11px;font-weight:600;color:var(--wm);font-family:var(--mono);}
+
+/* TABS */
+.tabs{display:flex;padding:0 24px;height:36px;align-items:stretch;background:var(--s1);border-bottom:1px solid var(--bd);}
+.tab{display:flex;align-items:center;padding:0 16px;font-size:11px;font-weight:500;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;letter-spacing:.2px;user-select:none;transition:all .15s;}
+.tab:hover{color:var(--t2);}.tab.on{color:var(--t1);border-bottom-color:var(--wm);}
+
+/* LAYOUT */
+.main{height:calc(100vh - 80px);overflow:hidden;padding:12px 24px;}
+.pane{display:none;height:100%;}.pane.on{display:flex;flex-direction:column;}
+.scr{overflow-y:auto;height:100%;padding-right:4px;}
+
+/* CARD – Apple depth */
+.card{background:var(--s1);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px;border:1px solid var(--bd);}
+
+/* CHIPS */
+.chip{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:500;white-space:nowrap;display:inline-flex;align-items:center;}
+.ci{background:var(--wmg2);color:var(--wm);}.ct{background:var(--grn2);color:var(--grn);}.cj{background:var(--blu2);color:var(--blu);}.cb{background:var(--pur2);color:var(--pur);}.ck{background:var(--s3);color:var(--t2);}
+.fmt{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.3px;}
+.fmt-r{background:var(--red2);color:var(--red);}.fmt-c{background:rgba(100,100,255,.1);color:#818CF8;}.fmt-s{background:var(--s3);color:var(--t2);}
+
+/* EVENTS */
+.ev{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:var(--s2);margin-bottom:4px;font-size:12px;transition:background .15s;}
+.ev:hover{background:var(--s3);}
+.ev.next{background:var(--wmg);border:1px solid rgba(255,107,0,.15);}
+.ev.past{opacity:.35;}
+.ev-kw{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:34px;font-weight:600;}
+.ev-name{flex:1;font-weight:500;}.ev-date{font-size:10px;color:var(--t2);font-family:var(--mono);font-weight:400;}.ev-loc{font-size:10px;color:var(--t3);}
+.et{font-size:8px;font-weight:600;padding:2px 6px;border-radius:5px;text-transform:uppercase;letter-spacing:.2px;}
+.t-od{background:var(--yel2);color:var(--yel);}.t-me{background:var(--pur2);color:var(--pur);}.t-sc{background:var(--grn2);color:var(--grn);}
+
+/* ===== OVERVIEW ===== */
+.ov-row1{display:grid;grid-template-columns:1.2fr 0.8fr;gap:12px;margin-bottom:12px;}
+.ov-row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;min-height:0;}
+
+/* RHYTHM */
+.rhy{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px;}
+.rw{padding:10px 12px;border-radius:8px;background:var(--s2);}
+.rw.now{background:var(--wmg2);box-shadow:inset 0 0 0 1px rgba(255,107,0,.2);}
+.rw-n{font-family:var(--mono);font-size:9px;color:var(--t3);font-weight:600;letter-spacing:.5px;margin-bottom:2px;}.rw.now .rw-n{color:var(--wm);}
+.rw-t{font-size:13px;font-weight:600;margin-bottom:1px;}.rw-d{font-size:10px;color:var(--t2);line-height:1.4;}
+
+/* MONTH COLUMN */
+.mcol{background:var(--s1);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;}
+.mcol-h{padding:12px 16px;display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--bd);}
+.mcol-h.now{background:linear-gradient(135deg,var(--wm) 0%,#E05A00 100%);}
+.mcol-h h3{font-size:15px;font-weight:700;letter-spacing:-.2px;}.mcol-h.now h3{color:#fff;}
+.mcol-h span{font-family:var(--mono);font-size:10px;color:var(--t3);font-weight:400;}.mcol-h.now span{color:rgba(255,255,255,.6);}
+.mcol-b{padding:12px 14px;flex:1;overflow-y:auto;}
+.ms{margin-bottom:10px;}.ms:last-child{margin-bottom:0;}
+.ms-t{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:6px;}
+
+/* SOCIAL */
+.soc{padding:8px 10px;border-radius:8px;background:var(--s2);margin-bottom:4px;}
+.soc-t{font-size:11px;font-weight:600;margin-bottom:4px;line-height:1.3;letter-spacing:-.1px;}
+.soc-m{display:flex;flex-wrap:wrap;gap:3px;}
+
+/* IND BAR */
+.ib{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border-left:3px solid var(--wm);background:var(--wmg);margin-bottom:3px;font-size:11px;}
+.ib-n{font-weight:600;flex:1;}.ib-k{font-family:var(--mono);font-size:9px;color:var(--t3);font-weight:400;}
+
+/* FULL MONTH */
+.fm{height:100%;overflow-y:auto;}
+.fm-head{padding:20px 28px;background:linear-gradient(135deg,var(--wm) 0%,#D45800 100%);border-radius:12px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.fm-head h2{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.5px;}.fm-head span{font-family:var(--mono);font-size:14px;color:rgba(255,255,255,.6);}
+.fm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fm-grid .card{padding:18px 20px;}
+
+/* KALENDER – pure event timeline */
+.cal-month{margin-bottom:16px;}
+.cal-month-h{font-size:18px;font-weight:700;margin-bottom:8px;padding-left:4px;letter-spacing:-.3px;}
+.cal-month-h.now{color:var(--wm);}
+.cal-ev{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;background:var(--s2);margin-bottom:4px;font-size:13px;transition:background .15s;}
+.cal-ev:hover{background:var(--s3);}
+.cal-ev.next{background:var(--wmg);border:1px solid rgba(255,107,0,.12);}
+.cal-kw{font-family:var(--mono);font-size:11px;color:var(--t3);min-width:42px;font-weight:600;}
+.cal-date{font-family:var(--mono);font-size:11px;color:var(--t2);min-width:60px;}
+.cal-name{flex:1;font-weight:500;letter-spacing:-.1px;}
+.cal-loc{font-size:11px;color:var(--t3);}
+
+/* TEAM – 3 equal columns */
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;height:100%;}
+.team-col{background:var(--s1);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;}
+.team-col-h{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+.team-col-h h3{font-size:14px;font-weight:700;letter-spacing:-.2px;}
+.team-col-b{padding:14px 16px;flex:1;overflow-y:auto;}
+
+/* Weekday grid */
+.wd-row{display:flex;gap:4px;margin-bottom:6px;}
+.wd-day{flex:1;background:var(--s2);border-radius:6px;padding:8px 10px;}
+.wd-day-h{font-size:10px;font-weight:700;margin-bottom:4px;letter-spacing:.3px;}
+.wd-day-h.prep{color:var(--blu);}.wd-day-h.exec{color:var(--wm);}.wd-day-h.rev{color:var(--grn);}
+.wd-day p{font-size:10px;color:var(--t2);line-height:1.5;}
+.wd-day strong{color:var(--t1);font-weight:600;}
+.wd-rule{padding:8px 10px;border-radius:6px;background:var(--wmg);border:1px solid rgba(255,107,0,.1);font-size:10px;color:var(--wm);font-weight:500;text-align:center;margin-top:4px;}
+
+/* Process steps */
+.proc{margin-bottom:4px;display:flex;border-radius:8px;overflow:hidden;background:var(--s2);}
+.proc-n{width:32px;background:var(--wm);color:#fff;font-family:var(--mono);font-size:13px;font-weight:700;display:grid;place-items:center;flex-shrink:0;}
+.proc-b{padding:8px 12px;flex:1;}
+.proc-t{font-size:12px;font-weight:600;letter-spacing:-.1px;}
+.proc-d{font-size:10px;color:var(--t2);margin-top:1px;}
+.proc-r{font-size:9px;color:var(--t3);margin-top:2px;}
+
+/* Journey phases – vertical cards */
+.j-card{padding:10px 12px;border-radius:8px;margin-bottom:4px;}
+.j-name{font-size:11px;font-weight:700;margin-bottom:2px;}
+.j-desc{font-size:9px;line-height:1.4;}
+.j-tools{font-size:9px;margin-top:3px;opacity:.7;line-height:1.3;}
+
+/* ROADMAP */
+.rm-tl{position:relative;}
+.rm-line{position:absolute;left:13px;top:0;bottom:0;width:2px;background:var(--bd2);}
+.rm-i{position:relative;padding-left:36px;margin-bottom:12px;}
+.rm-dot{position:absolute;left:7px;top:3px;width:14px;height:14px;border-radius:50%;border:2px solid var(--bd2);background:var(--bg);}
+.rm-i.now .rm-dot{background:var(--wm);border-color:var(--wm);box-shadow:0 0 8px rgba(255,107,0,.3);}
+.rm-i.future .rm-dot{background:var(--s2);border-color:var(--t3);}
+.rm-when{font-family:var(--mono);font-size:10px;color:var(--t3);font-weight:400;}
+.rm-what{font-size:13px;font-weight:600;letter-spacing:-.1px;}
+.rm-how{font-size:11px;color:var(--t2);line-height:1.4;}
+
+/* Archive */
+.arc{background:var(--s1);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--bd);overflow:hidden;}
+.arc-h{padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--bd);font-size:12px;font-weight:700;color:var(--t2);}
+.arc-b{padding:12px 16px;}
+.arc-sec{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;margin-top:8px;}
+.arc-sec:first-child{margin-top:0;}
+.arc-i{display:flex;gap:6px;margin-bottom:3px;font-size:10px;color:var(--t2);}
+.arc-i .ck{color:var(--grn);font-weight:700;}
+
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l"><div class="logo">W</div><div class="hdr-t">Marketing Dashboard <span>Weidmüller Schweiz</span></div></div>
+  <div class="hdr-r"><div class="kwb" id="kw">KW 14</div><div class="clock" id="clock">09:42</div></div>
+</div>
+<div class="tabs">
+  <div class="tab on" data-t="overview">Übersicht Q2</div>
+  <div class="tab" data-t="april">April</div>
+  <div class="tab" data-t="mai">Mai</div>
+  <div class="tab" data-t="juni">Juni</div>
+  <div class="tab" data-t="kalender">Kalender</div>
+  <div class="tab" data-t="events">Live Experience</div>
+  <div class="tab" data-t="team">Team & Prozess</div>
+  <div class="tab" data-t="roadmap">Roadmap</div>
+  <div class="tab" data-t="archiv">Archiv</div>
+</div>
+
+<div class="main">
+
+<!-- ===== ÜBERSICHT Q2 ===== -->
+<div class="pane on" id="p-overview">
+  <div class="ov-row1">
+    <div class="card">
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:4px;">Monatsrhythmus – April 2026</div>
+      <div class="rhy">
+        <div class="rw now"><div class="rw-n">WOCHE 1</div><div class="rw-t">Newsletter</div><div class="rw-d">#04 erstellen & versenden</div></div>
+        <div class="rw"><div class="rw-n">WOCHE 2</div><div class="rw-t">6 Social Posts</div><div class="rw-d">2 Posts pro Woche ableiten</div></div>
+        <div class="rw"><div class="rw-n">WOCHE 3</div><div class="rw-t">Analyse</div><div class="rw-d">Klickraten, Traffic, Learnings</div></div>
+        <div class="rw"><div class="rw-n">WOCHE 4</div><div class="rw-t">Vorbereitung</div><div class="rw-d">Mai-Kampagne + «Boris bringt's auf den Punkt» Dreh</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:6px;">Nächste Events</div>
+      <div class="ev next"><div class="ev-kw">KW 16</div><div class="ev-name">Solarmarkt Stammtisch</div><div class="ev-date">17.04.</div></div>
+      <div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">SIAMS</div><div class="ev-date">21.04.</div><div class="ev-loc">Moutier</div></div>
+      <div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">Sonepar Meyrin + Rothenburg</div><div class="ev-date">28–29.04.</div></div>
+      <div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Electro-Forum + Bahntagung</div><div class="ev-date">05.05.</div></div>
+    </div>
+  </div>
+  <div class="ov-row2">
+    <div class="mcol">
+      <div class="mcol-h now"><h3>April – Safety & Security</h3><span>KW 14–17</span></div>
+      <div class="mcol-b">
+        <div class="ms"><div class="ms-t">Newsletter #04</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Sichere Verbindungen für kritische Infrastruktur</div><div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Schienenfahrzeuge</span><span class="chip ct">SNAP IN</span><span class="chip cj">Awareness</span></div></div>
+        <div class="ms"><div class="ms-t">Social (2/Woche)</div>
+          <div class="soc"><div class="soc-t">«Wie SNAP IN den Schaltschrankbau beschleunigt»</div><div class="soc-m"><span class="fmt fmt-c">Carousel</span><span class="chip ci">Maschinenbau</span><span class="chip ck">LinkedIn</span></div></div>
+          <div class="soc"><div class="soc-t">«Orange Day – Behind the Scenes»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip cb">Brand</span><span class="chip ck">Instagram</span></div></div></div>
+        <div class="ms"><div class="ms-t">Industry-Fokus</div><div class="ib"><div class="ib-n">Maschinenbau</div><div class="ib-k">KW 15–17</div></div><div class="ib"><div class="ib-n">Schienenfahrzeuge</div><div class="ib-k">KW 15–17</div></div><div class="ib"><div class="ib-n">Schaltschrankbau</div><div class="ib-k">KW 15–17</div></div></div>
+        <div class="ms"><div class="ms-t">Events</div><div class="ev" style="font-size:11px;"><div class="ev-kw">16</div><div class="ev-name">Solarmarkt Stammtisch</div></div><div class="ev" style="font-size:11px;"><div class="ev-kw">17</div><div class="ev-name">SIAMS · Sonepar ×2 · VSAS</div></div></div>
+      </div>
+    </div>
+    <div class="mcol">
+      <div class="mcol-h"><h3>Mai – Data Flow</h3><span>KW 18–22</span></div>
+      <div class="mcol-b">
+        <div class="ms"><div class="ms-t">Newsletter #05</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Wenn alles zusammenspielt, entsteht Vernetzung</div><div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="chip ci">Gebäude</span><span class="chip ci">Gerätehersteller</span><span class="chip ct">Open Tech IIoT</span><span class="chip cj">Awareness</span></div></div>
+        <div class="ms"><div class="ms-t">Social (2/Woche)</div>
+          <div class="soc"><div class="soc-t">«Gebäudetechnik 2026: 3 Trends»</div><div class="soc-m"><span class="fmt fmt-s">Standard</span><span class="chip ci">Gebäude</span><span class="chip ck">LinkedIn</span></div></div>
+          <div class="soc"><div class="soc-t">«Live vom Electro-Forum Bern»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip cb">Brand</span><span class="chip ck">Instagram</span></div></div></div>
+        <div class="ms"><div class="ms-t">Industry-Fokus</div><div class="ib"><div class="ib-n">Gebäude</div><div class="ib-k">KW 19–22</div></div><div class="ib"><div class="ib-n">Gerätehersteller</div><div class="ib-k">KW 19–22</div></div><div class="ib"><div class="ib-n">Maschinenbau</div><div class="ib-k">KW 19–22</div></div></div>
+        <div class="ms"><div class="ms-t">Events</div><div class="ev" style="font-size:11px;"><div class="ev-kw">19</div><div class="ev-name">Electro-Forum · Bahntagung</div></div><div class="ev" style="font-size:11px;"><div class="ev-kw">21</div><div class="ev-name">Solexis ×2</div></div><div class="ev" style="font-size:11px;"><div class="ev-kw">22</div><div class="ev-name">Krannich · Solarmarkt · ELECTRIC DAY</div></div></div>
+      </div>
+    </div>
+    <div class="mcol">
+      <div class="mcol-h"><h3>Juni – Kompetenz von Anfang an</h3><span>KW 23–26</span></div>
+      <div class="mcol-b">
+        <div class="ms"><div class="ms-t">Newsletter #06</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Industry Match als Türöffner</div><div style="display:flex;flex-wrap:wrap;gap:3px;"><span class="chip ci">Schaltschrankbau</span><span class="chip ci">Energie PV</span><span class="chip ct">SNAP IN</span><span class="chip cj">Consideration</span></div></div>
+        <div class="ms"><div class="ms-t">Social (2/Woche)</div>
+          <div class="soc"><div class="soc-t">«SNAP IN halbiert den Verdrahtungsaufwand»</div><div class="soc-m"><span class="fmt fmt-c">Carousel</span><span class="chip ci">Schaltschrankbau</span><span class="chip ck">LinkedIn</span></div></div>
+          <div class="soc"><div class="soc-t">«Orange Day National – Highlights»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip cb">Brand</span><span class="chip ck">Instagram</span></div></div></div>
+        <div class="ms"><div class="ms-t">Industry-Fokus</div><div class="ib"><div class="ib-n">Schaltschrankbau</div><div class="ib-k">KW 24–26</div></div><div class="ib"><div class="ib-n">Energie – PV</div><div class="ib-k">KW 24–26</div></div><div class="ib"><div class="ib-n">Wasser</div><div class="ib-k">KW 24–26</div></div></div>
+        <div class="ms"><div class="ms-t">Events</div><div class="ev" style="font-size:11px;"><div class="ev-kw">23</div><div class="ev-name" style="color:var(--wm);font-weight:700;">Orange Day National</div></div><div class="ev" style="font-size:11px;"><div class="ev-kw">24</div><div class="ev-name">Lugano · Krannich · Zuken</div></div><div class="ev" style="font-size:11px;"><div class="ev-kw">25</div><div class="ev-name">Elektroforum · Romandie · EEV</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APRIL/MAI/JUNI FULL – same structure as v7 but with better spacing -->
+<div class="pane" id="p-april"><div class="fm"><div class="fm-head"><h2>April 2026 – Safety & Security</h2><span>KW 14 – 17</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter #04</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px;">Safety & Security</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Sichere Verbindungen für kritische Infrastruktur. Ziel-CTA: Industry Match → Maschinenbau.</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ci">Industry · Maschinenbau</span><span class="chip ci">Schienenfahrzeuge</span><span class="chip ct">SNAP IN</span><span class="chip cj">Awareness → Consideration</span></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus (Marketingplan)</div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Maschinenbau</div><div class="ib-k" style="font-size:11px;">KW 15–17</div></div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Schienenfahrzeuge</div><div class="ib-k" style="font-size:11px;">KW 15–17</div></div><div class="ib" style="padding:10px 14px;font-size:14px;"><div class="ib-n">Schaltschrankbau</div><div class="ib-k" style="font-size:11px;">KW 15–17</div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media – 2 Posts / Woche</div><div class="soc" style="padding:12px 14px;margin-bottom:8px;"><div class="soc-t" style="font-size:14px;">«Wie SNAP IN den Schaltschrankbau beschleunigt»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Carousel</span><span class="chip ci">Maschinenbau</span><span class="chip ct">SNAP IN</span><span class="chip cj">Awareness</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:12px 14px;"><div class="soc-t" style="font-size:14px;">«Orange Day – Behind the Scenes»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip cb">Brand</span><span class="chip cj">Awareness</span><span class="chip ck">Instagram</span></div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events & Messen</div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 16</div><div class="ev-name">Solarmarkt Stammtisch</div><div class="ev-date" style="font-size:11px;">17.04.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 17</div><div class="ev-name">SIAMS</div><div class="ev-date" style="font-size:11px;">21.04.</div><div class="ev-loc">Moutier</div><span class="et t-me">Messe</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 17</div><div class="ev-name">Sonepar Meyrin</div><div class="ev-date" style="font-size:11px;">28.04.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 17</div><div class="ev-name">Sonepar Rothenburg</div><div class="ev-date" style="font-size:11px;">29.04.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;"><div class="ev-kw" style="font-size:11px;">KW 17</div><div class="ev-name">VSAS Vorstandssitzung</div><div class="ev-date" style="font-size:11px;">29.04.</div><span class="et t-me">Event</span></div></div></div></div></div>
+
+<div class="pane" id="p-mai"><div class="fm"><div class="fm-head"><h2>Mai 2026 – Data Flow</h2><span>KW 18 – 22</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter #05</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">Data Flow</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Wenn alles zusammenspielt, entsteht Vernetzung. Ziel-CTA: Industry Match → Gebäude.</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ci">Industry · Gebäude</span><span class="chip ci">Gerätehersteller</span><span class="chip ct">Open Technology IIoT</span><span class="chip cj">Awareness → Consideration</span></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus</div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Gebäude</div><div class="ib-k" style="font-size:11px;">KW 19–22</div></div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Gerätehersteller</div><div class="ib-k" style="font-size:11px;">KW 19–22</div></div><div class="ib" style="padding:10px 14px;font-size:14px;"><div class="ib-n">Maschinenbau</div><div class="ib-k" style="font-size:11px;">KW 19–22</div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media – 2 Posts / Woche</div><div class="soc" style="padding:12px 14px;margin-bottom:8px;"><div class="soc-t" style="font-size:14px;">«Gebäudetechnik 2026: 3 Trends die Sie kennen müssen»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Standard</span><span class="chip ci">Gebäude</span><span class="chip cj">Awareness</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:12px 14px;"><div class="soc-t" style="font-size:14px;">«Live vom Electro-Forum Bern»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip cb">Brand</span><span class="chip cj">Awareness</span><span class="chip ck">Instagram</span></div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events & Messen</div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 19</div><div class="ev-name">Electro-Forum</div><div class="ev-date" style="font-size:11px;">05.05.</div><div class="ev-loc">Bern</div><span class="et t-me">Messe</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 19</div><div class="ev-name">Bahntagung (electrosuisse)</div><div class="ev-date" style="font-size:11px;">05.05.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 21</div><div class="ev-name">Solexis + Solexis Olten</div><div class="ev-date" style="font-size:11px;">19–20.05.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 22</div><div class="ev-name">Krannich Netzwerkanlass FR</div><div class="ev-date" style="font-size:11px;">28.05.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 22</div><div class="ev-name">Solarmarkt Webinar</div><div class="ev-date" style="font-size:11px;">29.05.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;"><div class="ev-kw" style="font-size:11px;">KW 22</div><div class="ev-name">ELECTRIC DAY Lausanne</div><div class="ev-date" style="font-size:11px;">04.06.</div><span class="et t-me">Event</span></div></div></div></div></div>
+
+<div class="pane" id="p-juni"><div class="fm"><div class="fm-head"><h2>Juni 2026 – Kompetenz von Anfang an</h2><span>KW 23 – 26</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter #06</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">Kompetenz von Anfang an</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Industry Match als Türöffner. Ziel-CTA: Industry Match → Schaltschrankbau.</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ci">Industry · Schaltschrankbau</span><span class="chip ci">Energie PV</span><span class="chip ct">SNAP IN</span><span class="chip cj">Consideration</span></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus</div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Schaltschrankbau</div><div class="ib-k" style="font-size:11px;">KW 24–26</div></div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Energie – PV</div><div class="ib-k" style="font-size:11px;">KW 24–26</div></div><div class="ib" style="padding:10px 14px;font-size:14px;"><div class="ib-n">Wasser & Abwasser</div><div class="ib-k" style="font-size:11px;">KW 24–26</div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media – 2 Posts / Woche</div><div class="soc" style="padding:12px 14px;margin-bottom:8px;"><div class="soc-t" style="font-size:14px;">«SNAP IN halbiert den Verdrahtungsaufwand»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Carousel</span><span class="chip ci">Schaltschrankbau</span><span class="chip ct">SNAP IN</span><span class="chip cj">Consideration</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:12px 14px;"><div class="soc-t" style="font-size:14px;">«Orange Day National – Highlights»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip cb">Brand</span><span class="chip cj">Awareness</span><span class="chip ck">Instagram</span></div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events & Messen</div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 23</div><div class="ev-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><div class="ev-date" style="font-size:11px;">03.06.</div><span class="et t-od">OD</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 24</div><div class="ev-name">EM Lugano</div><div class="ev-date" style="font-size:11px;">08.06.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 24</div><div class="ev-name">Krannich IT + Zuken Innovation</div><div class="ev-date" style="font-size:11px;">09–10.06.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">Elektroforum Kloten</div><div class="ev-date" style="font-size:11px;">11.06.</div><span class="et t-me">Messe</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">EM Genève + Lausanne + Sion</div><div class="ev-date" style="font-size:11px;">16–18.06.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">EEV Generalversammlung</div><div class="ev-date" style="font-size:11px;">19.06.</div><span class="et t-me">Event</span></div></div></div></div></div>
+
+<!-- ===== KALENDER – pure event chronology ===== -->
+<div class="pane" id="p-kalender">
+  <div class="scr">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+      <div class="cal-month"><div class="cal-month-h now">April</div>
+        <div class="cal-ev next"><div class="cal-kw">KW 16</div><div class="cal-date">17.04.</div><div class="cal-name">Solarmarkt Stammtisch</div><span class="et t-me">Event</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">21.04.</div><div class="cal-name">SIAMS</div><div class="cal-loc">Moutier</div><span class="et t-me">Messe</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">28.04.</div><div class="cal-name">Sonepar Meyrin</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">29.04.</div><div class="cal-name">Sonepar Rothenburg</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">29.04.</div><div class="cal-name">VSAS Vorstandssitzung NWCH</div><span class="et t-me">Event</span></div>
+      </div>
+      <div class="cal-month"><div class="cal-month-h">Mai</div>
+        <div class="cal-ev"><div class="cal-kw">KW 19</div><div class="cal-date">05.05.</div><div class="cal-name">Electro-Forum</div><div class="cal-loc">Bern</div><span class="et t-me">Messe</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 19</div><div class="cal-date">05.05.</div><div class="cal-name">Bahntagung (electrosuisse)</div><span class="et t-me">Event</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 21</div><div class="cal-date">19.05.</div><div class="cal-name">Solexis</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 21</div><div class="cal-date">20.05.</div><div class="cal-name">Solexis Olten</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 22</div><div class="cal-date">28.05.</div><div class="cal-name">Krannich Netzwerkanlass FR</div><span class="et t-me">Event</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 22</div><div class="cal-date">29.05.</div><div class="cal-name">Solarmarkt Webinar</div><span class="et t-me">Event</span></div>
+      </div>
+      <div class="cal-month"><div class="cal-month-h">Juni</div>
+        <div class="cal-ev" style="background:var(--wmg);border:1px solid rgba(255,107,0,.12);"><div class="cal-kw">KW 23</div><div class="cal-date">03.06.</div><div class="cal-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><span class="et t-od">OD</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 22</div><div class="cal-date">04.06.</div><div class="cal-name">ELECTRIC DAY Lausanne</div><span class="et t-me">Event</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 24</div><div class="cal-date">08.06.</div><div class="cal-name">EM Lugano</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 24</div><div class="cal-date">09.06.</div><div class="cal-name">Krannich Netzwerkanlass IT</div><span class="et t-me">Event</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 24</div><div class="cal-date">10.06.</div><div class="cal-name">Zuken Innovation World</div><span class="et t-me">Event</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">11.06.</div><div class="cal-name">Elektroforum Kloten</div><span class="et t-me">Messe</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">16.06.</div><div class="cal-name">EM Genève</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">17.06.</div><div class="cal-name">EM Lausanne</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">18.06.</div><div class="cal-name">EM Sion</div><span class="et t-sc">Schulung</span></div>
+        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">19.06.</div><div class="cal-name">EEV Generalversammlung</div><span class="et t-me">Event</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIVE EXPERIENCE – same as v7 ===== -->
+<div class="pane" id="p-events"><div class="scr"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Orange Days 2026 <span class="chip" style="background:var(--yel2);color:var(--yel);margin-left:6px;">3</span></div><div class="ev past"><div class="ev-kw">KW 13</div><div class="ev-name">Orange Day MB/TI</div><div class="ev-date">26.03.</div><span class="et" style="background:var(--grn2);color:var(--grn);">✓</span></div><div class="ev next"><div class="ev-kw">KW 23</div><div class="ev-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><div class="ev-date">03.06.</div><span class="et t-od">Nächster</span></div><div class="ev"><div class="ev-kw">KW 40</div><div class="ev-name">Orange Day National</div><div class="ev-date">01.10.</div></div></div><div><div class="card" style="margin-bottom:12px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Messen & Events <span class="chip" style="background:var(--pur2);color:var(--pur);margin-left:6px;">21+</span></div><div class="ev past"><div class="ev-kw">KW 13</div><div class="ev-name">PV Tagung Bern</div><div class="ev-date">31.03.</div><span class="et" style="background:var(--grn2);color:var(--grn);">✓</span></div><div class="ev next"><div class="ev-kw">KW 16</div><div class="ev-name" style="color:var(--wm);">Solarmarkt Stammtisch</div><div class="ev-date">17.04.</div><span class="et t-me">Nächster</span></div><div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">SIAMS</div><div class="ev-date">21.04.</div><div class="ev-loc">Moutier</div></div><div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">VSAS Vorstandssitzung</div><div class="ev-date">29.04.</div></div><div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Electro-Forum</div><div class="ev-date">05.05.</div><div class="ev-loc">Bern</div></div><div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Bahntagung</div><div class="ev-date">05.05.</div></div><div class="ev"><div class="ev-kw">KW 22</div><div class="ev-name">Krannich FR</div><div class="ev-date">28.05.</div></div><div class="ev"><div class="ev-kw">KW 22</div><div class="ev-name">Solarmarkt Webinar</div><div class="ev-date">29.05.</div></div><div class="ev"><div class="ev-kw">KW 22</div><div class="ev-name">ELECTRIC DAY</div><div class="ev-date">04.06.</div><div class="ev-loc">Lausanne</div></div><div class="ev"><div class="ev-kw">KW 24</div><div class="ev-name">Krannich IT</div><div class="ev-date">09.06.</div></div><div class="ev"><div class="ev-kw">KW 24</div><div class="ev-name">Zuken Innovation</div><div class="ev-date">10.06.</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">Elektroforum</div><div class="ev-date">11.06.</div><div class="ev-loc">Kloten</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EEV GV</div><div class="ev-date">19.06.</div></div><div class="ev"><div class="ev-kw">KW 28</div><div class="ev-name">EM Thekentag + Electric Day</div><div class="ev-date">01–02.07.</div></div><div class="ev"><div class="ev-kw">KW 35</div><div class="ev-name">all about automation</div><div class="ev-date">26.08.</div><div class="ev-loc">Zürich</div></div><div class="ev"><div class="ev-kw">KW 37</div><div class="ev-name" style="font-weight:700;">Ineltec</div><div class="ev-date">09.09.</div><div class="ev-loc">Zürich</div></div><div class="ev"><div class="ev-kw">KW 38</div><div class="ev-name">Solar & Storage Live</div><div class="ev-date">16.09.</div></div><div class="ev"><div class="ev-kw">KW 38</div><div class="ev-name">Electric Days Genève</div><div class="ev-date">23.09.</div></div><div class="ev"><div class="ev-kw">KW 41</div><div class="ev-name">ElettroEspo</div><div class="ev-date">07.10.</div><div class="ev-loc">Lugano</div></div><div class="ev"><div class="ev-kw">KW 46</div><div class="ev-name">Eplan Partner</div><div class="ev-date">12.11.</div></div></div><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">GH-Schulungen <span class="chip" style="background:var(--grn2);color:var(--grn);margin-left:6px;">15</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><div class="ev past"><div class="ev-kw">KW 12</div><div class="ev-name">EM Heiden</div></div><div class="ev next"><div class="ev-kw">KW 17</div><div class="ev-name" style="color:var(--wm);">Sonepar Meyrin</div></div><div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">Sonepar Rothenburg</div></div><div class="ev"><div class="ev-kw">KW 21</div><div class="ev-name">Solexis</div></div><div class="ev"><div class="ev-kw">KW 21</div><div class="ev-name">Solexis Olten</div></div><div class="ev"><div class="ev-kw">KW 24</div><div class="ev-name">EM Lugano</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EM Genève</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EM Lausanne</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EM Sion</div></div><div class="ev"><div class="ev-kw">KW 34</div><div class="ev-name">EM Bern (EIT)</div></div><div class="ev"><div class="ev-kw">KW 39</div><div class="ev-name">EM Zürich</div></div><div class="ev"><div class="ev-kw">KW 41</div><div class="ev-name">Sonepar Muttenz</div></div><div class="ev"><div class="ev-kw">KW 42</div><div class="ev-name">EM Luzern</div></div><div class="ev"><div class="ev-kw">KW 42</div><div class="ev-name">Sonepar Wallisellen</div></div><div class="ev"><div class="ev-kw">KW 43</div><div class="ev-name">Sonepar Colombier</div></div></div></div></div></div></div></div>
+
+<!-- ===== TEAM & PROZESS – 3 equal columns ===== -->
+<div class="pane" id="p-team">
+  <div class="team-grid">
+    <!-- COL 1: Wochenrhythmus -->
+    <div class="team-col">
+      <div class="team-col-h"><h3>Wochenrhythmus</h3><span style="font-size:9px;color:var(--t3);">Prep & Execute</span></div>
+      <div class="team-col-b">
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h prep">Montag · PREP</div><p><strong>Moreno allein</strong><br>Wochenziel definieren<br>Kampagne schärfen<br>Planner bereinigen<br>Max. 15 aktive Tasks</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h prep">Dienstag · PREP</div><p><strong>Moreno allein</strong><br>Creative Brief schreiben<br>Content vorbereiten<br>Redaktionsplan Social<br>Tasks im Planner zuweisen</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h exec">Mittwoch · EXECUTE</div><p><strong>Moreno + Levin + Rita + Faras</strong><br>Wochenziel erklären<br>Creative Session<br>Aufgaben verteilen<br>1:1 Coaching</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h exec">Donnerstag · EXECUTE</div><p><strong>Moreno + Levin + Rita</strong><br>Deep Work & Produktion<br>Newsletter, Visuals, Social<br>Keine Meetings vormittags</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h rev">Freitag · REVIEW</div><p><strong>Moreno + Levin + Rita</strong><br>Qualität prüfen & Feinschliff<br>Tracking · Learnings<br>Nächste Woche vordenken</p></div></div>
+        <div class="wd-rule">Was am Dienstag nicht vorbereitet ist, existiert nicht.</div>
+      </div>
+    </div>
+    <!-- COL 2: Projektprozess -->
+    <div class="team-col">
+      <div class="team-col-h"><h3>Projektprozess</h3><span style="font-size:9px;color:var(--t3);">5 Phasen</span></div>
+      <div class="team-col-b">
+        <div class="proc"><div class="proc-n">1</div><div class="proc-b"><div class="proc-t">Konzept</div><div class="proc-d">Ziel, Zielgruppe, KPI, Journey-Phase, Stream, Kernbotschaft definieren</div><div class="proc-r">→ Konzept-Brief mit 2 Optionen · Boris gibt Freigabe</div></div></div>
+        <div class="proc"><div class="proc-n">2</div><div class="proc-b"><div class="proc-t">Produktion</div><div class="proc-d">Content erstellen, Assets produzieren, Newsletter/Landingpage bauen</div><div class="proc-r">→ Fertige Assets im Review-Status · Moreno prüft Qualität</div></div></div>
+        <div class="proc"><div class="proc-n">3</div><div class="proc-b"><div class="proc-t">Freigabe</div><div class="proc-d">Finale Prüfung. Cut-off: Keine neuen Inputs mehr.</div><div class="proc-r">→ Freigabe oder Rückweisung · Boris und/oder Moreno</div></div></div>
+        <div class="proc"><div class="proc-n">4</div><div class="proc-b"><div class="proc-t">Go-Live</div><div class="proc-d">Veröffentlichung / Versand</div><div class="proc-r">→ Kampagne ist live</div></div></div>
+        <div class="proc"><div class="proc-n">5</div><div class="proc-b"><div class="proc-t">Analyse</div><div class="proc-d">KPIs auswerten, Learnings dokumentieren</div><div class="proc-r">→ Kurz-Report · Moreno + ext. Ressource</div></div></div>
+      </div>
+    </div>
+    <!-- COL 3: Customer Journey -->
+    <div class="team-col">
+      <div class="team-col-h"><h3>Customer Journey</h3><span style="font-size:9px;color:var(--t3);">5 Phasen</span></div>
+      <div class="team-col-b">
+        <div class="j-card" style="background:var(--yel2);"><div class="j-name" style="color:var(--yel);">1 · Awareness</div><div class="j-desc" style="color:var(--yel);">Kunde nimmt Trends wahr, begegnet Weidmüller durch Social, Events, Hunting</div><div class="j-tools" style="color:var(--yel);">Social Media · Newsletter · SEO · Events · Hunting</div></div>
+        <div class="j-card" style="background:var(--wmg);"><div class="j-name" style="color:var(--wm);">2 · Consideration</div><div class="j-desc" style="color:var(--wm);">Prüft ob WM technische Anforderungen erfüllt, validiert im Industry Match</div><div class="j-tools" style="color:var(--wm);">Industry Match · Seminare · Whitepapers · WMC · Consulting</div></div>
+        <div class="j-card" style="background:var(--grn2);"><div class="j-name" style="color:var(--grn);">3 · Conversion</div><div class="j-desc" style="color:var(--grn);">Aus Interesse wird Partnerschaft durch PoC, Tests, Verhandlung</div><div class="j-tools" style="color:var(--grn);">PoC · Muster-Service · E-Shop · Rahmenverträge · BD</div></div>
+        <div class="j-card" style="background:var(--blu2);"><div class="j-name" style="color:var(--blu);">4 · Retention</div><div class="j-desc" style="color:var(--blu);">Lösung im Einsatz, Kunde wird operativ und strategisch begleitet</div><div class="j-tools" style="color:var(--blu);">Support · Track & Trace · Aussendienst · Market Management</div></div>
+        <div class="j-card" style="background:var(--pur2);"><div class="j-name" style="color:var(--pur);">5 · Advocacy</div><div class="j-desc" style="color:var(--pur);">Zufriedener Kunde als Multiplikator im Markt</div><div class="j-tools" style="color:var(--pur);">Success Stories · Roundtables · Multiplikatoren · Partner</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ROADMAP ===== -->
+<div class="pane" id="p-roadmap"><div class="scr"><div class="card" style="margin-bottom:12px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Drei Säulen unter Moreno · «Online first»</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;"><div style="padding:14px 16px;border-radius:10px;border:1px solid var(--bd);border-top:3px solid var(--blu);background:var(--s1);"><div style="font-size:14px;font-weight:700;color:var(--blu);margin-bottom:4px;">Digitales Marketing</div><div style="font-size:12px;color:var(--t2);line-height:1.4;">Newsletter, Social, SEO/GEO, Industry Match, Website.</div><div style="font-size:10px;color:var(--t3);margin-top:6px;font-family:var(--mono);">Externe Ressource + Moreno</div></div><div style="padding:14px 16px;border-radius:10px;border:1px solid var(--bd);border-top:3px solid var(--wm);background:var(--s1);"><div style="font-size:14px;font-weight:700;color:var(--wm);margin-bottom:4px;">Live Experience</div><div style="font-size:12px;color:var(--t2);line-height:1.4;">Orange Days, Messen, Trainings, Workshops.</div><div style="font-size:10px;color:var(--t3);margin-top:6px;font-family:var(--mono);">Moreno + Lernende/r</div></div><div style="padding:14px 16px;border-radius:10px;border:1px solid var(--bd);border-top:3px solid var(--grn);background:var(--s1);"><div style="font-size:14px;font-weight:700;color:var(--grn);margin-bottom:4px;">Lead Management</div><div style="font-size:12px;color:var(--t2);line-height:1.4;">CRM-Automationen, Lead-Qualifizierung, Nurturing.</div><div style="font-size:10px;color:var(--t3);margin-top:6px;font-family:var(--mono);">Moreno + Lernende/r</div></div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Meilensteine – Start: Heute, 1. April 2026</div><div class="rm-tl"><div class="rm-line"></div><div class="rm-i now"><div class="rm-dot"></div><div class="rm-when">1. April 2026</div><div class="rm-what">Kick-off</div><div class="rm-how">Konzept besprechen, Leuchtturm-Stream wählen, Planner bereinigen.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 2 · April</div><div class="rm-what">Prep & Execute starten</div><div class="rm-how">Erster Durchlauf im neuen Rhythmus.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 4 · April</div><div class="rm-what">Newsletter im neuen Modus</div><div class="rm-how">Newsletter #04 versendet. Baseline setzen.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 6 · Mai</div><div class="rm-what">Automationen einrichten</div><div class="rm-how">Welcome + Non-Opener + Klick-Follow-up.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 8 · Juni</div><div class="rm-what">Erster Review</div><div class="rm-how">Daten auswerten, Modell justieren.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Monat 4 · August</div><div class="rm-what">Zweiter Industry Stream</div><div class="rm-how">Leuchtturm übertragen. Ab Sommer: 1 Lernender.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Monat 6 · Oktober</div><div class="rm-what">Moreno steuert eigenständig</div><div class="rm-how">Faras im reinen Sparring-Modus.</div></div></div></div><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Newsletter-Automationen <span class="chip" style="background:var(--yel2);color:var(--yel);margin-left:6px;">3 geplant</span></div><div style="padding:10px 14px;border-radius:8px;background:var(--s2);margin-bottom:6px;"><div style="font-size:12px;font-weight:600;">1 · Welcome-Sequence</div><div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.4;">Neue Abonnenten: Tag 0 Willkommen → Tag 3 Top-Content → Tag 7 Einladung. Klickrate 3–5× höher.</div></div><div style="padding:10px 14px;border-radius:8px;background:var(--s2);margin-bottom:6px;"><div style="font-size:12px;font-weight:600;">2 · Non-Opener Reminder</div><div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.4;">48h nach Versand: Neuer Betreff an Non-Opener. +15–25% Reichweite ohne neuen Content.</div></div><div style="padding:10px 14px;border-radius:8px;background:var(--s2);"><div style="font-size:12px;font-weight:600;">3 · Klick-basiertes Follow-up</div><div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.4;">Klick → CRM-Tag → vertiefender Content → bei 2. Klick: Lead an Vertrieb.</div></div></div></div></div></div>
+
+<!-- ===== ARCHIV ===== -->
+<div class="pane" id="p-archiv"><div class="scr"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Q1 2026 – Abgeschlossen</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;"><div class="arc"><div class="arc-h">Januar 2026</div><div class="arc-b"><div class="arc-sec">Newsletter</div><div class="arc-i"><div class="ck">✓</div><div>Newsletter #01 – versendet</div></div><div class="arc-sec">Social</div><div class="arc-i"><div class="ck">✓</div><div>6 Posts (LinkedIn + Instagram)</div></div><div class="arc-sec">Industry-Fokus</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Distribution</span><span class="chip ci">Gerätehersteller</span></div><div class="arc-sec">Events</div><div style="font-size:10px;color:var(--t3);">Keine</div></div></div><div class="arc"><div class="arc-h">Februar 2026</div><div class="arc-b"><div class="arc-sec">Newsletter</div><div class="arc-i"><div class="ck">✓</div><div>Newsletter #02 – versendet</div></div><div class="arc-sec">Social</div><div class="arc-i"><div class="ck">✓</div><div>6 Posts (LinkedIn + Instagram)</div></div><div class="arc-sec">Industry-Fokus</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Gebäude</span><span class="chip ci">Wasser</span><span class="chip ct">SPE</span></div><div class="arc-sec">Events</div><div style="font-size:10px;color:var(--t3);">Keine</div></div></div><div class="arc"><div class="arc-h">März 2026</div><div class="arc-b"><div class="arc-sec">Newsletter</div><div class="arc-i"><div class="ck">✓</div><div>Newsletter #03 – versendet</div></div><div class="arc-sec">Social</div><div class="arc-i"><div class="ck">✓</div><div>6 Posts (LinkedIn + Instagram)</div></div><div class="arc-sec">Industry-Fokus</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Energie</span><span class="chip ci">Gebäude</span><span class="chip ci">Wasser</span><span class="chip ci">Schienen</span><span class="chip ci">Schaltschrank</span></div><div class="arc-sec">Events</div><div class="ev past" style="font-size:10px;"><div class="ev-kw">12</div><div class="ev-name">EM Heiden</div><span class="et t-sc">Schulung</span></div><div class="ev past" style="font-size:10px;"><div class="ev-kw">13</div><div class="ev-name">Orange Day MB/TI</div><span class="et t-od">OD</span></div><div class="ev past" style="font-size:10px;"><div class="ev-kw">13</div><div class="ev-name">PV Tagung Bern</div><span class="et t-me">Messe</span></div></div></div></div></div></div>
+
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById('p-'+t.dataset.t).classList.add('on');});});
+function tick(){const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m;const d=new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())),dn=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-dn);const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));document.getElementById('kw').textContent='KW '+Math.ceil((((d-ys)/864e5)+1)/7);}
+tick();setInterval(tick,3e4);
+</script>
+</body>
+</html>
