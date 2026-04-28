@@ -383,9 +383,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
       <div class="team-col-b">
         <div class="wd-row"><div class="wd-day"><div class="wd-day-h prep">Montag · PREP</div><p><strong>Moreno allein</strong><br>Wochenziel definieren<br>Kampagne schärfen<br>Planner bereinigen<br>Max. 15 aktive Tasks</p></div></div>
         <div class="wd-row"><div class="wd-day"><div class="wd-day-h prep">Dienstag · PREP</div><p><strong>Moreno allein</strong><br>Creative Brief schreiben<br>Content vorbereiten<br>Redaktionsplan Social<br>Tasks im Planner zuweisen</p></div></div>
-        <div class="wd-row"><div class="wd-day"><div class="wd-day-h exec">Mittwoch · EXECUTE</div><p><strong>Moreno + Levin + Rita + Faras</strong><br>Wochenziel erklären<br>Creative Session<br>Aufgaben verteilen<br>1:1 Coaching</p></div></div>
-        <div class="wd-row"><div class="wd-day"><div class="wd-day-h exec">Donnerstag · EXECUTE</div><p><strong>Moreno + Levin + Rita</strong><br>Deep Work & Produktion<br>Newsletter, Visuals, Social<br>Keine Meetings vormittags</p></div></div>
-        <div class="wd-row"><div class="wd-day"><div class="wd-day-h rev">Freitag · REVIEW</div><p><strong>Moreno + Levin + Rita</strong><br>Qualität prüfen & Feinschliff<br>Tracking · Learnings<br>Nächste Woche vordenken</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h exec">Mittwoch · EXECUTE</div><p><strong>Moreno + Rita + Faras</strong><br>Wochenziel erklären<br>Creative Session<br>Aufgaben verteilen<br>1:1 Coaching</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h exec">Donnerstag · EXECUTE</div><p><strong>Moreno + Rita</strong><br>Deep Work & Produktion<br>Newsletter, Visuals, Social<br>Keine Meetings vormittags</p></div></div>
+        <div class="wd-row"><div class="wd-day"><div class="wd-day-h rev">Freitag · REVIEW</div><p><strong>Moreno + Rita</strong><br>Qualität prüfen & Feinschliff<br>Tracking · Learnings<br>Nächste Woche vordenken</p></div></div>
         <div class="wd-rule">Was am Dienstag nicht vorbereitet ist, existiert nicht.</div>
       </div>
     </div>
@@ -482,7 +482,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
         <strong style="color:var(--t1);">Moreno</strong> — 5 Tage/Woche · Campaign Lead<br>
         <strong style="color:var(--t1);">Rita</strong> — 2 Tage/Woche (Mi+Do) · Creative<br>
         <strong style="color:var(--t1);">Levin</strong> — 2 Tage/Woche (Mi+Do) · Production<br>
-        <span style="font-size:11px;color:var(--red);">Ab Sommer 2026: nur 1 Lernende/r</span>
+        <span style="font-size:11px;color:var(--red);">Ab sofort: nur 1 Lernende/r</span>
       </div>
       <div style="margin-top:10px;padding:8px 12px;border-radius:8px;background:var(--wmg);font-size:11px;color:var(--wm);font-weight:600;">
         Max. Kapazität/Woche: 1 Newsletter ODER 2 Events ODER 6 Social Posts — nicht alles gleichzeitig.
@@ -734,13 +734,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 
 <script>
 document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById('p-'+t.dataset.t).classList.add('on');});});
-function tick(){const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m;const d=new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())),dn=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-dn);const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));document.getElementById('kw').textContent='KW '+Math.ceil((((d-ys)/864e5)+1)/7);}
+function tick(){const n=new Date(2026,3,28),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m;const d=new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())),dn=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-dn);const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));document.getElementById('kw').textContent='KW '+Math.ceil((((d-ys)/864e5)+1)/7);}
 tick();setInterval(tick,3e4);
 document.querySelectorAll('.ms-cb').forEach(cb=>{cb.addEventListener('click',()=>cb.classList.toggle('checked'));});
 
 // === KAPAZITÄT: Date-aware heatmap ===
 (function(){
-const now=new Date();
+const now=new Date(2026,3,28); // 28.04.2026
 const isoKW=w=>{const d=new Date(Date.UTC(2026,0,1));d.setUTCDate(d.getUTCDate()+(w-1)*7);const m=d.getUTCMonth();return['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'][m];};
 const getKW=d=>{const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);const ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil((((t-ys)/864e5)+1)/7);};
 const currentKW=getKW(now);
