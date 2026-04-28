@@ -163,6 +163,59 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 .arc-i .ck{color:var(--grn);font-weight:700;}
 
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px;}
+
+/* MEILENSTEINE LIGHT MODE */
+#p-meilensteine{background:#F0EFF7;color:#1A1A2E;}
+#p-meilensteine .scr{padding:12px 24px;}
+#p-meilensteine .ms-formation{background:#fff;border:1px solid #E2E2EA;box-shadow:0 2px 12px rgba(26,26,46,.07),0 0 0 1px rgba(226,226,234,.8);}
+#p-meilensteine .ms-nav .ms-pill{background:#F5F5F8;color:#72727E;border-color:#E2E2EA;}
+#p-meilensteine .ms-nav .ms-pill:hover{background:#EEECFF;color:#3F00FF;border-color:#C4BCFF;}
+#p-meilensteine .ms-nav .ms-pill.done{background:#E3F5EB;color:#166534;border-color:#BBF0CC;}
+#p-meilensteine .ms-nav .ms-pill.active{background:#E7EDFF;color:#1D3FA8;border-color:#B0C4FF;}
+#p-meilensteine .ms-nav .ms-pill.started{background:#FEF3E0;color:#984A00;border-color:#FCD997;}
+#p-meilensteine .ms-pitch{background:#EDFCF2;border-color:#BBF0CC;}
+#p-meilensteine .ms-pitch-dir,#p-meilensteine .ms-pitch-sec{color:#2D8C4E;}
+#p-meilensteine .ms-pitch-div{background:#BBF0CC;}
+#p-meilensteine .ms-pc{background:#fff;border-color:#E2E2EA;box-shadow:0 1px 4px rgba(26,26,46,.06);}
+#p-meilensteine .ms-pc:hover{border-color:#C4BCFF;box-shadow:0 6px 20px rgba(63,0,255,.12);}
+#p-meilensteine .ms-pc.striker{border-color:#3F00FF;box-shadow:0 0 0 2px rgba(63,0,255,.15);}
+#p-meilensteine .ms-pc.gk-c{border-color:#C0A000;box-shadow:0 0 0 2px rgba(192,160,0,.15);}
+#p-meilensteine .ms-pc-num{color:#3F00FF;}
+#p-meilensteine .ms-pc.gk-c .ms-pc-num{color:#9A7A00;}
+#p-meilensteine .ms-pc-name{color:#1A1A2E;}
+#p-meilensteine .ms-pc-pos{color:#3F00FF;}
+#p-meilensteine .ms-pc.gk-c .ms-pc-pos{color:#9A7A00;}
+#p-meilensteine .ms-sb-done{background:#E3F5EB;color:#166534;}
+#p-meilensteine .ms-sb-active{background:#E7EDFF;color:#1D3FA8;}
+#p-meilensteine .ms-sb-start{background:#FEF3E0;color:#984A00;}
+#p-meilensteine .ms-sb-open{background:#F2F2F5;color:#5C5C6E;}
+#p-meilensteine .ms-form-note{background:#F5F5F8;border-left-color:#C4BCFF;color:#72727E;}
+#p-meilensteine .ms-card{background:#fff;border-color:#E2E2EA;box-shadow:0 2px 12px rgba(26,26,46,.07),0 0 0 1px rgba(226,226,234,.8);}
+#p-meilensteine .ms-card-h{background:#F5F5F8;border-bottom-color:#E2E2EA;}
+#p-meilensteine .ms-card-num{color:#3F00FF;}
+#p-meilensteine .ms-card-title{color:#1A1A2E;}
+#p-meilensteine .ms-card-date{color:#72727E;}
+#p-meilensteine .ms-card-accent{background:linear-gradient(90deg,#3F00FF 0%,#C4BCFF 100%);}
+#p-meilensteine .ms-card-body{color:#1A1A2E;}
+#p-meilensteine .ms-card-left{border-right-color:#E2E2EA;}
+#p-meilensteine .ms-card-right{background:#EEECFF;}
+#p-meilensteine .ms-sec-label{color:#3F00FF;border-top-color:#C4BCFF;}
+#p-meilensteine .ms-bl li{color:#1A1A2E;}
+#p-meilensteine .ms-bl li::before{color:#C4BCFF;}
+#p-meilensteine .ms-cl li{color:#1A1A2E;border-bottom-color:rgba(63,0,255,.08);}
+#p-meilensteine .ms-cb{border-color:#C4BCFF;background:#fff;}
+#p-meilensteine .ms-cb:hover{border-color:#3F00FF;background:#EEECFF;}
+#p-meilensteine .ms-cb.checked{background:#3F00FF;border-color:#3F00FF;}
+#p-meilensteine .ms-card-foot{background:#F5F5F8;border-top-color:#E2E2EA;color:#B4B4C0;}
+#p-meilensteine .ms-bb-s{background:#F3EEFF;color:#6D28D9;}
+#p-meilensteine .ms-bb-d{background:#EBF2FF;color:#1E40AF;}
+#p-meilensteine .ms-bb-l{background:#FFF2E8;color:#B04500;}
+#p-meilensteine .ms-bb-e{background:#E8F9F2;color:#0D5C38;}
+#p-meilensteine .ms-roster th{background:#1A1A2E;color:#fff;}
+#p-meilensteine .ms-roster td{border-bottom-color:#E2E2EA;color:#1A1A2E;}
+#p-meilensteine .ms-roster tr:nth-child(even) td{background:#F5F5F8;}
+#p-meilensteine .ms-roster .r-names{color:#3F00FF;}
+#p-meilensteine .ms-roster .r-desc{color:#72727E;}
 </style>
 </head>
 <body>
@@ -179,7 +232,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
   <div class="tab" data-t="kalender">Kalender</div>
   <div class="tab" data-t="events">Live Experience</div>
   <div class="tab" data-t="team">Team & Prozess</div>
-  <div class="tab" data-t="roadmap">Roadmap</div>
+  <div class="tab" data-t="kapazitaet">Kapazität</div>
+  <div class="tab" data-t="meilensteine">Meilensteine</div>
   <div class="tab" data-t="archiv">Archiv</div>
 </div>
 
@@ -360,10 +414,320 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
   </div>
 </div>
 
-<!-- ===== ROADMAP ===== -->
-<div class="pane" id="p-roadmap"><div class="scr"><div class="card" style="margin-bottom:12px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Drei Säulen unter Moreno · «Online first»</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;"><div style="padding:14px 16px;border-radius:10px;border:1px solid var(--bd);border-top:3px solid var(--blu);background:var(--s1);"><div style="font-size:14px;font-weight:700;color:var(--blu);margin-bottom:4px;">Digitales Marketing</div><div style="font-size:12px;color:var(--t2);line-height:1.4;">Newsletter, Social, SEO/GEO, Industry Match, Website.</div><div style="font-size:10px;color:var(--t3);margin-top:6px;font-family:var(--mono);">Externe Ressource + Moreno</div></div><div style="padding:14px 16px;border-radius:10px;border:1px solid var(--bd);border-top:3px solid var(--wm);background:var(--s1);"><div style="font-size:14px;font-weight:700;color:var(--wm);margin-bottom:4px;">Live Experience</div><div style="font-size:12px;color:var(--t2);line-height:1.4;">Orange Days, Messen, Trainings, Workshops.</div><div style="font-size:10px;color:var(--t3);margin-top:6px;font-family:var(--mono);">Moreno + Lernende/r</div></div><div style="padding:14px 16px;border-radius:10px;border:1px solid var(--bd);border-top:3px solid var(--grn);background:var(--s1);"><div style="font-size:14px;font-weight:700;color:var(--grn);margin-bottom:4px;">Lead Management</div><div style="font-size:12px;color:var(--t2);line-height:1.4;">CRM-Automationen, Lead-Qualifizierung, Nurturing.</div><div style="font-size:10px;color:var(--t3);margin-top:6px;font-family:var(--mono);">Moreno + Lernende/r</div></div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Meilensteine – Start: Heute, 1. April 2026</div><div class="rm-tl"><div class="rm-line"></div><div class="rm-i now"><div class="rm-dot"></div><div class="rm-when">1. April 2026</div><div class="rm-what">Kick-off</div><div class="rm-how">Konzept besprechen, Leuchtturm-Stream wählen, Planner bereinigen.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 2 · April</div><div class="rm-what">Prep & Execute starten</div><div class="rm-how">Erster Durchlauf im neuen Rhythmus.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 4 · April</div><div class="rm-what">Newsletter im neuen Modus</div><div class="rm-how">Newsletter #04 versendet. Baseline setzen.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 6 · Mai</div><div class="rm-what">Automationen einrichten</div><div class="rm-how">Welcome + Non-Opener + Klick-Follow-up.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Woche 8 · Juni</div><div class="rm-what">Erster Review</div><div class="rm-how">Daten auswerten, Modell justieren.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Monat 4 · August</div><div class="rm-what">Zweiter Industry Stream</div><div class="rm-how">Leuchtturm übertragen. Ab Sommer: 1 Lernender.</div></div><div class="rm-i future"><div class="rm-dot"></div><div class="rm-when">Monat 6 · Oktober</div><div class="rm-what">Moreno steuert eigenständig</div><div class="rm-how">Faras im reinen Sparring-Modus.</div></div></div></div><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Newsletter-Automationen <span class="chip" style="background:var(--yel2);color:var(--yel);margin-left:6px;">3 geplant</span></div><div style="padding:10px 14px;border-radius:8px;background:var(--s2);margin-bottom:6px;"><div style="font-size:12px;font-weight:600;">1 · Welcome-Sequence</div><div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.4;">Neue Abonnenten: Tag 0 Willkommen → Tag 3 Top-Content → Tag 7 Einladung. Klickrate 3–5× höher.</div></div><div style="padding:10px 14px;border-radius:8px;background:var(--s2);margin-bottom:6px;"><div style="font-size:12px;font-weight:600;">2 · Non-Opener Reminder</div><div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.4;">48h nach Versand: Neuer Betreff an Non-Opener. +15–25% Reichweite ohne neuen Content.</div></div><div style="padding:10px 14px;border-radius:8px;background:var(--s2);"><div style="font-size:12px;font-weight:600;">3 · Klick-basiertes Follow-up</div><div style="font-size:11px;color:var(--t2);margin-top:3px;line-height:1.4;">Klick → CRM-Tag → vertiefender Content → bei 2. Klick: Lead an Vertrieb.</div></div></div></div></div></div>
+<!-- ===== KAPAZITÄT ===== -->
+<div class="pane" id="p-kapazitaet"><div class="scr">
+<style>
+.kap-grid{display:grid;grid-template-columns:1fr 340px;gap:14px;margin-bottom:14px;}
+.kap-rules{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.hm-tbl{width:100%;border-collapse:collapse;font-size:11px;}
+.hm-tbl th{padding:8px 10px;text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);border-bottom:1px solid var(--bd);}
+.hm-tbl td{padding:7px 10px;border-bottom:1px solid var(--bd);font-size:12px;}
+.hm-tbl tr:hover td{background:rgba(255,255,255,.02);}
+.hm-tbl tr.kw-now td{background:var(--wmg);border-color:rgba(255,107,0,.12);}
+.hm-tbl tr.kw-past td{opacity:.35;}
+.hm-kw{font-family:var(--mono);font-weight:600;color:var(--t3);width:50px;}
+.hm-tbl tr.kw-now .hm-kw{color:var(--wm);}
+.hm-act{text-align:center;width:50px;}
+.hm-bar{height:8px;border-radius:4px;min-width:4px;display:inline-block;vertical-align:middle;}
+.hm-g{background:var(--grn);}.hm-y{background:var(--yel);}.hm-o{background:#FF9500;}.hm-r{background:var(--red);}
+.load-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:12px;text-align:center;display:inline-block;min-width:22px;}
+.lb-0{background:var(--s3);color:var(--t3);}
+.lb-1{background:var(--grn2);color:var(--grn);}
+.lb-2{background:var(--yel2);color:var(--yel);}
+.lb-3{background:rgba(255,149,0,.12);color:#FF9500;}
+.lb-4{background:var(--red2);color:var(--red);}
+.kap-month{padding:10px 14px;border-radius:8px;background:var(--s2);margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.kap-month-n{font-size:13px;font-weight:700;width:50px;flex-shrink:0;}
+.kap-month-bar{flex:1;height:10px;border-radius:5px;background:var(--s4);overflow:hidden;position:relative;}
+.kap-month-fill{height:100%;border-radius:5px;transition:width .3s;}
+.kap-month-info{font-size:10px;color:var(--t3);font-family:var(--mono);width:80px;text-align:right;flex-shrink:0;}
+.kap-rule{padding:14px 16px;border-radius:10px;background:var(--s2);border-left:3px solid var(--wm);}
+.kap-rule-t{font-size:12px;font-weight:700;margin-bottom:6px;}
+.kap-rule-d{font-size:11px;color:var(--t2);line-height:1.6;}
+.kap-rule strong{color:var(--t1);}
+.kap-today{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--wm);background:var(--wmg2);padding:4px 10px;border-radius:8px;font-weight:600;}
+</style>
 
-<!-- ===== ARCHIV ===== -->
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);">Kapazitätsplanung Q2–Q4 2026</div>
+  <div class="kap-today"><span id="kap-date">—</span> · <span id="kap-kw2">KW —</span></div>
+</div>
+
+<div class="kap-grid">
+  <!-- HEATMAP -->
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Wochenheatmap – Aktivitätsdichte pro KW</div>
+    <table class="hm-tbl">
+      <thead><tr><th>KW</th><th>Monat</th><th>Newsletter</th><th>Social</th><th>Events</th><th>Last</th><th>Level</th></tr></thead>
+      <tbody id="hm-body"></tbody>
+    </table>
+    <div style="display:flex;gap:12px;margin-top:10px;font-size:10px;color:var(--t3);">
+      <span><span class="hm-bar hm-g" style="width:12px;"></span> Leicht (0–1)</span>
+      <span><span class="hm-bar hm-y" style="width:12px;"></span> Machbar (2)</span>
+      <span><span class="hm-bar hm-o" style="width:12px;"></span> Eng (3)</span>
+      <span><span class="hm-bar hm-r" style="width:12px;"></span> Überlastung (4+)</span>
+    </div>
+  </div>
+
+  <!-- MONATSÜBERSICHT -->
+  <div>
+    <div class="card" style="padding:14px 16px;margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Monatsbelastung</div>
+      <div id="kap-months"></div>
+    </div>
+
+    <div class="card" style="padding:14px 16px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Team-Kapazität</div>
+      <div style="font-size:12px;color:var(--t2);line-height:1.8;">
+        <strong style="color:var(--t1);">Moreno</strong> — 5 Tage/Woche · Campaign Lead<br>
+        <strong style="color:var(--t1);">Rita</strong> — 2 Tage/Woche (Mi+Do) · Creative<br>
+        <strong style="color:var(--t1);">Levin</strong> — 2 Tage/Woche (Mi+Do) · Production<br>
+        <span style="font-size:11px;color:var(--red);">Ab Sommer 2026: nur 1 Lernende/r</span>
+      </div>
+      <div style="margin-top:10px;padding:8px 12px;border-radius:8px;background:var(--wmg);font-size:11px;color:var(--wm);font-weight:600;">
+        Max. Kapazität/Woche: 1 Newsletter ODER 2 Events ODER 6 Social Posts — nicht alles gleichzeitig.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGELN -->
+<div class="kap-rules">
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Outlook-Regel: 3 Blöcke pro Event</div>
+    <div class="kap-rule" style="border-left-color:var(--blu);margin-bottom:8px;">
+      <div class="kap-rule-t" style="color:var(--blu);">1 · Vorbereitung</div>
+      <div class="kap-rule-d"><strong>2 Wochen vorher</strong> — Material bestellen, Einladungen, Briefing, Reiseplanung. <strong>Owner:</strong> Moreno. <strong>Involviert:</strong> Rita (Visuals), AD (Kundeneinladungen).</div>
+    </div>
+    <div class="kap-rule" style="border-left-color:var(--wm);margin-bottom:8px;">
+      <div class="kap-rule-t" style="color:var(--wm);">2 · Durchführung</div>
+      <div class="kap-rule-d"><strong>Event-Tag</strong> — Stand betreuen, Leads erfassen (SnapAddy), Social Live-Content. <strong>Owner:</strong> Moreno + AD. <strong>Involviert:</strong> Rita (Fotos/Reels).</div>
+    </div>
+    <div class="kap-rule" style="border-left-color:var(--grn);">
+      <div class="kap-rule-t" style="color:var(--grn);">3 · Nachbearbeitung</div>
+      <div class="kap-rule-d"><strong>1 Woche danach</strong> — Leads ins CRM, Follow-up-Mails, Social Recap, Learnings dokumentieren. <strong>Owner:</strong> Moreno. <strong>Involviert:</strong> AD (Lead-Übergabe).</div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:14px 16px;">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Qualität vor Quantität – Regeln</div>
+    <div class="kap-rule" style="margin-bottom:8px;">
+      <div class="kap-rule-t">Eiserne Regel</div>
+      <div class="kap-rule-d">Was am Dienstag nicht vorbereitet ist, existiert diese Woche nicht. <strong>Keine Ausnahmen.</strong></div>
+    </div>
+    <div class="kap-rule" style="border-left-color:var(--red);margin-bottom:8px;">
+      <div class="kap-rule-t" style="color:var(--red);">Überlastungsregel</div>
+      <div class="kap-rule-d">Maximal <strong>3 parallele Aktivitäten</strong> pro Woche (NL + Events + Social zählen einzeln). Wird KW rot → <strong>verschieben oder streichen</strong>, nicht durchdrücken.</div>
+    </div>
+    <div class="kap-rule" style="border-left-color:var(--pur);margin-bottom:8px;">
+      <div class="kap-rule-t" style="color:var(--pur);">Ad-hoc Intake (Boris-Direktive)</div>
+      <div class="kap-rule-d">Jede Ad-hoc-Anfrage braucht: <strong>1.</strong> Ziel · <strong>2.</strong> Deadline · <strong>3.</strong> Owner · <strong>4.</strong> Verschiebbar? Gilt auch für GL-Anfragen.</div>
+    </div>
+    <div class="kap-rule" style="border-left-color:var(--teal);">
+      <div class="kap-rule-t" style="color:var(--teal);">Klare Leads – verschriftlicht</div>
+      <div class="kap-rule-d">Jede Aktivität im Planner hat 4 Felder: <strong>Ziel</strong> · <strong>Journey-Phase</strong> · <strong>Stream</strong> · <strong>Erwartetes Ergebnis</strong>. Owner + Involvierte sind benannt.</div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ===== MEILENSTEINE ===== -->
+<div class="pane" id="p-meilensteine"><div class="scr">
+<style>
+.ms-nav{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px;}
+.ms-pill{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;background:var(--s2);color:var(--t3);cursor:pointer;border:1px solid var(--bd);transition:all .15s;text-decoration:none;}
+.ms-pill:hover{background:var(--s3);color:var(--t2);border-color:var(--bd2);}
+.ms-pill.done{background:rgba(48,209,88,.1);color:var(--grn);border-color:rgba(48,209,88,.12);}
+.ms-pill.active{background:rgba(10,132,255,.1);color:var(--blu);border-color:rgba(10,132,255,.12);}
+.ms-pill.started{background:rgba(255,214,10,.1);color:var(--yel);border-color:rgba(255,214,10,.12);}
+.ms-formation{background:var(--s1);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--bd);padding:24px;margin-bottom:16px;}
+.ms-pitch{background:rgba(48,209,88,.04);border:1px solid rgba(48,209,88,.1);border-radius:12px;padding:20px;}
+.ms-pitch-dir{text-align:center;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grn);padding:6px 0;}
+.ms-pitch-line{display:flex;gap:10px;margin-bottom:8px;justify-content:center;}
+.ms-pitch-line.gk{padding:0 25%;}
+.ms-pitch-div{height:1px;background:rgba(48,209,88,.12);margin:8px 0;}
+.ms-pitch-sec{text-align:center;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grn);margin:4px 0 8px;}
+.ms-pc{background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;flex:1;min-width:0;transition:all .15s;}
+.ms-pc:hover{border-color:var(--bd2);background:var(--s3);}
+.ms-pc.striker{border-color:var(--wm);box-shadow:0 0 0 1px rgba(255,107,0,.15);}
+.ms-pc.gk-c{border-color:var(--yel);box-shadow:0 0 0 1px rgba(255,214,10,.12);}
+.ms-pc-num{font-size:18px;font-weight:800;color:var(--wm);line-height:1;margin-bottom:4px;font-family:var(--mono);}
+.ms-pc.gk-c .ms-pc-num{color:var(--yel);}
+.ms-pc-name{font-size:12px;font-weight:600;margin-bottom:6px;}
+.ms-pc-pos{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--wm);opacity:.7;margin-top:4px;}
+.ms-pc.gk-c .ms-pc-pos{color:var(--yel);}
+.ms-sb{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:16px;}
+.ms-sb-done{background:rgba(48,209,88,.1);color:var(--grn);}
+.ms-sb-active{background:rgba(10,132,255,.1);color:var(--blu);}
+.ms-sb-start{background:rgba(255,214,10,.1);color:var(--yel);}
+.ms-sb-open{background:var(--s3);color:var(--t3);}
+.ms-card{background:var(--s1);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--bd);overflow:hidden;margin-bottom:12px;}
+.ms-card-h{padding:18px 24px 14px;background:var(--s2);border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.ms-card-h-l{flex:1;}
+.ms-card-h-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+.ms-card-num{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--wm);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.ms-card-title{font-size:20px;font-weight:800;letter-spacing:-.3px;}
+.ms-card-date{font-size:12px;color:var(--t3);font-weight:500;}
+.ms-card-accent{height:3px;background:linear-gradient(90deg,var(--wm) 0%,rgba(255,107,0,.3) 100%);}
+.ms-card-body{display:grid;grid-template-columns:1fr 320px;}
+.ms-card-left{padding:20px 24px;border-right:1px solid var(--bd);}
+.ms-card-right{padding:20px 24px;background:rgba(255,107,0,.03);}
+.ms-sec-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--wm);margin-bottom:10px;padding-top:16px;border-top:1px solid rgba(255,107,0,.1);display:block;}
+.ms-sec-label:first-child{padding-top:0;border-top:none;}
+.ms-bl{list-style:none;padding:0;margin:0;}
+.ms-bl li{padding:4px 0 4px 16px;position:relative;font-size:13px;line-height:1.5;color:var(--t2);}
+.ms-bl li::before{content:'–';position:absolute;left:0;color:var(--wm);font-weight:600;}
+.ms-cl{list-style:none;padding:0;margin:0;}
+.ms-cl li{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:13px;line-height:1.4;color:var(--t2);border-bottom:1px solid rgba(255,107,0,.06);}
+.ms-cl li:last-child{border-bottom:none;}
+.ms-cb{width:16px;height:16px;min-width:16px;border:2px solid var(--wm);border-radius:4px;background:transparent;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.ms-cb:hover{border-color:var(--t1);background:rgba(255,107,0,.1);}
+.ms-cb.checked{background:var(--wm);border-color:var(--wm);}
+.ms-cb.checked::after{content:'✓';color:#fff;font-size:10px;font-weight:700;}
+.ms-card-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:var(--s2);border-top:1px solid var(--bd);font-size:10px;color:var(--t3);}
+.ms-bb{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:6px;}
+.ms-bb-s{background:rgba(191,90,242,.1);color:var(--pur);}
+.ms-bb-d{background:rgba(10,132,255,.1);color:var(--blu);}
+.ms-bb-l{background:rgba(255,107,0,.1);color:var(--wm);}
+.ms-bb-e{background:rgba(48,209,88,.1);color:var(--grn);}
+.ms-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.ms-form-note{margin-top:10px;font-size:11px;color:var(--t3);padding:10px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--wm);line-height:1.5;}
+.ms-roster{border-collapse:collapse;width:100%;font-size:12px;margin-top:12px;}
+.ms-roster th{background:var(--s4);color:var(--t1);padding:8px 14px;text-align:left;font-weight:600;font-size:11px;}
+.ms-roster th:first-child{border-radius:8px 0 0 0;}.ms-roster th:last-child{border-radius:0 8px 0 0;}
+.ms-roster td{padding:8px 14px;border-bottom:1px solid var(--bd);}
+.ms-roster tr:nth-child(even) td{background:var(--s2);}
+.ms-roster .r-tag{font-weight:600;color:var(--t1);}.ms-roster .r-names{color:var(--wm);font-weight:500;}.ms-roster .r-desc{color:var(--t3);}
+
+/* MEILENSTEINE LIGHT MODE */
+#p-meilensteine{background:#F0EFF7;color:#1A1A2E;}
+#p-meilensteine .scr{padding:12px 24px;}
+#p-meilensteine .ms-formation{background:#fff;border:1px solid #E2E2EA;box-shadow:0 2px 12px rgba(26,26,46,.07),0 0 0 1px rgba(226,226,234,.8);}
+#p-meilensteine .ms-nav .ms-pill{background:#F5F5F8;color:#72727E;border-color:#E2E2EA;}
+#p-meilensteine .ms-nav .ms-pill:hover{background:#EEECFF;color:#3F00FF;border-color:#C4BCFF;}
+#p-meilensteine .ms-nav .ms-pill.done{background:#E3F5EB;color:#166534;border-color:#BBF0CC;}
+#p-meilensteine .ms-nav .ms-pill.active{background:#E7EDFF;color:#1D3FA8;border-color:#B0C4FF;}
+#p-meilensteine .ms-nav .ms-pill.started{background:#FEF3E0;color:#984A00;border-color:#FCD997;}
+#p-meilensteine .ms-pitch{background:#EDFCF2;border-color:#BBF0CC;}
+#p-meilensteine .ms-pitch-dir,#p-meilensteine .ms-pitch-sec{color:#2D8C4E;}
+#p-meilensteine .ms-pitch-div{background:#BBF0CC;}
+#p-meilensteine .ms-pc{background:#fff;border-color:#E2E2EA;box-shadow:0 1px 4px rgba(26,26,46,.06);}
+#p-meilensteine .ms-pc:hover{border-color:#C4BCFF;box-shadow:0 6px 20px rgba(63,0,255,.12);}
+#p-meilensteine .ms-pc.striker{border-color:#3F00FF;box-shadow:0 0 0 2px rgba(63,0,255,.15);}
+#p-meilensteine .ms-pc.gk-c{border-color:#C0A000;box-shadow:0 0 0 2px rgba(192,160,0,.15);}
+#p-meilensteine .ms-pc-num{color:#3F00FF;}
+#p-meilensteine .ms-pc.gk-c .ms-pc-num{color:#9A7A00;}
+#p-meilensteine .ms-pc-name{color:#1A1A2E;}
+#p-meilensteine .ms-pc-pos{color:#3F00FF;}
+#p-meilensteine .ms-pc.gk-c .ms-pc-pos{color:#9A7A00;}
+#p-meilensteine .ms-sb-done{background:#E3F5EB;color:#166534;}
+#p-meilensteine .ms-sb-active{background:#E7EDFF;color:#1D3FA8;}
+#p-meilensteine .ms-sb-start{background:#FEF3E0;color:#984A00;}
+#p-meilensteine .ms-sb-open{background:#F2F2F5;color:#5C5C6E;}
+#p-meilensteine .ms-form-note{background:#F5F5F8;border-left-color:#C4BCFF;color:#72727E;}
+#p-meilensteine .ms-card{background:#fff;border-color:#E2E2EA;box-shadow:0 2px 12px rgba(26,26,46,.07),0 0 0 1px rgba(226,226,234,.8);}
+#p-meilensteine .ms-card-h{background:#F5F5F8;border-bottom-color:#E2E2EA;}
+#p-meilensteine .ms-card-num{color:#3F00FF;}
+#p-meilensteine .ms-card-title{color:#1A1A2E;}
+#p-meilensteine .ms-card-date{color:#72727E;}
+#p-meilensteine .ms-card-accent{background:linear-gradient(90deg,#3F00FF 0%,#C4BCFF 100%);}
+#p-meilensteine .ms-card-body{color:#1A1A2E;}
+#p-meilensteine .ms-card-left{border-right-color:#E2E2EA;}
+#p-meilensteine .ms-card-right{background:#EEECFF;}
+#p-meilensteine .ms-sec-label{color:#3F00FF;border-top-color:#C4BCFF;}
+#p-meilensteine .ms-bl li{color:#1A1A2E;}
+#p-meilensteine .ms-bl li::before{color:#C4BCFF;}
+#p-meilensteine .ms-cl li{color:#1A1A2E;border-bottom-color:rgba(63,0,255,.08);}
+#p-meilensteine .ms-cb{border-color:#C4BCFF;background:#fff;}
+#p-meilensteine .ms-cb:hover{border-color:#3F00FF;background:#EEECFF;}
+#p-meilensteine .ms-cb.checked{background:#3F00FF;border-color:#3F00FF;}
+#p-meilensteine .ms-card-foot{background:#F5F5F8;border-top-color:#E2E2EA;color:#B4B4C0;}
+#p-meilensteine .ms-bb-s{background:#F3EEFF;color:#6D28D9;}
+#p-meilensteine .ms-bb-d{background:#EBF2FF;color:#1E40AF;}
+#p-meilensteine .ms-bb-l{background:#FFF2E8;color:#B04500;}
+#p-meilensteine .ms-bb-e{background:#E8F9F2;color:#0D5C38;}
+#p-meilensteine .ms-roster th{background:#1A1A2E;color:#fff;}
+#p-meilensteine .ms-roster td{border-bottom-color:#E2E2EA;color:#1A1A2E;}
+#p-meilensteine .ms-roster tr:nth-child(even) td{background:#F5F5F8;}
+#p-meilensteine .ms-roster .r-names{color:#3F00FF;}
+#p-meilensteine .ms-roster .r-desc{color:#72727E;}
+</style>
+
+<!-- Formation -->
+<div class="ms-formation">
+  <div style="margin-bottom:16px;"><div style="font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px;">Die Mannschaft</div><div style="font-size:12px;color:var(--t2);">4·3·3 Formation · Vom Fundament im Tor bis zum Abschluss als Mittelstürmer</div></div>
+  <div class="ms-nav">
+    <span class="ms-pill done">M01 ✓</span><span class="ms-pill done">M02 ✓</span><span class="ms-pill started">M03 ◐</span><span class="ms-pill">M04</span><span class="ms-pill">M05</span><span class="ms-pill active">M06 →</span><span class="ms-pill">M07</span><span class="ms-pill">M08</span><span class="ms-pill">M09</span><span class="ms-pill">M10</span><span class="ms-pill">M11</span>
+  </div>
+  <div class="ms-pitch">
+    <div class="ms-pitch-dir">↑ Angriff</div>
+    <div class="ms-pitch-line">
+      <div class="ms-pc"><div class="ms-pc-num">M09</div><div class="ms-pc-name">Autonomer Juli</div><span class="ms-sb ms-sb-open">○ Offen</span></div>
+      <div class="ms-pc striker"><div class="ms-pc-num">M11</div><div class="ms-pc-name">Jahresbilanz</div><span class="ms-sb ms-sb-open">○ Offen</span><div class="ms-pc-pos">Mittelstürmer</div></div>
+      <div class="ms-pc"><div class="ms-pc-num">M10</div><div class="ms-pc-name">CRM-Automationen</div><span class="ms-sb ms-sb-open">○ Offen</span></div>
+    </div>
+    <div class="ms-pitch-div"></div><div class="ms-pitch-sec">Mittelfeld</div>
+    <div class="ms-pitch-line">
+      <div class="ms-pc"><div class="ms-pc-num">M06</div><div class="ms-pc-name">Newsletter-Kit</div><span class="ms-sb ms-sb-active">→ Laufend</span></div>
+      <div class="ms-pc"><div class="ms-pc-num">M07</div><div class="ms-pc-name">Event-Kit</div><span class="ms-sb ms-sb-open">○ Offen</span></div>
+      <div class="ms-pc"><div class="ms-pc-num">M08</div><div class="ms-pc-name">Kampagnen-Kit</div><span class="ms-sb ms-sb-open">○ Offen</span></div>
+    </div>
+    <div class="ms-pitch-div"></div><div class="ms-pitch-sec">Abwehr</div>
+    <div class="ms-pitch-line">
+      <div class="ms-pc"><div class="ms-pc-num">M02</div><div class="ms-pc-name">Freelancer</div><span class="ms-sb ms-sb-done">✓ Erledigt</span></div>
+      <div class="ms-pc"><div class="ms-pc-num">M03</div><div class="ms-pc-name">Metricool</div><span class="ms-sb ms-sb-start">◐ Gestartet</span></div>
+      <div class="ms-pc"><div class="ms-pc-num">M04</div><div class="ms-pc-name">Raumumbau</div><span class="ms-sb ms-sb-open">○ Offen</span></div>
+      <div class="ms-pc"><div class="ms-pc-num">M05</div><div class="ms-pc-name">Dashboard & Handoff</div><span class="ms-sb ms-sb-open">○ Offen</span></div>
+    </div>
+    <div class="ms-pitch-div"></div><div class="ms-pitch-sec">Torhüter</div>
+    <div class="ms-pitch-line gk">
+      <div class="ms-pc gk-c"><div class="ms-pc-num">M01</div><div class="ms-pc-name">Planner-Betrieb</div><span class="ms-sb ms-sb-done">✓ Erledigt</span><div class="ms-pc-pos">Fundament</div></div>
+    </div>
+  </div>
+  <div class="ms-legend">
+    <span class="ms-sb ms-sb-done">✓ Erledigt</span>
+    <span class="ms-sb ms-sb-active">→ Laufend</span>
+    <span class="ms-sb ms-sb-start">◐ Gestartet</span>
+    <span class="ms-sb ms-sb-open">○ Offen</span>
+  </div>
+  <div class="ms-form-note"><strong>Leserichtung:</strong> Aufbau beginnt im Tor (M01 = System) und endet beim Mittelstürmer (M11 = messbares Ergebnis). Abwehr = Infrastruktur · Mittelfeld = Content-Maschine · Sturm = Output & Conversion</div>
+</div>
+
+<!-- M01 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M01 <span class="ms-bb ms-bb-s">Struktur</span> <span style="font-size:9px;color:var(--yel);font-weight:700;letter-spacing:1px;">⬛ Torhüter · Fundament</span></div><div class="ms-card-title">Planner-Betrieb</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-done">✓ Erledigt</span><span class="ms-card-date">Sofort · April 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Das Fundament des gesamten Systems — wie der Torhüter: alles steht und fällt damit.</li><li>Ohne saubere Planung gibt es keine Transparenz und keine Steuerung.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>5-Bucket-Struktur: Kampagnen-Cover / Prep / Execute / Review / Parking Lot.</li><li>Cover-Card pro Kampagne: Ziel, KPI, Stream, Deadline, Owner.</li><li>Eiserne Regel: Was Dienstagabend nicht im Planner steht, existiert diese Woche nicht.</li><li>Mittwoch: 10-Minuten Planner-Check mit Faras im Team-Kickoff.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Planner ist der einzige Ort für Tasks.</span></li><li><div class="ms-cb"></div><span>Aktive Tasks ≤ 15 pro Woche.</span></li><li><div class="ms-cb"></div><span>Status jederzeit in 3 Minuten kommunizierbar.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M01 / 11</span></div></div>
+
+<!-- M02 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M02 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Freelancer-Netzwerk</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-done">✓ Erledigt</span><span class="ms-card-date">Sofort · April 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Moreno + Rita (Mi/Do) haben keinen Puffer für Kapazitäts-Peaks.</li><li>Ein definiertes Netzwerk ermöglicht gezielte Aktivierung ohne interne Überlastung.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Roster dokumentiert: Film, Grafik, Webseite, Social Media.</li><li>Steckbriefe erstellt: Leistungsumfang, Konditionen, Reaktionszeit.</li><li>Beauftragungsprozess festgelegt — Moreno beauftragt eigenständig.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Roster dokumentiert und für alle einsehbar.</span></li><li><div class="ms-cb"></div><span>Moreno beauftragt Freelancer ohne Rücksprache.</span></li><li><div class="ms-cb"></div><span>Erster Freelancer-Einsatz dokumentiert.</span></li></ul></div></div><div style="padding:0 24px 16px;border-top:1px solid var(--bd);"><div style="font-size:12px;font-weight:700;padding:14px 0 8px;">Aktueller Roster</div><table class="ms-roster"><thead><tr><th>Bereich</th><th>Personen</th><th>Einsatz</th></tr></thead><tbody><tr><td class="r-tag">Film / Video</td><td class="r-names">Valerio Raponi, Ibi, Alen</td><td class="r-desc">Kunden-Videos, Event-Doku, Boris bringt's</td></tr><tr><td class="r-tag">Grafik / Design</td><td class="r-names">Annalisa, Manu</td><td class="r-desc">Layout, Kampagnen-Visuals, Drucksachen</td></tr><tr><td class="r-tag">Webseite</td><td class="r-names">Annalisa, Klaus</td><td class="r-desc">Homepage-Anpassungen, SEO-Inhalte</td></tr><tr><td class="r-tag">Social Media</td><td class="r-names">Rita (intern)</td><td class="r-desc">LinkedIn + IG via Metricool</td></tr></tbody></table></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M02 / 11</span></div></div>
+
+<!-- M03 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M03 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Metricool</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-start">◐ Gestartet</span><span class="ms-card-date">15. Juni 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Account ist angelegt, aber noch nicht vollständig eingerichtet.</li><li>Metricool ist das fehlende Bindeglied: Newsletter-Derivate werden damit geplant, publiziert und ausgewertet.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Account vollständig einrichten: LinkedIn und Instagram verbinden.</li><li>Redaktionsplan aufsetzen: 6 Posts pro Monat, Freigabe-Workflow definieren.</li><li>Reporting-Dashboard konfigurieren: Reichweite, Engagement, Link-Klicks.</li><li>Derivations-Vorlage: 1 NL-Artikel → 1 LinkedIn + 1 Reel + 1 Karussell.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Alle Posts laufen über Metricool — kein Ad-hoc-Posten.</span></li><li><div class="ms-cb"></div><span>Monatliches Reporting steht automatisch.</span></li><li><div class="ms-cb"></div><span>Rita plant eigenständig nach dem Freigabe-Prozess.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M03 / 11</span></div></div>
+
+<!-- M04 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M04 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Raumumbau</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">31. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Der Arbeitsraum soll die neue Arbeitsweise physisch widerspiegeln.</li><li>Sichtbare Strukturen — Whiteboard, Kit-Regal — ersetzen unsichtbare Prozesse.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Konzept: Whiteboard-Wand für Kampagnenplanung, Fokuszone für Deep Work.</li><li>Moreno koordiniert mit Facility, Faras gibt Konzept am nächsten Mittwoch frei.</li><li>Symbolischer Kick-off beim Einzug: neuer Raum, neue Arbeitsweise.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Raum ist physisch neu gestaltet.</span></li><li><div class="ms-cb"></div><span>Whiteboard-Wand für Kampagnenplanung steht.</span></li><li><div class="ms-cb"></div><span>Moreno und Rita identifizieren sich mit dem neuen Modus.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M04 / 11</span></div></div>
+
+<!-- M05 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M05 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Dashboard & Juli-Handoff</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">30. Juni 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Das Marketing Dashboard (55"-Screen) wird zur permanenten Sichtbarkeitsebene.</li><li>Im Juli fehlt Faras: Was jetzt nicht vorbereitet wird, entsteht im Juli unter Druck.</li></ul><span class="ms-sec-label">Umsetzung — Dashboard</span><ul class="ms-bl"><li>55"-Screen mit Marketing Dashboard V9 permanent laufend einrichten.</li><li>Dashboard-Inhalte: KPIs, aktive Kampagnen, Events, Social-Performance.</li></ul><span class="ms-sec-label">Umsetzung — Juli-Handoff</span><ul class="ms-bl"><li>4 Wochenziele + Cover-Cards für alle Juli-Aktivitäten im Planner vorbereiten.</li><li>Rita-Briefing: 4-Wochen-Plan mit klaren Deliverables.</li><li>Eskalationsregel definieren: Was kann warten, was muss eskaliert werden?</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Dashboard läuft dauerhaft auf dem 55"-Screen.</span></li><li><div class="ms-cb"></div><span>KPIs und Kampagnenstatus jederzeit sichtbar.</span></li><li><div class="ms-cb"></div><span>Juli-Playbook als Dokument fertig.</span></li><li><div class="ms-cb"></div><span>Planner für Juli zu über 80% vorbefüllt.</span></li><li><div class="ms-cb"></div><span>Moreno und Rita kennen ihren Plan für 4 Wochen.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M05 / 11</span></div></div>
+
+<!-- M06 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M06 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Newsletter-Kit</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-active">→ Laufend</span><span class="ms-card-date">31. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Newsletter ist der Taktgeber — Social, Events und Lead-Aktionen folgen daraus.</li><li>Klickrate heute: unter 5%. Ziel: über 8–10%. Das Kit ist der Hebel.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Kit erstellen: Briefing-Template, NL-Vorlage, Redaktionsplan, Bild-Briefing für Rita.</li><li>NL #05 (Data Flow / SNAP IN) als erster vollständiger Durchlauf via Kit.</li><li>6 Social Posts aus Newsletter ableiten — Derivations-Routine für Metricool.</li><li>CX Dynamics: Non-Opener-Reminder einrichten (48h, neuer Betreff).</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Newsletter-Kit in Sharepoint abgelegt.</span></li><li><div class="ms-cb"></div><span>NL #05 vollständig via Kit produziert und versendet.</span></li><li><div class="ms-cb"></div><span>Erste Klickrate-Messung mit Non-Opener als Datenpunkt.</span></li><li><div class="ms-cb"></div><span>Derivations-Routine für Social steht.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M06 / 11</span></div></div>
+
+<!-- M07 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M07 <span class="ms-bb ms-bb-l">Live Exp.</span></div><div class="ms-card-title">Event-Kit</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">30. Juni 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Events laufen reaktiv: Vorbereitung, Material und Nachbearbeitung fehlen als Standard.</li><li>Pflicht: Jeder Event braucht 3 Outlook-Blöcke — Vorbereitung, Durchführung, Nachbearbeitung.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Kit aufbauen: Briefing, 8-Wochen-Checkliste, Kommunikationsplan, Materialliste.</li><li>SIAMS und Orange Day als Vorlagen-Basis nutzen.</li><li>SnapAddy-Workflow: Messekontakte → CRM → Journey automatisch.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Event-Kit in Sharepoint abgelegt.</span></li><li><div class="ms-cb"></div><span>Jeder Event hat 3 Outlook-Termine.</span></li><li><div class="ms-cb"></div><span>Moreno plant Events eigenständig via Kit.</span></li><li><div class="ms-cb"></div><span>SnapAddy überführt Kontakte automatisch ins CRM.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M07 / 11</span></div></div>
+
+<!-- M08 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M08 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Kampagnen-Kit</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">31. August 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Kampagnen bündeln Newsletter, Social, Event und E-Mail in einem Briefing.</li><li>Ohne Kit: jede Kampagne startet von null und erzeugt Koordinationsaufwand.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Kit aufbauen: Briefing-Template, Content-Kalender, Asset-Freigabe, CTA-Logik.</li><li>Planner-Vorlage für alle Task-Karten einer Kampagne definieren.</li><li>Q3-Kampagne als erster Pilottest — vollständig via Kit abwickeln.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Kampagnen-Kit in Sharepoint abgelegt.</span></li><li><div class="ms-cb"></div><span>Q3-Kampagne vollständig via Kit geplant.</span></li><li><div class="ms-cb"></div><span>Moreno startet Kampagnen ohne externes Briefing.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M08 / 11</span></div></div>
+
+<!-- M09 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M09 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Autonomer Juli</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">31. Juli 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Juli ist Messpunkt: Hält das System ohne externe Unterstützung?</li><li>Selbstprotokolle (30 Min. Freitag) liefern Daten für Kurskorrekturen im August.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>NL #07 produzieren und versenden.</li><li>4 Social Posts via Metricool planen und publizieren.</li><li>Wöchentliches Selbstprotokoll führen — 4 Einträge als August-Grundlage.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>NL #07 ohne externe Hilfe versendet.</span></li><li><div class="ms-cb"></div><span>4 Social Posts publiziert.</span></li><li><div class="ms-cb"></div><span>4 Wochen Selbstprotokoll liegt vor.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M09 / 11</span></div></div>
+
+<!-- M10 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M10 <span class="ms-bb ms-bb-e">Lead</span></div><div class="ms-card-title">CRM-Automationen</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">30. September 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Segmentierung und Follow-ups laufen manuell — ca. 3–4 Stunden Mehraufwand pro Woche.</li><li>Ziel: Kontakt kommt ins CRM, Journey läuft automatisch — Moreno steuert, führt nicht aus.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Drei Automation-Flows in Spark definieren, aufbauen und testen.</li><li>Lead Management Kit abschliessen: Segmentierungs-Guide und Journey-Logik dokumentieren.</li><li>Monatliches Reporting konfigurieren: Metricool + CX Dynamics kombiniert.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Alle 3 Journeys laufen automatisch.</span></li><li><div class="ms-cb"></div><span>Segmentierungsaufwand unter 1h pro Woche.</span></li><li><div class="ms-cb"></div><span>Newsletter-Klickrate: Richtung 8%.</span></li><li><div class="ms-cb"></div><span>Erstes vollständiges Lead-Reporting liegt vor.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M10 / 11</span></div></div>
+
+<!-- M11 -->
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M11 <span class="ms-bb ms-bb-s">Struktur</span> <span style="font-size:9px;color:var(--wm);font-weight:700;letter-spacing:1px;">⚽ Mittelstürmer · Abschluss</span></div><div class="ms-card-title">Kit-Bibliothek + Jahresbilanz</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">28. November 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Das Tor — der Mittelstürmer trifft, wenn alle anderen Positionen ihre Arbeit gemacht haben.</li><li>5 Kits, 11 Meilensteine, 8 Monate: die Bilanz ist Grundlage für 2027.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Alle 5 Kits in Sharepoint dokumentiert und eigenständig bedienbar.</li><li>Jahresbericht: KPI-Bilanz, Meilenstein-Auswertung, Team-Assessment.</li><li>Entscheidungsvorlage für 2027: Freelancer ausbauen oder feste Stelle?</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Alle 5 Kits eigenständig bedienbar.</span></li><li><div class="ms-cb"></div><span>Jahresbericht mit Zahlen liegt vor.</span></li><li><div class="ms-cb"></div><span>Klickrate ≥ 8% erreicht oder erklärt.</span></li><li><div class="ms-cb"></div><span>Empfehlung für 2027 formuliert.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M11 / 11</span></div></div>
+
+</div></div>
+
 <div class="pane" id="p-archiv"><div class="scr"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Q1 2026 – Abgeschlossen</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;"><div class="arc"><div class="arc-h">Januar 2026</div><div class="arc-b"><div class="arc-sec">Newsletter</div><div class="arc-i"><div class="ck">✓</div><div>Newsletter #01 – versendet</div></div><div class="arc-sec">Social</div><div class="arc-i"><div class="ck">✓</div><div>6 Posts (LinkedIn + Instagram)</div></div><div class="arc-sec">Industry-Fokus</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Distribution</span><span class="chip ci">Gerätehersteller</span></div><div class="arc-sec">Events</div><div style="font-size:10px;color:var(--t3);">Keine</div></div></div><div class="arc"><div class="arc-h">Februar 2026</div><div class="arc-b"><div class="arc-sec">Newsletter</div><div class="arc-i"><div class="ck">✓</div><div>Newsletter #02 – versendet</div></div><div class="arc-sec">Social</div><div class="arc-i"><div class="ck">✓</div><div>6 Posts (LinkedIn + Instagram)</div></div><div class="arc-sec">Industry-Fokus</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Gebäude</span><span class="chip ci">Wasser</span><span class="chip ct">SPE</span></div><div class="arc-sec">Events</div><div style="font-size:10px;color:var(--t3);">Keine</div></div></div><div class="arc"><div class="arc-h">März 2026</div><div class="arc-b"><div class="arc-sec">Newsletter</div><div class="arc-i"><div class="ck">✓</div><div>Newsletter #03 – versendet</div></div><div class="arc-sec">Social</div><div class="arc-i"><div class="ck">✓</div><div>6 Posts (LinkedIn + Instagram)</div></div><div class="arc-sec">Industry-Fokus</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;"><span class="chip ci">Maschinenbau</span><span class="chip ci">Energie</span><span class="chip ci">Gebäude</span><span class="chip ci">Wasser</span><span class="chip ci">Schienen</span><span class="chip ci">Schaltschrank</span></div><div class="arc-sec">Events</div><div class="ev past" style="font-size:10px;"><div class="ev-kw">12</div><div class="ev-name">EM Heiden</div><span class="et t-sc">Schulung</span></div><div class="ev past" style="font-size:10px;"><div class="ev-kw">13</div><div class="ev-name">Orange Day MB/TI</div><span class="et t-od">OD</span></div><div class="ev past" style="font-size:10px;"><div class="ev-kw">13</div><div class="ev-name">PV Tagung Bern</div><span class="et t-me">Messe</span></div></div></div></div></div></div>
 
 </div>
@@ -372,6 +736,98 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById('p-'+t.dataset.t).classList.add('on');});});
 function tick(){const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m;const d=new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())),dn=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-dn);const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));document.getElementById('kw').textContent='KW '+Math.ceil((((d-ys)/864e5)+1)/7);}
 tick();setInterval(tick,3e4);
+document.querySelectorAll('.ms-cb').forEach(cb=>{cb.addEventListener('click',()=>cb.classList.toggle('checked'));});
+
+// === KAPAZITÄT: Date-aware heatmap ===
+(function(){
+const now=new Date();
+const isoKW=w=>{const d=new Date(Date.UTC(2026,0,1));d.setUTCDate(d.getUTCDate()+(w-1)*7);const m=d.getUTCMonth();return['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'][m];};
+const getKW=d=>{const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);const ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil((((t-ys)/864e5)+1)/7);};
+const currentKW=getKW(now);
+
+// Update date display
+const dd=String(now.getDate()).padStart(2,'0'),mm=String(now.getMonth()+1).padStart(2,'0');
+document.getElementById('kap-date').textContent=dd+'.'+mm+'.'+now.getFullYear();
+document.getElementById('kap-kw2').textContent='KW '+currentKW;
+
+// Activity data per KW (from Excel)
+const kwData={
+14:{nl:1,social:2,events:0,note:'NL#04 Produktion'},
+15:{nl:0,social:2,events:0,note:'Social-Ableitungen'},
+16:{nl:0,social:1,events:1,note:'Solarmarkt Stammtisch'},
+17:{nl:0,social:1,events:4,note:'SIAMS + Sonepar×2 + VSAS'},
+18:{nl:1,social:2,events:0,note:'NL#05 Produktion'},
+19:{nl:0,social:2,events:2,note:'Electro-Forum + Bahntagung'},
+20:{nl:0,social:1,events:2,note:'Solexis + Solexis Olten'},
+21:{nl:0,social:1,events:0,note:'Social + Analyse'},
+22:{nl:0,social:0,events:3,note:'Krannich + Solarmarkt + ELECTRIC DAY'},
+23:{nl:1,social:2,events:1,note:'NL#06 + Orange Day National'},
+24:{nl:0,social:2,events:4,note:'Lugano + Krannich + Zuken + ELECTRIC DAY'},
+25:{nl:0,social:1,events:5,note:'Elektroforum + EM×3 + EEV'},
+26:{nl:0,social:1,events:0,note:'Analyse + Vorbereitung'},
+27:{nl:1,social:1,events:2,note:'NL#07 + EM Thekentag + Electric Day'},
+28:{nl:0,social:1,events:0,note:'Social'},
+29:{nl:0,social:1,events:0,note:'Analyse'},
+30:{nl:0,social:1,events:0,note:'Vorbereitung'},
+31:{nl:1,social:1,events:0,note:'NL#08 Produktion'},
+32:{nl:0,social:1,events:0,note:'Social'},
+33:{nl:0,social:1,events:0,note:'Analyse'},
+34:{nl:0,social:1,events:1,note:'EM Bern (EIT)'},
+35:{nl:0,social:1,events:1,note:'all about automation'},
+36:{nl:1,social:1,events:0,note:'NL#09 Produktion'},
+37:{nl:0,social:1,events:1,note:'Ineltec'},
+38:{nl:0,social:1,events:2,note:'Solar&Storage + Electric Days'},
+39:{nl:0,social:1,events:1,note:'EM Zürich'},
+40:{nl:1,social:1,events:1,note:'NL#10 + Orange Day National'},
+41:{nl:0,social:1,events:3,note:'ElettroEspo + Sonepar Muttenz + Orange Day'},
+42:{nl:0,social:1,events:2,note:'EM Luzern + Sonepar Wallisellen'},
+43:{nl:0,social:1,events:1,note:'Sonepar Colombier'},
+44:{nl:1,social:1,events:0,note:'NL#11 Produktion'},
+45:{nl:0,social:1,events:0,note:'Social'},
+46:{nl:0,social:1,events:1,note:'Eplan Partner Event'},
+};
+
+const tbody=document.getElementById('hm-body');
+let monthEvents={};
+for(let kw=14;kw<=48;kw++){
+  const d=kwData[kw]||{nl:0,social:0,events:0,note:''};
+  const total=d.nl+Math.ceil(d.social/2)+d.events;
+  const isPast=kw<currentKW;const isNow=kw===currentKW;
+  const lvl=total>=4?4:total>=3?3:total>=2?2:total>=1?1:0;
+  const cls=isNow?'kw-now':isPast?'kw-past':'';
+  const lbCls=['lb-0','lb-1','lb-2','lb-3','lb-4'][lvl];
+  const barCls=['hm-g','hm-g','hm-y','hm-o','hm-r'][lvl];
+  const barW=Math.max(8,total*14);
+  const mon=isoKW(kw);
+
+  // Accumulate for month bars
+  if(!monthEvents[mon])monthEvents[mon]={ev:0,nl:0,soc:0};
+  monthEvents[mon].ev+=d.events;monthEvents[mon].nl+=d.nl;monthEvents[mon].soc+=d.social;
+
+  const tr=document.createElement('tr');
+  tr.className=cls;
+  tr.innerHTML=`<td class="hm-kw">KW ${kw}</td><td style="color:var(--t3);font-size:11px;">${mon}</td><td class="hm-act">${d.nl?'<span style="color:var(--wm);font-weight:700;">NL</span>':'-'}</td><td class="hm-act">${d.social||'-'}</td><td class="hm-act" style="font-weight:${d.events>=3?'700':'400'};color:${d.events>=3?'var(--red)':d.events>=2?'var(--yel)':'var(--t2)'};">${d.events||'-'}</td><td><span class="hm-bar ${barCls}" style="width:${barW}px;"></span></td><td><span class="load-badge ${lbCls}">${total}</span></td>`;
+  tbody.appendChild(tr);
+}
+
+// Month bars
+const monthDiv=document.getElementById('kap-months');
+const monthOrder=['Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov'];
+const currentMonth=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'][now.getMonth()];
+monthOrder.forEach(m=>{
+  const d=monthEvents[m]||{ev:0,nl:0,soc:0};
+  const total=d.ev+d.nl+Math.ceil(d.soc/3);
+  const maxCap=10;
+  const pct=Math.min(100,Math.round(total/maxCap*100));
+  const color=pct>=80?'var(--red)':pct>=60?'#FF9500':pct>=40?'var(--yel)':'var(--grn)';
+  const isNow=m===currentMonth.substring(0,3);
+  const div=document.createElement('div');
+  div.className='kap-month';
+  if(isNow)div.style.cssText='background:var(--wmg);border:1px solid rgba(255,107,0,.12);';
+  div.innerHTML=`<div class="kap-month-n" ${isNow?'style="color:var(--wm);"':''}>${m}</div><div class="kap-month-bar"><div class="kap-month-fill" style="width:${pct}%;background:${color};"></div></div><div class="kap-month-info">${d.ev}E ${d.nl}N ${d.soc}S</div>`;
+  monthDiv.appendChild(div);
+});
+})();
 </script>
 </body>
 </html>
