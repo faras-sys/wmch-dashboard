@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marketing Dashboard – Weidmüller Schweiz AG</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -64,7 +65,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 .t-od{background:var(--yel2);color:var(--yel);}.t-me{background:var(--pur2);color:var(--pur);}.t-sc{background:var(--grn2);color:var(--grn);}
 
 /* ===== OVERVIEW ===== */
-.ov-row1{display:grid;grid-template-columns:1.2fr 0.8fr;gap:12px;margin-bottom:12px;}
+
 .ov-row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;min-height:0;}
 
 /* RHYTHM */
@@ -85,7 +86,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 .ms-t{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:6px;}
 
 /* SOCIAL */
-.soc{padding:8px 10px;border-radius:8px;background:var(--s2);margin-bottom:4px;}
+.soc{padding:8px 10px;border-radius:8px;background:var(--s2);margin-bottom:4px;position:relative;transition:all .2s;padding-right:80px;}
 .soc-t{font-size:11px;font-weight:600;margin-bottom:4px;line-height:1.3;letter-spacing:-.1px;}
 .soc-m{display:flex;flex-wrap:wrap;gap:3px;}
 
@@ -162,6 +163,38 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 .arc-i{display:flex;gap:6px;margin-bottom:3px;font-size:10px;color:var(--t2);}
 .arc-i .ck{color:var(--grn);font-weight:700;}
 
+
+/* SOCIAL STATUS */
+.soc{position:relative;transition:all .2s;}
+.soc-status{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;cursor:pointer;letter-spacing:.3px;text-transform:uppercase;border:none;font-family:var(--sans);transition:all .15s;user-select:none;}
+.soc-status:hover{transform:translateY(-50%) scale(1.05);}
+.ss-none{background:transparent;color:var(--t4);border:1px dashed var(--t4);}
+.ss-wip{background:rgba(48,209,88,.15);color:var(--grn);border:1px solid rgba(48,209,88,.25);}
+.ss-check{background:rgba(255,214,10,.15);color:var(--yel);border:1px solid rgba(255,214,10,.25);}
+.ss-review{background:rgba(255,69,58,.15);color:var(--red);border:1px solid rgba(255,69,58,.25);}
+.ss-done{background:rgba(48,209,88,.1);color:rgba(48,209,88,.6);border:1px solid rgba(48,209,88,.15);}
+.soc.published .soc-t{text-decoration:line-through;color:var(--t4);}
+.soc.published{opacity:.35;}
+/* Light mode overrides for fullscreen tabs */
+.fm .ss-none{background:transparent;color:#B4B4C0;border:1px dashed #C8C8CE;}
+.fm .ss-wip{background:rgba(26,138,58,.1);color:#1A8A3A;border-color:rgba(26,138,58,.2);}
+.fm .ss-check{background:rgba(176,120,0,.1);color:#B07800;border-color:rgba(176,120,0,.2);}
+.fm .ss-review{background:rgba(192,57,43,.1);color:#C0392B;border-color:rgba(192,57,43,.2);}
+.fm .ss-done{background:rgba(26,138,58,.06);color:rgba(26,138,58,.5);border-color:rgba(26,138,58,.12);}
+
+
+.act-btns{display:flex;gap:6px;align-items:center;}
+.btn-edit,.btn-del{background:none;border:1px solid var(--bd);cursor:pointer;font-size:12px;padding:4px 8px;border-radius:6px;transition:all .15s;line-height:1;display:inline-flex;align-items:center;justify-content:center;}
+.btn-edit{color:var(--blu);border-color:rgba(10,132,255,.2);}.btn-edit:hover{background:rgba(10,132,255,.1);border-color:rgba(10,132,255,.3);}
+.btn-del{color:var(--t4);border-color:var(--bd);}.btn-del:hover{color:var(--red);background:rgba(255,69,58,.08);border-color:rgba(255,69,58,.2);}
+/* Light mode for Jahresplanung */
+#jp-root .btn-edit{color:#0A6FD8;border-color:rgba(10,111,216,.2);}#jp-root .btn-edit:hover{background:rgba(10,111,216,.08);}
+#jp-root .btn-del{color:#B4B4C0;border-color:rgba(0,0,0,.1);}#jp-root .btn-del:hover{color:#C0392B;background:rgba(192,57,43,.06);}
+.mod-field{margin-bottom:14px;}
+.mod-field label{display:block;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.mod-field input,.mod-field select{width:100%;padding:10px 12px;font-size:13px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--s2);color:var(--t1);outline:none;font-family:var(--sans);}
+.mod-field input:focus,.mod-field select:focus{border-color:var(--wm);}
+.mod-field select option{background:var(--s2);color:var(--t1);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px;}
 
 /* MEILENSTEINE LIGHT MODE */
@@ -225,14 +258,14 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
   <div class="hdr-r"><div style="font-size:9px;color:#636369;font-family:var(--mono);">V9</div><div class="kwb" id="kw">KW 14</div><div class="clock" id="clock">09:42</div></div>
 </div>
 <div class="tabs">
-  <div class="tab on" data-t="overview">Übersicht Q2</div>
-  <div class="tab" data-t="april">April</div>
-  <div class="tab" data-t="mai">Mai</div>
-  <div class="tab" data-t="juni">Juni</div>
-  <div class="tab" data-t="kalender">Kalender</div>
-  <div class="tab" data-t="events">Live Experience</div>
+  <div class="tab on" data-t="overview" id="tab-overview">Übersicht</div>
+  <div class="tab" data-t="month0" id="tab-m0"></div>
+  <div class="tab" data-t="month1" id="tab-m1"></div>
+  <div class="tab" data-t="month2" id="tab-m2"></div>
   <div class="tab" data-t="team">Team & Prozess</div>
+  <div class="tab" data-t="social">Social Media</div>
   <div class="tab" data-t="kapazitaet">Kapazität</div>
+  <div class="tab" data-t="jahresplanung">Jahresplanung</div>
   <div class="tab" data-t="meilensteine">Meilensteine</div>
   <div class="tab" data-t="archiv">Archiv</div>
 </div>
@@ -241,140 +274,49 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 
 <!-- ===== ÜBERSICHT Q2 ===== -->
 <div class="pane on" id="p-overview">
-  <div class="ov-row1">
+  <div style="margin-bottom:12px;">
     <div class="card">
-      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:4px;">Monatsrhythmus – April 2026</div>
-      <div class="rhy">
-        <div class="rw now"><div class="rw-n">WOCHE 1</div><div class="rw-t">Newsletter</div><div class="rw-d">#04 erstellen & versenden</div></div>
-        <div class="rw"><div class="rw-n">WOCHE 2</div><div class="rw-t">6 Social Posts</div><div class="rw-d">2 Posts pro Woche ableiten</div></div>
-        <div class="rw"><div class="rw-n">WOCHE 3</div><div class="rw-t">Analyse</div><div class="rw-d">Klickraten, Traffic, Learnings</div></div>
-        <div class="rw"><div class="rw-n">WOCHE 4</div><div class="rw-t">Vorbereitung</div><div class="rw-d">Mai-Kampagne + «Boris bringt's auf den Punkt» Dreh</div></div>
-      </div>
+      <div id="ov-rhythm-label" style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:4px;">Monatsrhythmus</div>
+      <div class="rhy" id="ov-rhythm"></div>
     </div>
-    <div class="card">
-      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:6px;">Nächste Events</div>
-      <div class="ev next"><div class="ev-kw">KW 16</div><div class="ev-name">Solarmarkt Stammtisch</div><div class="ev-date">17.04.</div></div>
-      <div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">SIAMS</div><div class="ev-date">21.04.</div><div class="ev-loc">Moutier</div></div>
-      <div class="ev"><div class="ev-kw">KW 18</div><div class="ev-name">Sonepar Meyrin</div><div class="ev-date">28.04.</div><span class="et t-sc">Schulung</span></div>
-      <div class="ev"><div class="ev-kw">KW 18</div><div class="ev-name">Sonepar Rothenburg</div><div class="ev-date">29.04.</div><span class="et t-sc">Schulung</span></div>
-      <div class="ev"><div class="ev-kw">KW 18</div><div class="ev-name">VSAS Vorstandssitzung NWCH</div><div class="ev-date">29.04.</div></div>
-      <div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Electro-Forum Bern</div><div class="ev-date">05.05.</div><span class="et t-me">Messe</span></div>
-      <div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Bahntagung</div><div class="ev-date">05.05.</div></div>
-    </div>
+    <div id="ov-events" style="display:none;"></div>
   </div>
   <div class="ov-row2">
     <div class="mcol">
       <div class="mcol-h now"><h3>April – Safety & Security</h3><span>KW 14–17</span></div>
       <div class="mcol-b">
         <div class="ms"><div class="ms-t">Newsletter #04</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Fokus: Safety & Security – Sichere Verbindungen für kritische Infrastruktur</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ct">SNAP IN</span><span class="chip cj">Awareness → Consideration</span></div></div>
-        <div class="ms"><div class="ms-t">Social (6 Beiträge)</div>
-          <div class="soc"><div class="soc-t">«SIAMS 01 – Messeauftritt»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«SIAMS 02 – Highlights»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Stripax – Schneller abisolieren»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Boris bringt's auf den Punkt»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Montageprozesse beschleunigen»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Orange Mag – 25 Jahre WCH»</div><div class="soc-m"><span class="fmt fmt-c">Karussell</span><span class="chip ck">LinkedIn</span></div></div></div>
         <div class="ms"><div class="ms-t">Industry-Fokus</div><div class="ib"><div class="ib-n">Schaltschrankbau</div><div class="ib-k">KW 14–17</div></div><div class="ib"><div class="ib-n">Maschinenbau</div><div class="ib-k">KW 14–17</div></div><div class="ib"><div class="ib-n">Bahnindustrie</div><div class="ib-k">KW 14–17</div></div></div>
-        <div class="ms"><div class="ms-t">Events</div><div class="ev" style="font-size:11px;"><div class="ev-kw">16</div><div class="ev-name">Solarmarkt Stammtisch</div></div><div class="ev" style="font-size:11px;"><div class="ev-kw">17</div><div class="ev-name">SIAMS</div><div class="ev-date">21.04.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">18</div><div class="ev-name">Sonepar Meyrin</div><div class="ev-date">28.04.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">18</div><div class="ev-name">Sonepar Rothenburg</div><div class="ev-date">29.04.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">18</div><div class="ev-name">VSAS Vorstandssitzung</div><div class="ev-date">29.04.</div></div></div>
+        <div class="ms"><div class="ms-t" id="ov-soc-apr-label">Social</div><div id="ov-soc-apr"></div></div>
+        <div class="ms"><div class="ms-t">Events</div><div id="ov-ev-apr"></div></div>
       </div>
     </div>
     <div class="mcol">
       <div class="mcol-h"><h3>Mai – Data Flow / Vernetzung</h3><span>KW 18–22</span></div>
       <div class="mcol-b">
         <div class="ms"><div class="ms-t">Newsletter #05</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Fokus: Data Flow / Vernetzung – SNAP IN Video, Engineering Software</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ct">SNAP IN Video</span><span class="chip cj">Awareness → Consideration</span></div></div>
-        <div class="ms"><div class="ms-t">Social (6 Beiträge)</div>
-          <div class="soc"><div class="soc-t">«SNAP IN Video_1»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Orange Mag – InnoLoft / IPA NG»</div><div class="soc-m"><span class="fmt fmt-c">Karussell</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Stripax – Werkzeugtechnik»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Boris bringt's auf den Punkt»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Orange Mag – 25 Jahre WCH»</div><div class="soc-m"><span class="fmt fmt-c">Karussell</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«IndustryMatch Schaltschrankbau»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div></div>
         <div class="ms"><div class="ms-t">Industry-Fokus</div><div class="ib"><div class="ib-n">Gebäudeinfrastruktur</div><div class="ib-k">KW 18–22</div></div><div class="ib"><div class="ib-n">Gerätehersteller</div><div class="ib-k">KW 18–22</div></div><div class="ib"><div class="ib-n">Maschinenbau</div><div class="ib-k">KW 18–22</div></div></div>
-        <div class="ms"><div class="ms-t">Events</div><div class="ev" style="font-size:11px;"><div class="ev-kw">19</div><div class="ev-name">Electro-Forum Bern</div><div class="ev-date">05.05.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">19</div><div class="ev-name">Bahntagung</div><div class="ev-date">05.05.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">20</div><div class="ev-name">Solexis</div><div class="ev-date">19.05.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">20</div><div class="ev-name">Solexis Olten</div><div class="ev-date">20.05.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">22</div><div class="ev-name">Krannich FR</div><div class="ev-date">28.05.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">22</div><div class="ev-name">Solarmarkt Webinar</div><div class="ev-date">29.05.</div></div></div>
+        <div class="ms"><div class="ms-t" id="ov-soc-mai-label">Social</div><div id="ov-soc-mai"></div></div>
+        <div class="ms"><div class="ms-t">Events</div><div id="ov-ev-mai"></div></div>
       </div>
     </div>
     <div class="mcol">
       <div class="mcol-h"><h3>Juni – Kompetenz von Anfang an</h3><span>KW 23–26</span></div>
       <div class="mcol-b">
         <div class="ms"><div class="ms-t">Newsletter #06</div><div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Fokus: Kompetenz von Anfang an – Industry Match als Türöffner</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ct">SNAP IN Portfolio</span><span class="chip cj">Consideration</span></div></div>
-        <div class="ms"><div class="ms-t">Social (6 Beiträge)</div>
-          <div class="soc"><div class="soc-t">«SNAP IN – kostenlos testen»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Orange Day National – Highlights»</div><div class="soc-m"><span class="fmt fmt-c">Karussell</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Referenz Story»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Boris bringt's auf den Punkt»</div><div class="soc-m"><span class="fmt fmt-r">Reel</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«Orange Mag – 25 Jahre WCH»</div><div class="soc-m"><span class="fmt fmt-c">Karussell</span><span class="chip ck">LinkedIn</span></div></div>
-          <div class="soc"><div class="soc-t">«IndustryMatch PV – einfach installiert»</div><div class="soc-m"><span class="fmt fmt-s">Beitrag</span><span class="chip ck">LinkedIn</span></div></div></div>
         <div class="ms"><div class="ms-t">Industry-Fokus</div><div class="ib"><div class="ib-n">Photovoltaik</div><div class="ib-k">KW 23–26</div></div><div class="ib"><div class="ib-n">Schaltschrankbau</div><div class="ib-k">KW 23–26</div></div><div class="ib"><div class="ib-n">Wasser & Abwasser</div><div class="ib-k">KW 23–26</div></div></div>
-        <div class="ms"><div class="ms-t">Events</div><div class="ev" style="font-size:11px;"><div class="ev-kw">23</div><div class="ev-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><div class="ev-date">03.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">23</div><div class="ev-name">ELECTRIC DAY Lausanne</div><div class="ev-date">04.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">24</div><div class="ev-name">EM Lugano</div><div class="ev-date">08.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">24</div><div class="ev-name">Krannich IT</div><div class="ev-date">09.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">24</div><div class="ev-name">Zuken Innovation World</div><div class="ev-date">10.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">25</div><div class="ev-name">Elektroforum Kloten</div><div class="ev-date">11.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">25</div><div class="ev-name">EM Genève</div><div class="ev-date">16.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">25</div><div class="ev-name">EM Lausanne</div><div class="ev-date">17.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">25</div><div class="ev-name">EM Sion</div><div class="ev-date">18.06.</div></div>
-          <div class="ev" style="font-size:11px;"><div class="ev-kw">25</div><div class="ev-name">EEV Generalversammlung</div><div class="ev-date">19.06.</div></div></div>
+        <div class="ms"><div class="ms-t" id="ov-soc-jun-label">Social</div><div id="ov-soc-jun"></div></div>
+        <div class="ms"><div class="ms-t">Events</div><div id="ov-ev-jun"></div></div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- APRIL/MAI/JUNI FULL – same structure as v7 but with better spacing -->
-<div class="pane" id="p-april"><div class="fm"><div class="fm-head"><h2>April 2026 – Safety & Security</h2><span>KW 14 – 17</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter #04</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px;">Safety & Security</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Sichere Verbindungen für kritische Infrastruktur. Schaltschrankbau, Maschinenbau, Bahnindustrie.</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ct">SNAP IN</span><span class="chip cj">Awareness → Consideration</span></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus (Marketingplan)</div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Schaltschrankbau</div><div class="ib-k" style="font-size:11px;">KW 14–17</div></div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Maschinenbau</div><div class="ib-k" style="font-size:11px;">KW 14–17</div></div><div class="ib" style="padding:10px 14px;font-size:14px;"><div class="ib-n">Bahnindustrie</div><div class="ib-k" style="font-size:11px;">KW 14–17</div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media – 6 Beiträge</div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«SIAMS 01 – Messeauftritt»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«SIAMS 02 – Highlights»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Stripax – Schneller abisolieren»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Boris bringt's auf den Punkt»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Montageprozesse beschleunigen»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;"><div class="soc-t" style="font-size:14px;">«Orange Mag Seite 4 – 25 Jahre WCH»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Karussell</span><span class="chip ck">LinkedIn</span></div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events & Messen</div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 16</div><div class="ev-name">Solarmarkt Stammtisch</div><div class="ev-date" style="font-size:11px;">17.04.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 17</div><div class="ev-name">SIAMS</div><div class="ev-date" style="font-size:11px;">21.04.</div><div class="ev-loc">Moutier</div><span class="et t-me">Messe</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 18</div><div class="ev-name">Sonepar Meyrin</div><div class="ev-date" style="font-size:11px;">28.04.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 18</div><div class="ev-name">Sonepar Rothenburg</div><div class="ev-date" style="font-size:11px;">29.04.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;"><div class="ev-kw" style="font-size:11px;">KW 18</div><div class="ev-name">VSAS Vorstandssitzung</div><div class="ev-date" style="font-size:11px;">29.04.</div><span class="et t-me">Event</span></div></div></div></div></div>
+<div class="pane" id="p-month0"><div class="fm" id="fm-m0"></div></div>
+<div class="pane" id="p-month1"><div class="fm" id="fm-m1"></div></div>
+<div class="pane" id="p-month2"><div class="fm" id="fm-m2"></div></div>
 
-<div class="pane" id="p-mai"><div class="fm"><div class="fm-head"><h2>Mai 2026 – Data Flow</h2><span>KW 18 – 22</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter #05</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">Data Flow / Vernetzung</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Offener Datenaustausch, interoperable Systeme. Gebäudeinfrastruktur, Gerätehersteller, Maschinenbau.</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ct">SNAP IN Video</span><span class="chip cj">Awareness → Consideration</span></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus</div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Gebäudeinfrastruktur</div><div class="ib-k" style="font-size:11px;">KW 18–22</div></div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Gerätehersteller</div><div class="ib-k" style="font-size:11px;">KW 18–22</div></div><div class="ib" style="padding:10px 14px;font-size:14px;"><div class="ib-n">Maschinenbau</div><div class="ib-k" style="font-size:11px;">KW 18–22</div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media – 6 Beiträge</div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«SNAP IN Video_1»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Orange Mag Seite 16+7 / InnoLoft – IPA NG»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Karussell</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Stripax – Werkzeugtechnik»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Boris bringt's auf den Punkt»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Orange Mag Seite 6+7 – 25 Jahre WCH»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Karussell</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;"><div class="soc-t" style="font-size:14px;">«IndustryMatch Schaltschrankbau»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events & Messen</div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 19</div><div class="ev-name">Electro-Forum</div><div class="ev-date" style="font-size:11px;">05.05.</div><div class="ev-loc">Bern</div><span class="et t-me">Messe</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 19</div><div class="ev-name">Bahntagung (electrosuisse)</div><div class="ev-date" style="font-size:11px;">05.05.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 20</div><div class="ev-name">Solexis</div><div class="ev-date" style="font-size:11px;">19.05.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 20</div><div class="ev-name">Solexis Olten</div><div class="ev-date" style="font-size:11px;">20.05.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 22</div><div class="ev-name">Krannich Netzwerkanlass FR</div><div class="ev-date" style="font-size:11px;">28.05.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 22</div><div class="ev-name">Solarmarkt Webinar</div><div class="ev-date" style="font-size:11px;">29.05.</div><span class="et t-me">Event</span></div></div></div></div></div>
-
-<div class="pane" id="p-juni"><div class="fm"><div class="fm-head"><h2>Juni 2026 – Kompetenz von Anfang an</h2><span>KW 23 – 26</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter #06</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">Kompetenz von Anfang an</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">Industry Match als Türöffner. Photovoltaik, Schaltschrankbau, Wasser & Abwasser.</div><div style="display:flex;flex-wrap:wrap;gap:4px;"><span class="chip ct">SNAP IN Portfolio</span><span class="chip cj">Consideration</span></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus</div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Photovoltaik</div><div class="ib-k" style="font-size:11px;">KW 23–26</div></div><div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">Schaltschrankbau</div><div class="ib-k" style="font-size:11px;">KW 23–26</div></div><div class="ib" style="padding:10px 14px;font-size:14px;"><div class="ib-n">Wasser & Abwasser</div><div class="ib-k" style="font-size:11px;">KW 23–26</div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media – 6 Beiträge</div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«SNAP IN – kostenlos testen»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Orange Day National – Highlights»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Karussell</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Referenz Story»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Karussell</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Boris bringt's auf den Punkt»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-r" style="font-size:10px;">Reel</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;margin-bottom:6px;"><div class="soc-t" style="font-size:14px;">«Orange Mag Seite 8+9 – 25 Jahre WCH»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-c" style="font-size:10px;">Karussell</span><span class="chip ck">LinkedIn</span></div></div><div class="soc" style="padding:10px 14px;"><div class="soc-t" style="font-size:14px;">«IndustryMatch PV – einfach installiert»</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt fmt-s" style="font-size:10px;">Beitrag</span><span class="chip ck">LinkedIn</span></div></div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events & Messen</div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 23</div><div class="ev-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><div class="ev-date" style="font-size:11px;">03.06.</div><span class="et t-od">OD</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 24</div><div class="ev-name">EM Lugano</div><div class="ev-date" style="font-size:11px;">08.06.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 23</div><div class="ev-name">ELECTRIC DAY Lausanne</div><div class="ev-date" style="font-size:11px;">04.06.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 24</div><div class="ev-name">Krannich Netzwerkanlass IT</div><div class="ev-date" style="font-size:11px;">09.06.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 24</div><div class="ev-name">Zuken Innovation World</div><div class="ev-date" style="font-size:11px;">10.06.</div><span class="et t-me">Event</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">Elektroforum Kloten</div><div class="ev-date" style="font-size:11px;">11.06.</div><span class="et t-me">Messe</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">EM Genève</div><div class="ev-date" style="font-size:11px;">16.06.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">EM Lausanne</div><div class="ev-date" style="font-size:11px;">17.06.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">EM Sion</div><div class="ev-date" style="font-size:11px;">18.06.</div><span class="et t-sc">Schulung</span></div><div class="ev" style="font-size:13px;padding:10px 14px;"><div class="ev-kw" style="font-size:11px;">KW 25</div><div class="ev-name">EEV Generalversammlung</div><div class="ev-date" style="font-size:11px;">19.06.</div><span class="et t-me">Event</span></div></div></div></div></div>
-
-<!-- ===== KALENDER – pure event chronology ===== -->
-<div class="pane" id="p-kalender">
-  <div class="scr">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
-      <div class="cal-month"><div class="cal-month-h now">April</div>
-        <div class="cal-ev next"><div class="cal-kw">KW 16</div><div class="cal-date">17.04.</div><div class="cal-name">Solarmarkt Stammtisch</div><span class="et t-me">Event</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">21.04.</div><div class="cal-name">SIAMS</div><div class="cal-loc">Moutier</div><span class="et t-me">Messe</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">28.04.</div><div class="cal-name">Sonepar Meyrin</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">29.04.</div><div class="cal-name">Sonepar Rothenburg</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 17</div><div class="cal-date">29.04.</div><div class="cal-name">VSAS Vorstandssitzung NWCH</div><span class="et t-me">Event</span></div>
-      </div>
-      <div class="cal-month"><div class="cal-month-h">Mai</div>
-        <div class="cal-ev"><div class="cal-kw">KW 19</div><div class="cal-date">05.05.</div><div class="cal-name">Electro-Forum</div><div class="cal-loc">Bern</div><span class="et t-me">Messe</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 19</div><div class="cal-date">05.05.</div><div class="cal-name">Bahntagung (electrosuisse)</div><span class="et t-me">Event</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 21</div><div class="cal-date">19.05.</div><div class="cal-name">Solexis</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 21</div><div class="cal-date">20.05.</div><div class="cal-name">Solexis Olten</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 22</div><div class="cal-date">28.05.</div><div class="cal-name">Krannich Netzwerkanlass FR</div><span class="et t-me">Event</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 22</div><div class="cal-date">29.05.</div><div class="cal-name">Solarmarkt Webinar</div><span class="et t-me">Event</span></div>
-      </div>
-      <div class="cal-month"><div class="cal-month-h">Juni</div>
-        <div class="cal-ev" style="background:var(--wmg);border:1px solid rgba(255,107,0,.12);"><div class="cal-kw">KW 23</div><div class="cal-date">03.06.</div><div class="cal-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><span class="et t-od">OD</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 22</div><div class="cal-date">04.06.</div><div class="cal-name">ELECTRIC DAY Lausanne</div><span class="et t-me">Event</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 24</div><div class="cal-date">08.06.</div><div class="cal-name">EM Lugano</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 24</div><div class="cal-date">09.06.</div><div class="cal-name">Krannich Netzwerkanlass IT</div><span class="et t-me">Event</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 24</div><div class="cal-date">10.06.</div><div class="cal-name">Zuken Innovation World</div><span class="et t-me">Event</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">11.06.</div><div class="cal-name">Elektroforum Kloten</div><span class="et t-me">Messe</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">16.06.</div><div class="cal-name">EM Genève</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">17.06.</div><div class="cal-name">EM Lausanne</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">18.06.</div><div class="cal-name">EM Sion</div><span class="et t-sc">Schulung</span></div>
-        <div class="cal-ev"><div class="cal-kw">KW 25</div><div class="cal-date">19.06.</div><div class="cal-name">EEV Generalversammlung</div><span class="et t-me">Event</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== LIVE EXPERIENCE – same as v7 ===== -->
-<div class="pane" id="p-events"><div class="scr"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Orange Days 2026 <span class="chip" style="background:var(--yel2);color:var(--yel);margin-left:6px;">3</span></div><div class="ev past"><div class="ev-kw">KW 13</div><div class="ev-name">Orange Day MB/TI</div><div class="ev-date">26.03.</div><span class="et" style="background:var(--grn2);color:var(--grn);">✓</span></div><div class="ev next"><div class="ev-kw">KW 23</div><div class="ev-name" style="color:var(--wm);font-weight:700;">Orange Day National</div><div class="ev-date">03.06.</div><span class="et t-od">Nächster</span></div><div class="ev"><div class="ev-kw">KW 40</div><div class="ev-name">Orange Day National</div><div class="ev-date">01.10.</div></div></div><div><div class="card" style="margin-bottom:12px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Messen & Events <span class="chip" style="background:var(--pur2);color:var(--pur);margin-left:6px;">21+</span></div><div class="ev past"><div class="ev-kw">KW 13</div><div class="ev-name">PV Tagung Bern</div><div class="ev-date">31.03.</div><span class="et" style="background:var(--grn2);color:var(--grn);">✓</span></div><div class="ev next"><div class="ev-kw">KW 16</div><div class="ev-name" style="color:var(--wm);">Solarmarkt Stammtisch</div><div class="ev-date">17.04.</div><span class="et t-me">Nächster</span></div><div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">SIAMS</div><div class="ev-date">21.04.</div><div class="ev-loc">Moutier</div></div><div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">VSAS Vorstandssitzung</div><div class="ev-date">29.04.</div></div><div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Electro-Forum</div><div class="ev-date">05.05.</div><div class="ev-loc">Bern</div></div><div class="ev"><div class="ev-kw">KW 19</div><div class="ev-name">Bahntagung</div><div class="ev-date">05.05.</div></div><div class="ev"><div class="ev-kw">KW 22</div><div class="ev-name">Krannich FR</div><div class="ev-date">28.05.</div></div><div class="ev"><div class="ev-kw">KW 22</div><div class="ev-name">Solarmarkt Webinar</div><div class="ev-date">29.05.</div></div><div class="ev"><div class="ev-kw">KW 22</div><div class="ev-name">ELECTRIC DAY</div><div class="ev-date">04.06.</div><div class="ev-loc">Lausanne</div></div><div class="ev"><div class="ev-kw">KW 24</div><div class="ev-name">Krannich IT</div><div class="ev-date">09.06.</div></div><div class="ev"><div class="ev-kw">KW 24</div><div class="ev-name">Zuken Innovation</div><div class="ev-date">10.06.</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">Elektroforum</div><div class="ev-date">11.06.</div><div class="ev-loc">Kloten</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EEV GV</div><div class="ev-date">19.06.</div></div><div class="ev"><div class="ev-kw">KW 27</div><div class="ev-name">EM Thekentag Zürich</div><div class="ev-date">01.07.</div></div>
-<div class="ev"><div class="ev-kw">KW 27</div><div class="ev-name">Electric Day Colombier</div><div class="ev-date">02.07.</div></div><div class="ev"><div class="ev-kw">KW 35</div><div class="ev-name">all about automation</div><div class="ev-date">26.08.</div><div class="ev-loc">Zürich</div></div><div class="ev"><div class="ev-kw">KW 37</div><div class="ev-name" style="font-weight:700;">Ineltec</div><div class="ev-date">09.09.</div><div class="ev-loc">Zürich</div></div><div class="ev"><div class="ev-kw">KW 38</div><div class="ev-name">Solar & Storage Live</div><div class="ev-date">16.09.</div></div><div class="ev"><div class="ev-kw">KW 38</div><div class="ev-name">Electric Days Genève</div><div class="ev-date">23.09.</div></div><div class="ev"><div class="ev-kw">KW 41</div><div class="ev-name">ElettroEspo</div><div class="ev-date">07.10.</div><div class="ev-loc">Lugano</div></div><div class="ev"><div class="ev-kw">KW 46</div><div class="ev-name">Eplan Partner</div><div class="ev-date">12.11.</div></div></div><div class="card"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">GH-Schulungen <span class="chip" style="background:var(--grn2);color:var(--grn);margin-left:6px;">15</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><div class="ev past"><div class="ev-kw">KW 12</div><div class="ev-name">EM Heiden</div></div><div class="ev next"><div class="ev-kw">KW 17</div><div class="ev-name" style="color:var(--wm);">Sonepar Meyrin</div></div><div class="ev"><div class="ev-kw">KW 17</div><div class="ev-name">Sonepar Rothenburg</div></div><div class="ev"><div class="ev-kw">KW 21</div><div class="ev-name">Solexis</div></div><div class="ev"><div class="ev-kw">KW 21</div><div class="ev-name">Solexis Olten</div></div><div class="ev"><div class="ev-kw">KW 24</div><div class="ev-name">EM Lugano</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EM Genève</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EM Lausanne</div></div><div class="ev"><div class="ev-kw">KW 25</div><div class="ev-name">EM Sion</div></div><div class="ev"><div class="ev-kw">KW 34</div><div class="ev-name">EM Bern (EIT)</div></div><div class="ev"><div class="ev-kw">KW 39</div><div class="ev-name">EM Zürich</div></div><div class="ev"><div class="ev-kw">KW 41</div><div class="ev-name">Sonepar Muttenz</div></div><div class="ev"><div class="ev-kw">KW 42</div><div class="ev-name">EM Luzern</div></div><div class="ev"><div class="ev-kw">KW 42</div><div class="ev-name">Sonepar Wallisellen</div></div><div class="ev"><div class="ev-kw">KW 43</div><div class="ev-name">Sonepar Colombier</div></div></div></div></div></div></div></div>
-
-<!-- ===== TEAM & PROZESS – 3 equal columns ===== -->
 <div class="pane" id="p-team">
   <div class="team-grid">
     <!-- COL 1: Wochenrhythmus -->
@@ -413,6 +355,54 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
     </div>
   </div>
 </div>
+
+<!-- ===== SOCIAL MEDIA ===== -->
+<div class="pane" id="p-social"><div class="scr">
+<style>
+.sm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sm-form{background:var(--s1);border-radius:12px;border:1px solid var(--bd);padding:16px 18px;margin-bottom:14px;}
+.sm-form-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;}
+.sm-field label{display:block;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.sm-field input,.sm-field select{width:100%;padding:8px 10px;font-size:12px;border-radius:8px;border:1px solid var(--bd2);background:var(--s2);color:var(--t1);outline:none;font-family:var(--sans);}
+.sm-field input:focus,.sm-field select:focus{border-color:var(--wm);}
+.sm-add{padding:8px 16px;font-size:12px;font-weight:600;border-radius:8px;border:none;background:var(--wm);color:#fff;cursor:pointer;font-family:var(--sans);white-space:nowrap;}
+.sm-add:hover{opacity:.85;}
+.sm-ok{font-size:11px;color:var(--grn);display:none;margin-top:8px;}
+.sm-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.sm-tbl th{padding:10px 12px;text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);border-bottom:1px solid var(--bd2);background:var(--s2);}
+.sm-tbl td{padding:9px 12px;border-bottom:1px solid var(--bd);vertical-align:middle;}
+.sm-tbl tr:hover td{background:rgba(255,255,255,.02);}
+.sm-month-h td{background:var(--s2);font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--wm);padding:6px 12px;border-bottom:1px solid rgba(255,107,0,.12);}
+.sm-del{background:none;border:none;cursor:pointer;color:var(--t4);font-size:12px;padding:2px 5px;transition:color .1s;}.sm-del:hover{color:var(--red);}
+.sm-count{display:flex;gap:16px;margin-bottom:14px;}
+.sm-count-box{background:var(--s1);border-radius:10px;border:1px solid var(--bd);padding:12px 16px;flex:1;text-align:center;}
+.sm-count-n{font-size:24px;font-weight:800;color:var(--t1);}.sm-count-l{font-size:10px;color:var(--t3);margin-top:2px;}
+</style>
+
+<div class="sm-head">
+  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);">Social Media Redaktionsplan 2026</div>
+</div>
+
+<div class="sm-form">
+  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:10px;">Neuen Beitrag hinzufügen</div>
+  <div class="sm-form-grid">
+    <div class="sm-field"><label>Beitragsname *</label><input id="sm-name" type="text" placeholder="z.B. SNAP IN – 5 Vorteile"></div>
+    <div class="sm-field"><label>Monat *</label><select id="sm-month"><option value="">Wählen</option><option>April</option><option>Mai</option><option>Juni</option><option>Juli</option><option>August</option><option>September</option><option>Oktober</option><option>November</option><option>Dezember</option></select></div>
+    <div class="sm-field"><label>Beitragsart *</label><select id="sm-type"><option value="">Wählen</option><option>Beitrag</option><option>Karussell</option><option>Reel</option><option>Story</option></select></div>
+    <div class="sm-field"><label>Plattform *</label><select id="sm-plat"><option value="">Wählen</option><option>LinkedIn</option><option>Instagram</option><option>LinkedIn + Instagram</option></select></div>
+    <button class="sm-add" id="btn-sm-add">+ Hinzufügen</button>
+  </div>
+  <div class="sm-ok" id="sm-ok">✓ Beitrag hinzugefügt</div>
+</div>
+
+<div class="sm-count" id="sm-counts"></div>
+
+<table class="sm-tbl">
+  <thead><tr><th>Monat</th><th>Beitragsname</th><th>Art</th><th>Plattform</th><th>Status</th><th></th></tr></thead>
+  <tbody id="sm-tbody"></tbody>
+</table>
+
+</div></div>
 
 <!-- ===== KAPAZITÄT ===== -->
 <div class="pane" id="p-kapazitaet"><div class="scr">
@@ -480,9 +470,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:10px;">Team-Kapazität</div>
       <div style="font-size:12px;color:var(--t2);line-height:1.8;">
         <strong style="color:var(--t1);">Moreno</strong> — 5 Tage/Woche · Campaign Lead<br>
-        <strong style="color:var(--t1);">Rita</strong> — 2 Tage/Woche (Mi+Do) · Creative<br>
-        <strong style="color:var(--t1);">Levin</strong> — 2 Tage/Woche (Mi+Do) · Production<br>
-        <span style="font-size:11px;color:var(--red);">Ab sofort: nur 1 Lernende/r</span>
+        <strong style="color:var(--t1);">Rita</strong> — 2 Tage/Woche (Mi+Do) · Creative Owner
       </div>
       <div style="margin-top:10px;padding:8px 12px;border-radius:8px;background:var(--wmg);font-size:11px;color:var(--wm);font-weight:600;">
         Max. Kapazität/Woche: 1 Newsletter ODER 2 Events ODER 6 Social Posts — nicht alles gleichzeitig.
@@ -530,6 +518,151 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
   </div>
 </div>
 </div></div>
+
+<!-- ===== JAHRESPLANUNG ===== -->
+<div class="pane" id="p-jahresplanung" style="padding:0;">
+<div id="jp-root" style="background:#F5F5F7;height:100%;display:flex;flex-direction:column;color:#1C1C1E;font-family:var(--sans);">
+<style>
+#jp-root{--jpwm:#E55A00;--jpbg:#F5F5F7;--jps1:#fff;--jps2:#F0F0F2;--jps3:#E5E5EA;--jpt1:#1C1C1E;--jpt2:#636369;--jpt3:#98989F;--jpbd:rgba(0,0,0,.08);--jpbd2:rgba(0,0,0,.14);--jpgrn:#1A8A3A;--jpyel:#B07800;--jpred:#C0392B;}
+#jp-root *{box-sizing:border-box;}
+.jp-tabs{display:flex;padding:0 24px;height:36px;align-items:stretch;background:#fff;border-bottom:1px solid var(--jpbd);}
+.jp-tab{display:flex;align-items:center;padding:0 18px;font-size:12px;font-weight:500;color:var(--jpt3);cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;transition:all .15s;font-family:var(--sans);}
+.jp-tab:hover{color:var(--jpt2);}.jp-tab.on{color:var(--jpt1);border-bottom-color:var(--jpwm);}
+.jp-main{flex:1;overflow:hidden;padding:16px 24px;}
+.jp-pane{display:none;height:100%;flex-direction:column;}.jp-pane.on{display:flex;}
+.jp-scr{overflow-y:auto;height:100%;padding-right:6px;}
+.jp-scr
+/* SOCIAL STATUS */
+.soc{position:relative;transition:all .2s;}
+.soc-status{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;cursor:pointer;letter-spacing:.3px;text-transform:uppercase;border:none;font-family:var(--sans);transition:all .15s;user-select:none;}
+.soc-status:hover{transform:translateY(-50%) scale(1.05);}
+.ss-none{background:transparent;color:var(--t4);border:1px dashed var(--t4);}
+.ss-wip{background:rgba(48,209,88,.15);color:var(--grn);border:1px solid rgba(48,209,88,.25);}
+.ss-check{background:rgba(255,214,10,.15);color:var(--yel);border:1px solid rgba(255,214,10,.25);}
+.ss-review{background:rgba(255,69,58,.15);color:var(--red);border:1px solid rgba(255,69,58,.25);}
+.ss-done{background:rgba(48,209,88,.1);color:rgba(48,209,88,.6);border:1px solid rgba(48,209,88,.15);}
+.soc.published .soc-t{text-decoration:line-through;color:var(--t4);}
+.soc.published{opacity:.35;}
+/* Light mode overrides for fullscreen tabs */
+.fm .ss-none{background:transparent;color:#B4B4C0;border:1px dashed #C8C8CE;}
+.fm .ss-wip{background:rgba(26,138,58,.1);color:#1A8A3A;border-color:rgba(26,138,58,.2);}
+.fm .ss-check{background:rgba(176,120,0,.1);color:#B07800;border-color:rgba(176,120,0,.2);}
+.fm .ss-review{background:rgba(192,57,43,.1);color:#C0392B;border-color:rgba(192,57,43,.2);}
+.fm .ss-done{background:rgba(26,138,58,.06);color:rgba(26,138,58,.5);border-color:rgba(26,138,58,.12);}
+
+
+.act-btns{display:flex;gap:6px;align-items:center;}
+.btn-edit,.btn-del{background:none;border:1px solid var(--bd);cursor:pointer;font-size:12px;padding:4px 8px;border-radius:6px;transition:all .15s;line-height:1;display:inline-flex;align-items:center;justify-content:center;}
+.btn-edit{color:var(--blu);border-color:rgba(10,132,255,.2);}.btn-edit:hover{background:rgba(10,132,255,.1);border-color:rgba(10,132,255,.3);}
+.btn-del{color:var(--t4);border-color:var(--bd);}.btn-del:hover{color:var(--red);background:rgba(255,69,58,.08);border-color:rgba(255,69,58,.2);}
+/* Light mode for Jahresplanung */
+#jp-root .btn-edit{color:#0A6FD8;border-color:rgba(10,111,216,.2);}#jp-root .btn-edit:hover{background:rgba(10,111,216,.08);}
+#jp-root .btn-del{color:#B4B4C0;border-color:rgba(0,0,0,.1);}#jp-root .btn-del:hover{color:#C0392B;background:rgba(192,57,43,.06);}
+.mod-field{margin-bottom:14px;}
+.mod-field label{display:block;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.mod-field input,.mod-field select{width:100%;padding:10px 12px;font-size:13px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--s2);color:var(--t1);outline:none;font-family:var(--sans);}
+.mod-field input:focus,.mod-field select:focus{border-color:var(--wm);}
+.mod-field select option{background:var(--s2);color:var(--t1);}
+::-webkit-scrollbar{width:4px;}.jp-scr::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:2px;}
+.jp-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
+.jp-scard{background:var(--jps2);border-radius:8px;padding:10px 12px;}
+.jp-scard .jp-num{font-size:22px;font-weight:700;margin-top:2px;color:var(--jpt1);}.jp-scard .jp-lbl{font-size:10px;color:var(--jpt3);}
+.jp-filter{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
+.jp-filter label{font-size:11px;color:var(--jpt3);}
+.jp-filter select{font-size:12px;padding:5px 9px;border-radius:8px;border:1px solid var(--jpbd2);background:#fff;color:var(--jpt1);cursor:pointer;outline:none;font-family:var(--sans);}
+.jp-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.jp-tbl th{font-weight:600;font-size:10px;letter-spacing:.5px;color:var(--jpt3);padding:6px 8px;border-bottom:1px solid var(--jpbd2);text-align:left;background:var(--jps2);text-transform:uppercase;}
+.jp-tbl td{padding:7px 8px;border-bottom:1px solid var(--jpbd);vertical-align:top;line-height:1.4;color:var(--jpt1);}
+.jp-mh td{background:var(--jps2);font-size:10px;font-weight:600;letter-spacing:.7px;color:var(--jpt3);padding:5px 8px;border-bottom:1px solid var(--jpbd2);}
+.jp-warn-row td{background:#FFFBEA;}
+.jp-badge{display:inline-block;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600;white-space:nowrap;}
+.jp-del{background:none;border:none;cursor:pointer;color:var(--jpt3);font-size:13px;padding:2px 5px;border-radius:4px;transition:color .1s;}.jp-del:hover{color:var(--jpred);}
+.jp-warn-pill{font-size:11px;color:var(--jpyel);font-weight:600;margin-left:auto;display:none;}
+.jp-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;align-items:center;}
+.jp-leg{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--jpt2);}
+.jp-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.jp-form-wrap{max-width:560px;}
+.jp-form-sec{font-size:11px;font-weight:600;color:var(--jpt3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--jpbd2);}
+.jp-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.jp-field label{display:block;font-size:10px;font-weight:600;color:var(--jpt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.jp-field input,.jp-field select{width:100%;padding:9px 11px;font-size:13px;border-radius:8px;border:1px solid var(--jpbd2);background:#fff;color:var(--jpt1);outline:none;font-family:var(--sans);}
+.jp-field input:focus,.jp-field select:focus{border-color:var(--jpwm);}
+.jp-field input[type=date]{color-scheme:light;}.jp-field input[type=color]{padding:4px;height:38px;cursor:pointer;}
+.jp-save{width:100%;padding:10px;font-size:13px;font-weight:600;border-radius:8px;border:none;background:var(--jpwm);color:#fff;cursor:pointer;transition:opacity .15s;font-family:var(--sans);}
+.jp-save:hover{opacity:.85;}
+.jp-save.sec{background:var(--jps2);color:var(--jpt1);border:1px solid var(--jpbd2);}.jp-save.sec:hover{background:var(--jps3);opacity:1;}
+.jp-ok{margin-top:10px;font-size:12px;color:var(--jpgrn);display:none;padding:9px 13px;background:#D6F5E0;border-radius:8px;}
+.jp-divider{border:none;border-top:1px solid var(--jpbd2);margin:20px 0;}
+.jp-type-list{margin-bottom:12px;}
+.jp-type-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--jps2);border-radius:8px;margin-bottom:5px;font-size:12px;color:var(--jpt1);}
+.jp-type-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;}.jp-type-name{flex:1;font-weight:500;}
+.jp-type-del{background:none;border:none;cursor:pointer;color:var(--jpt3);font-size:12px;padding:2px 4px;transition:color .1s;}.jp-type-del:hover{color:var(--jpred);}
+.jp-builtin-tag{font-size:10px;color:var(--jpt3);background:var(--jps3);padding:2px 6px;border-radius:4px;}
+</style>
+
+<div class="jp-tabs">
+  <button class="jp-tab on" id="jp-tab-agenda">Jahresagenda</button>
+  <button class="jp-tab" id="jp-tab-verteilung">Monatsverteilung</button>
+  <button class="jp-tab" id="jp-tab-newevent">+ Event hinzufügen</button>
+</div>
+
+<div class="jp-main">
+
+<div class="jp-pane on" id="jp-agenda">
+  <div class="jp-filter">
+    <label>Monat:</label>
+    <select id="jp-m" onchange="jpRenderAg()">
+      <option value="">Alle</option>
+      <option>Januar</option><option>Februar</option><option>März</option><option>April</option>
+      <option>Mai</option><option>Juni</option><option>Juli</option><option>August</option>
+      <option>September</option><option>Oktober</option><option>November</option><option>Dezember</option>
+    </select>
+    <label style="margin-left:8px">Eventart:</label>
+    <select id="jp-t" onchange="jpRenderAg()"><option value="">Alle</option></select>
+    <span class="jp-warn-pill" id="jp-warn">⚠ Überschneidungen erkannt</span>
+  </div>
+  <div class="jp-cards" id="jp-cards"></div>
+  <div class="jp-scr">
+    <table class="jp-tbl">
+      <colgroup><col style="width:8%"><col style="width:10%"><col><col style="width:18%"><col style="width:22%"><col style="width:5%"></colgroup>
+      <thead><tr><th>Monat</th><th>Datum</th><th>Eventname</th><th>Eventart</th><th>Notiz</th><th></th></tr></thead>
+      <tbody id="jp-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="jp-pane" id="jp-verteilung">
+  <div class="jp-legend" id="jp-chart-legend"></div>
+  <div style="position:relative;width:100%;height:calc(100% - 44px);">
+    <canvas id="jp-chart" role="img" aria-label="Gestapeltes Balkendiagramm: Events 2026 nach Monat"></canvas>
+  </div>
+</div>
+
+<div class="jp-pane" id="jp-newevent"><div class="jp-scr"><div class="jp-form-wrap">
+  <div class="jp-form-sec">Neues Event</div>
+  <div class="jp-form-grid">
+    <div class="jp-field"><label>Eventname *</label><input id="jp-nv-name" type="text" placeholder="z.B. Sonepar Basel"></div>
+    <div class="jp-field"><label>Datum *</label><input id="jp-nv-date" type="date"></div>
+    <div class="jp-field"><label>Eventart *</label><select id="jp-nv-type"><option value="">Bitte wählen</option></select></div>
+    <div class="jp-field"><label>Notiz / Ort</label><input id="jp-nv-note" type="text" placeholder="z.B. Romandie"></div>
+  </div>
+  <button class="jp-save" id="btn-jp-add">Event speichern</button>
+  <div class="jp-ok" id="jp-nv-ok">✓ Event gespeichert und Agenda aktualisiert.</div>
+  <hr class="jp-divider">
+  <div class="jp-form-sec">Eventarten verwalten</div>
+  <div class="jp-type-list" id="jp-type-list"></div>
+  <div class="jp-form-grid" style="grid-template-columns:1fr auto 1fr;gap:10px;align-items:end;">
+    <div class="jp-field"><label>Name der neuen Eventart *</label><input id="jp-nt-name" type="text" placeholder="z.B. Workshop"></div>
+    <div class="jp-field"><label>Farbe</label><input id="jp-nt-color" type="color" value="#2563EB"></div>
+    <button class="jp-save sec" id="btn-jp-addtype" style="width:100%;padding:9px;">Eventart hinzufügen</button>
+  </div>
+  <div class="jp-ok" id="jp-nt-ok">✓ Eventart hinzugefügt.</div>
+</div></div></div>
+
+</div>
+</div>
+</div>
+
 
 <!-- ===== MEILENSTEINE ===== -->
 <div class="pane" id="p-meilensteine"><div class="scr">
@@ -732,102 +865,545 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 
 </div>
 
+<!-- EDIT MODAL -->
+<div id="edit-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:1000;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#1C1C1F;border-radius:16px;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.5);width:480px;max-width:90vw;overflow:hidden;">
+    <div style="padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;">
+      <div id="modal-title" style="font-size:15px;font-weight:700;"></div>
+      <button id="btn-modal-x" style="background:none;border:none;color:var(--t3);font-size:18px;cursor:pointer;padding:4px 8px;">&#x2715;</button>
+    </div>
+    <div id="modal-body" style="padding:20px 24px;"></div>
+    <div style="padding:14px 24px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:10px;justify-content:flex-end;">
+      <button id="btn-modal-cancel" style="padding:9px 20px;font-size:12px;font-weight:600;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--s3);color:var(--t1);cursor:pointer;font-family:var(--sans);">Abbrechen</button>
+      <button id="modal-save" style="padding:9px 20px;font-size:12px;font-weight:600;border-radius:8px;border:none;background:var(--wm);color:#fff;cursor:pointer;font-family:var(--sans);">Speichern</button>
+    </div>
+  </div>
+</div>
+
 <script>
-document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.getElementById('p-'+t.dataset.t).classList.add('on');});});
-function tick(){const n=new Date(2026,3,28),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m;const d=new Date(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())),dn=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-dn);const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));document.getElementById('kw').textContent='KW '+Math.ceil((((d-ys)/864e5)+1)/7);}
-tick();setInterval(tick,3e4);
-document.querySelectorAll('.ms-cb').forEach(cb=>{cb.addEventListener('click',()=>cb.classList.toggle('checked'));});
+// =====================================================
+// WEIDMÜLLER DASHBOARD V9 – COMPLETE REWRITE
+// Single refresh() function updates EVERYTHING
+// Zero inline onclick, zero alert(), zero confirm()
+// =====================================================
 
-// === KAPAZITÄT: Date-aware heatmap ===
-(function(){
-const now=new Date(2026,3,28); // 28.04.2026
-const isoKW=w=>{const d=new Date(Date.UTC(2026,0,1));d.setUTCDate(d.getUTCDate()+(w-1)*7);const m=d.getUTCMonth();return['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'][m];};
-const getKW=d=>{const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);const ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil((((t-ys)/864e5)+1)/7);};
-const currentKW=getKW(now);
+// ── GLOBAL STATE ────────────────────────────────────
+var JP_MMAP={"01":"Januar","02":"Februar","03":"März","04":"April","05":"Mai","06":"Juni","07":"Juli","08":"August","09":"September","10":"Oktober","11":"November","12":"Dezember"};
+var JP_MORD=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+var JP_BUILTIN=[{name:"Live Experience",color:"#0A6FD8"},{name:"GH-Schulung",color:"#1A8A3A"},{name:"Messe / Event",color:"#7A3DAF"}];
+var JP_DEFAULTS=[
+{m:"März",d:"19.03.2026",n:"EM Heiden",t:"GH-Schulung",note:""},
+{m:"März",d:"26.03.2026",n:"Orange Day KW13 MB/TI",t:"Live Experience",note:""},
+{m:"März",d:"31.03.2026",n:"PV Tagung Bern",t:"Messe / Event",note:""},
+{m:"April",d:"17.04.2026",n:"Solarmarkt Stammtisch",t:"Messe / Event",note:""},
+{m:"April",d:"21.04.2026",n:"SIAMS",t:"Messe / Event",note:""},
+{m:"April",d:"28.04.2026",n:"Sonepar Meyrin",t:"GH-Schulung",note:""},
+{m:"April",d:"29.04.2026",n:"Sonepar Rothenburg",t:"GH-Schulung",note:""},
+{m:"April",d:"29.04.2026",n:"VSAS Vorstandsitzung NWCH",t:"Messe / Event",note:""},
+{m:"Mai",d:"05.05.2026",n:"Electro-Forum Bern",t:"Messe / Event",note:""},
+{m:"Mai",d:"05.05.2026",n:"Bahntagung electrosuisse",t:"Messe / Event",note:""},
+{m:"Mai",d:"19.05.2026",n:"Solexis",t:"GH-Schulung",note:""},
+{m:"Mai",d:"20.05.2026",n:"Solexis Olten",t:"GH-Schulung",note:""},
+{m:"Mai",d:"28.05.2026",n:"Krannich Netzwerkanlass FR",t:"Messe / Event",note:""},
+{m:"Mai",d:"29.05.2026",n:"Solarmarkt Webinar",t:"Messe / Event",note:""},
+{m:"Juni",d:"03.06.2026",n:"Orange Day National",t:"Live Experience",note:""},
+{m:"Juni",d:"04.06.2026",n:"ELECTRIC DAY Lausanne",t:"Messe / Event",note:""},
+{m:"Juni",d:"08.06.2026",n:"EM Lugano",t:"GH-Schulung",note:""},
+{m:"Juni",d:"09.06.2026",n:"Krannich Netzwerkanlass IT",t:"Messe / Event",note:""},
+{m:"Juni",d:"10.06.2026",n:"Zuken Innovation World",t:"Messe / Event",note:""},
+{m:"Juni",d:"11.06.2026",n:"Elektroforum Kloten",t:"Messe / Event",note:""},
+{m:"Juni",d:"16.06.2026",n:"EM Genève",t:"GH-Schulung",note:""},
+{m:"Juni",d:"17.06.2026",n:"EM Lausanne",t:"GH-Schulung",note:""},
+{m:"Juni",d:"18.06.2026",n:"EM Sion",t:"GH-Schulung",note:""},
+{m:"Juni",d:"19.06.2026",n:"EEV Generalversammlung",t:"Messe / Event",note:""},
+{m:"Juli",d:"01.07.2026",n:"EM Thekentag Zürich",t:"Messe / Event",note:""},
+{m:"Juli",d:"02.07.2026",n:"Electric Day Colombier",t:"Messe / Event",note:""},
+{m:"August",d:"18.08.2026",n:"EM Bern EIT",t:"GH-Schulung",note:""},
+{m:"August",d:"26.08.2026",n:"all about automation Zürich",t:"Messe / Event",note:""},
+{m:"September",d:"09.09.2026",n:"Ineltec Zürich",t:"Messe / Event",note:""},
+{m:"September",d:"16.09.2026",n:"Solar Storage Live Zurich",t:"Messe / Event",note:""},
+{m:"September",d:"23.09.2026",n:"Electric Days Genève",t:"Messe / Event",note:""},
+{m:"September",d:"29.09.2026",n:"EM Zürich",t:"GH-Schulung",note:""},
+{m:"Oktober",d:"01.10.2026",n:"Orange Day National",t:"Live Experience",note:""},
+{m:"Oktober",d:"07.10.2026",n:"ElettroEspo",t:"Messe / Event",note:""},
+{m:"Oktober",d:"08.10.2026",n:"Sonepar Muttenz",t:"GH-Schulung",note:""},
+{m:"Oktober",d:"20.10.2026",n:"EM Luzern AAL",t:"GH-Schulung",note:""},
+{m:"Oktober",d:"22.10.2026",n:"Sonepar Wallisellen",t:"GH-Schulung",note:""},
+{m:"Oktober",d:"28.10.2026",n:"Sonepar Colombier",t:"GH-Schulung",note:""},
+{m:"Oktober",d:"29.10.2026",n:"EM Basel",t:"GH-Schulung",note:""},
+{m:"Oktober",d:"30.10.2026",n:"Sonepar Ittigen",t:"GH-Schulung",note:""},
+{m:"November",d:"12.11.2026",n:"Eplan Partner Event",t:"Messe / Event",note:""}
+];
+var SM_DEFAULTS=[
+{m:"April",n:"SIAMS 01 Messeauftritt",art:"Beitrag",plat:"LinkedIn"},
+{m:"April",n:"SIAMS 02 Highlights",art:"Beitrag",plat:"LinkedIn"},
+{m:"April",n:"Stripax Schneller abisolieren",art:"Beitrag",plat:"LinkedIn"},
+{m:"April",n:"Boris bringts auf den Punkt Apr",art:"Reel",plat:"LinkedIn"},
+{m:"April",n:"Montageprozesse beschleunigen",art:"Beitrag",plat:"LinkedIn"},
+{m:"April",n:"Orange Mag 25 Jahre WCH Apr",art:"Karussell",plat:"LinkedIn"},
+{m:"Mai",n:"SNAP IN Video_1",art:"Reel",plat:"LinkedIn"},
+{m:"Mai",n:"Orange Mag InnoLoft IPA NG",art:"Karussell",plat:"LinkedIn"},
+{m:"Mai",n:"Stripax Werkzeugtechnik",art:"Beitrag",plat:"LinkedIn"},
+{m:"Mai",n:"Boris bringts auf den Punkt Mai",art:"Reel",plat:"LinkedIn"},
+{m:"Mai",n:"Orange Mag 25 Jahre WCH Mai",art:"Karussell",plat:"LinkedIn"},
+{m:"Mai",n:"IndustryMatch Schaltschrankbau",art:"Beitrag",plat:"LinkedIn"},
+{m:"Juni",n:"SNAP IN kostenlos testen",art:"Beitrag",plat:"LinkedIn"},
+{m:"Juni",n:"Orange Day National Highlights",art:"Karussell",plat:"LinkedIn"},
+{m:"Juni",n:"Referenz Story",art:"Karussell",plat:"LinkedIn"},
+{m:"Juni",n:"Boris bringts auf den Punkt Jun",art:"Reel",plat:"LinkedIn"},
+{m:"Juni",n:"Orange Mag 25 Jahre WCH Jun",art:"Karussell",plat:"LinkedIn"},
+{m:"Juni",n:"IndustryMatch PV einfach installiert",art:"Beitrag",plat:"LinkedIn"}
+];
+var MONTH_NL={3:{nl:"#04",title:"Safety & Security",desc:"Sichere Verbindungen für kritische Infrastruktur.",chips:'<span class="chip ct">SNAP IN</span><span class="chip cj">Awareness</span>',industry:[["Schaltschrankbau","KW 14–17"],["Maschinenbau","KW 14–17"],["Bahnindustrie","KW 14–17"]],kw:"KW 14–17"},4:{nl:"#05",title:"Data Flow / Vernetzung",desc:"Offener Datenaustausch, interoperable Systeme.",chips:'<span class="chip ct">SNAP IN Video</span><span class="chip cj">Consideration</span>',industry:[["Gebäudeinfrastruktur","KW 18–22"],["Gerätehersteller","KW 18–22"],["Maschinenbau","KW 18–22"]],kw:"KW 18–22"},5:{nl:"#06",title:"Kompetenz von Anfang an",desc:"Industry Match als Türöffner.",chips:'<span class="chip ct">SNAP IN Portfolio</span><span class="chip cj">Consideration</span>',industry:[["Photovoltaik","KW 23–26"],["Schaltschrankbau","KW 23–26"],["Wasser & Abwasser","KW 23–26"]],kw:"KW 23–26"}};
+var SOC_STATES=["none","wip","check","review","done"];
+var SOC_LABELS={none:"\u25CB Offen",wip:"\u25CF In Arbeit",check:"\u25D0 Abklärung",review:"! Prüfung",done:"\u2713 Publiziert"};
+var ART_CSS={Beitrag:"fmt-s",Karussell:"fmt-c",Reel:"fmt-r",Story:"fmt-r"};
 
-// Update date display
-const dd=String(now.getDate()).padStart(2,'0'),mm=String(now.getMonth()+1).padStart(2,'0');
-document.getElementById('kap-date').textContent=dd+'.'+mm+'.'+now.getFullYear();
-document.getElementById('kap-kw2').textContent='KW '+currentKW;
+// ── LOAD FROM LOCALSTORAGE ──────────────────────────
+function load(k,def){try{var s=localStorage.getItem(k);if(s)return JSON.parse(s);}catch(e){}return def.map(function(x){return Object.assign({},x);});}
+function loadObj(k){try{var s=localStorage.getItem(k);if(s)return JSON.parse(s);}catch(e){}return{};}
+var jpEvtData=load("wch_jp_2026",JP_DEFAULTS);
+var jpCustomTypes=loadObj("wch_jp_types")||[];
+if(!Array.isArray(jpCustomTypes))jpCustomTypes=[];
+var smPosts=load("wch_sm_posts",SM_DEFAULTS);
+var socStatuses=loadObj("wch_soc_status2");
+var msChecks=loadObj("wch_ms_checks");
 
-// Activity data per KW (from Excel)
-const kwData={
-14:{nl:1,social:2,events:0,note:'NL#04 Produktion'},
-15:{nl:0,social:2,events:0,note:'Social-Ableitungen'},
-16:{nl:0,social:1,events:1,note:'Solarmarkt Stammtisch'},
-17:{nl:0,social:1,events:4,note:'SIAMS + Sonepar×2 + VSAS'},
-18:{nl:1,social:2,events:0,note:'NL#05 Produktion'},
-19:{nl:0,social:2,events:2,note:'Electro-Forum + Bahntagung'},
-20:{nl:0,social:1,events:2,note:'Solexis + Solexis Olten'},
-21:{nl:0,social:1,events:0,note:'Social + Analyse'},
-22:{nl:0,social:0,events:3,note:'Krannich + Solarmarkt + ELECTRIC DAY'},
-23:{nl:1,social:2,events:1,note:'NL#06 + Orange Day National'},
-24:{nl:0,social:2,events:4,note:'Lugano + Krannich + Zuken + ELECTRIC DAY'},
-25:{nl:0,social:1,events:5,note:'Elektroforum + EM×3 + EEV'},
-26:{nl:0,social:1,events:0,note:'Analyse + Vorbereitung'},
-27:{nl:1,social:1,events:2,note:'NL#07 + EM Thekentag + Electric Day'},
-28:{nl:0,social:1,events:0,note:'Social'},
-29:{nl:0,social:1,events:0,note:'Analyse'},
-30:{nl:0,social:1,events:0,note:'Vorbereitung'},
-31:{nl:1,social:1,events:0,note:'NL#08 Produktion'},
-32:{nl:0,social:1,events:0,note:'Social'},
-33:{nl:0,social:1,events:0,note:'Analyse'},
-34:{nl:0,social:1,events:1,note:'EM Bern (EIT)'},
-35:{nl:0,social:1,events:1,note:'all about automation'},
-36:{nl:1,social:1,events:0,note:'NL#09 Produktion'},
-37:{nl:0,social:1,events:1,note:'Ineltec'},
-38:{nl:0,social:1,events:2,note:'Solar&Storage + Electric Days'},
-39:{nl:0,social:1,events:1,note:'EM Zürich'},
-40:{nl:1,social:1,events:1,note:'NL#10 + Orange Day National'},
-41:{nl:0,social:1,events:3,note:'ElettroEspo + Sonepar Muttenz + Orange Day'},
-42:{nl:0,social:1,events:2,note:'EM Luzern + Sonepar Wallisellen'},
-43:{nl:0,social:1,events:1,note:'Sonepar Colombier'},
-44:{nl:1,social:1,events:0,note:'NL#11 Produktion'},
-45:{nl:0,social:1,events:0,note:'Social'},
-46:{nl:0,social:1,events:1,note:'Eplan Partner Event'},
-};
+function save(){try{localStorage.setItem("wch_jp_2026",JSON.stringify(jpEvtData));localStorage.setItem("wch_jp_types",JSON.stringify(jpCustomTypes));localStorage.setItem("wch_sm_posts",JSON.stringify(smPosts));localStorage.setItem("wch_soc_status2",JSON.stringify(socStatuses));localStorage.setItem("wch_ms_checks",JSON.stringify(msChecks));}catch(e){}}
 
-const tbody=document.getElementById('hm-body');
-let monthEvents={};
-for(let kw=14;kw<=48;kw++){
-  const d=kwData[kw]||{nl:0,social:0,events:0,note:''};
-  const total=d.nl+Math.ceil(d.social/2)+d.events;
-  const isPast=kw<currentKW;const isNow=kw===currentKW;
-  const lvl=total>=4?4:total>=3?3:total>=2?2:total>=1?1:0;
-  const cls=isNow?'kw-now':isPast?'kw-past':'';
-  const lbCls=['lb-0','lb-1','lb-2','lb-3','lb-4'][lvl];
-  const barCls=['hm-g','hm-g','hm-y','hm-o','hm-r'][lvl];
-  const barW=Math.max(8,total*14);
-  const mon=isoKW(kw);
+// ── HELPERS ─────────────────────────────────────────
+function getKW(d){var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);var ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil((((t-ys)/864e5)+1)/7);}
+function parseDate(s){var p=s.split(".");return new Date(+p[2],p[1]-1,+p[0]);}
+function etCls(t){return t==="GH-Schulung"?"t-sc":t==="Live Experience"?"t-od":"t-me";}
+function jpAllTypes(){return JP_BUILTIN.concat(jpCustomTypes);}
+function jpColor(t){var f=jpAllTypes().find(function(x){return x.name===t;});return f?f.color:"#888";}
+function socKey(name,month){return(name+"|"+(month||"").substring(0,3)).replace(/[^a-zA-Z0-9äöüÄÖÜ|]/g,"").toLowerCase();}
+function $(id){return document.getElementById(id);}
 
-  // Accumulate for month bars
-  if(!monthEvents[mon])monthEvents[mon]={ev:0,nl:0,soc:0};
-  monthEvents[mon].ev+=d.events;monthEvents[mon].nl+=d.nl;monthEvents[mon].soc+=d.social;
-
-  const tr=document.createElement('tr');
-  tr.className=cls;
-  tr.innerHTML=`<td class="hm-kw">KW ${kw}</td><td style="color:var(--t3);font-size:11px;">${mon}</td><td class="hm-act">${d.nl?'<span style="color:var(--wm);font-weight:700;">NL</span>':'-'}</td><td class="hm-act">${d.social||'-'}</td><td class="hm-act" style="font-weight:${d.events>=3?'700':'400'};color:${d.events>=3?'var(--red)':d.events>=2?'var(--yel)':'var(--t2)'};">${d.events||'-'}</td><td><span class="hm-bar ${barCls}" style="width:${barW}px;"></span></td><td><span class="load-badge ${lbCls}">${total}</span></td>`;
-  tbody.appendChild(tr);
+// ── MODAL ───────────────────────────────────────────
+function closeModal(){$("edit-modal").style.display="none";$("modal-save").textContent="Speichern";$("modal-save").style.background="var(--wm)";}
+function showModal(title,bodyHtml,onSave,saveLabel,saveColor){
+  $("modal-title").textContent=title;
+  $("modal-body").innerHTML=bodyHtml;
+  $("modal-save").textContent=saveLabel||"Speichern";
+  $("modal-save").style.background=saveColor||"var(--wm)";
+  $("modal-save").onclick=function(){onSave();};
+  $("edit-modal").style.display="block";
 }
 
-// Month bars
-const monthDiv=document.getElementById('kap-months');
-const monthOrder=['Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov'];
-const currentMonth=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'][now.getMonth()];
-monthOrder.forEach(m=>{
-  const d=monthEvents[m]||{ev:0,nl:0,soc:0};
-  const total=d.ev+d.nl+Math.ceil(d.soc/3);
-  const maxCap=10;
-  const pct=Math.min(100,Math.round(total/maxCap*100));
-  const color=pct>=80?'var(--red)':pct>=60?'#FF9500':pct>=40?'var(--yel)':'var(--grn)';
-  const isNow=m===currentMonth.substring(0,3);
-  const div=document.createElement('div');
-  div.className='kap-month';
-  if(isNow)div.style.cssText='background:var(--wmg);border:1px solid rgba(255,107,0,.12);';
-  div.innerHTML=`<div class="kap-month-n" ${isNow?'style="color:var(--wm);"':''}>${m}</div><div class="kap-month-bar"><div class="kap-month-fill" style="width:${pct}%;background:${color};"></div></div><div class="kap-month-info">${d.ev}E ${d.nl}N ${d.soc}S</div>`;
-  monthDiv.appendChild(div);
+// ── TAB NAVIGATION ──────────────────────────────────
+document.querySelectorAll(".tab").forEach(function(t){
+  t.addEventListener("click",function(){
+    document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on");});
+    document.querySelectorAll(".pane").forEach(function(x){x.classList.remove("on");});
+    t.classList.add("on");
+    var p=$("p-"+t.getAttribute("data-t"));
+    if(p)p.classList.add("on");
+    refresh();
+  });
 });
-})();
+
+// ── CLOCK ───────────────────────────────────────────
+function tick(){var n=new Date();$("clock").textContent=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");$("kw").textContent="KW "+getKW(n);}
+tick();setInterval(tick,30000);
+
+// ── SOCIAL STATUS ON .soc ELEMENTS ──────────────────
+function applySocialStatus(){
+  document.querySelectorAll(".soc").forEach(function(el){
+    if(el.querySelector(".soc-status"))return;
+    var titleEl=el.querySelector(".soc-t");if(!titleEl)return;
+    var mc="";
+    var col=el.closest(".mcol");if(col){var h=col.querySelector(".mcol-h h3");if(h)mc=h.textContent.substring(0,3);}
+    if(!mc){var fm=el.closest("[id^='fm-m']");if(fm){var tid="tab-m"+fm.id.replace("fm-m","");var tab=$(tid);if(tab)mc=tab.textContent.substring(0,3);}}
+    var key=socKey(titleEl.textContent,mc);
+    var state=socStatuses[key]||"none";
+    var btn=document.createElement("button");
+    btn.className="soc-status ss-"+state;
+    btn.textContent=SOC_LABELS[state];
+    el.classList.toggle("published",state==="done");
+    (function(k){
+      btn.addEventListener("click",function(ev){
+        ev.stopPropagation();
+        var cur=socStatuses[k]||"none";
+        var nxt=SOC_STATES[(SOC_STATES.indexOf(cur)+1)%SOC_STATES.length];
+        socStatuses[k]=nxt;save();
+        document.querySelectorAll(".soc").forEach(function(s){
+          var st=s.querySelector(".soc-t");if(!st)return;
+          var m2="";var c2=s.closest(".mcol");if(c2){var h2=c2.querySelector(".mcol-h h3");if(h2)m2=h2.textContent.substring(0,3);}
+          if(!m2){var f2=s.closest("[id^='fm-m']");if(f2){var t2="tab-m"+f2.id.replace("fm-m","");var ta=$(t2);if(ta)m2=ta.textContent.substring(0,3);}}
+          if(socKey(st.textContent,m2)===k){
+            s.classList.toggle("published",nxt==="done");
+            var b=s.querySelector(".soc-status");
+            if(b){b.className="soc-status ss-"+nxt;b.textContent=SOC_LABELS[nxt];}
+          }
+        });
+        renderSmTab();
+      });
+    })(key);
+    el.appendChild(btn);
+  });
+}
+
+// ── MEILENSTEIN CHECKBOXEN ──────────────────────────
+document.querySelectorAll(".ms-cb").forEach(function(cb,i){
+  var id="ms_"+i;
+  if(msChecks[id])cb.classList.add("checked");
+  cb.addEventListener("click",function(){
+    cb.classList.toggle("checked");
+    msChecks[id]=cb.classList.contains("checked");
+    save();
+  });
+});
+
+// ── MODAL BUTTON BINDINGS ───────────────────────────
+$("btn-modal-x").addEventListener("click",closeModal);
+$("btn-modal-cancel").addEventListener("click",closeModal);
+$("edit-modal").addEventListener("click",function(ev){if(ev.target===this)closeModal();});
+
+// ════════════════════════════════════════════════════
+//  MASTER REFRESH – called after ANY data change
+// ════════════════════════════════════════════════════
+function refresh(){
+  renderOverview();
+  renderMonthTabs();
+  renderHeatmap();
+  renderSmTab();
+  renderJpAgenda();
+  renderRhythm();
+}
+
+// ── OVERVIEW: Events ────────────────────────────────
+function renderOverview(){
+  var now=new Date();
+  // Next events box
+  var box=$("ov-events");
+  if(box){
+    var upcoming=jpEvtData.filter(function(e){return parseDate(e.d)>=new Date(now.getFullYear(),now.getMonth(),now.getDate()-1);}).sort(function(a,b){return parseDate(a.d)-parseDate(b.d);}).slice(0,8);
+    box.innerHTML=upcoming.map(function(e,i){var kw=getKW(parseDate(e.d));return'<div class="ev'+(i===0?" next":"")+'"><div class="ev-kw">KW '+kw+'</div><div class="ev-name">'+(i===0?'<span style="color:var(--wm)">':"")+e.n+(i===0?"</span>":"")+'</div><div class="ev-date">'+e.d.substring(0,6)+'</div><span class="et '+etCls(e.t)+'">'+e.t.split("/")[0]+'</span></div>';}).join("");
+  }
+  // Month column events
+  var evMap={April:"ov-ev-apr",Mai:"ov-ev-mai",Juni:"ov-ev-jun"};
+  Object.keys(evMap).forEach(function(mn){
+    var el=$(evMap[mn]);if(!el)return;
+    var evts=jpEvtData.filter(function(e){return e.m===mn;}).sort(function(a,b){return parseDate(a.d)-parseDate(b.d);});
+    el.innerHTML=evts.map(function(e){return'<div class="ev" style="font-size:11px;"><div class="ev-kw">'+getKW(parseDate(e.d))+'</div><div class="ev-name">'+e.n+'</div><div class="ev-date">'+e.d.substring(0,6)+'</div></div>';}).join("")||'<div style="font-size:10px;color:var(--t3);">Keine</div>';
+  });
+  // Month column social
+  var socMap={April:"ov-soc-apr",Mai:"ov-soc-mai",Juni:"ov-soc-jun"};
+  var lblMap={April:"ov-soc-apr-label",Mai:"ov-soc-mai-label",Juni:"ov-soc-jun-label"};
+  Object.keys(socMap).forEach(function(mn){
+    var el=$(socMap[mn]);if(!el)return;
+    var posts=smPosts.filter(function(p){return p.m===mn;});
+    el.innerHTML=posts.map(function(p){return'<div class="soc"><div class="soc-t">'+p.n+'</div><div class="soc-m"><span class="fmt '+(ART_CSS[p.art]||"fmt-s")+'">'+p.art+'</span><span class="chip ck">'+p.plat+'</span></div></div>';}).join("");
+    var lbl=$(lblMap[mn]);if(lbl)lbl.textContent="Social ("+posts.length+" Beiträge)";
+  });
+  applySocialStatus();
+  // Q label
+  var curM=now.getMonth();
+  var qL=curM<3?"Q1":curM<6?"Q2":curM<9?"Q3":"Q4";
+  var ovTab=$("tab-overview");if(ovTab)ovTab.textContent="Übersicht "+qL;
+}
+
+// ── MONTH TABS ──────────────────────────────────────
+function renderMonthTabs(){
+  var curM=new Date().getMonth();
+  for(var i=0;i<3;i++){
+    var mi=(curM+i)%12;
+    var tab=$("tab-m"+i),container=$("fm-m"+i);
+    if(!tab||!container)continue;
+    var mName=JP_MORD[mi];
+    tab.textContent=mName;
+    var md=MONTH_NL[mi];
+    var events=jpEvtData.filter(function(e){return e.m===mName;}).sort(function(a,b){return parseDate(a.d)-parseDate(b.d);});
+    var posts=smPosts.filter(function(p){return p.m===mName;});
+    var evH=events.map(function(e){return'<div class="ev" style="font-size:13px;padding:10px 14px;margin-bottom:6px;"><div class="ev-kw" style="font-size:11px;">KW '+getKW(parseDate(e.d))+'</div><div class="ev-name">'+e.n+'</div><div class="ev-date" style="font-size:11px;">'+e.d.substring(0,6)+'</div><span class="et '+etCls(e.t)+'">'+e.t.split("/")[0]+'</span></div>';}).join("");
+    var soH=posts.map(function(p){return'<div class="soc" style="padding:10px 14px;margin-bottom:6px;padding-right:80px;"><div class="soc-t" style="font-size:14px;">'+p.n+'</div><div class="soc-m" style="gap:4px;margin-top:6px;"><span class="fmt '+(ART_CSS[p.art]||"fmt-s")+'" style="font-size:10px;">'+p.art+'</span><span class="chip ck">'+p.plat+'</span></div></div>';}).join("");
+    if(!md){
+      container.innerHTML='<div style="padding:20px;"><div class="card" style="padding:20px;text-align:center;color:var(--t3);">Noch keine Planung für '+mName+' hinterlegt.</div>'+(soH?'<div class="card" style="margin-top:12px;padding:16px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social ('+posts.length+')</div>'+soH+'</div>':'')+(evH?'<div class="card" style="margin-top:12px;padding:16px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events ('+events.length+')</div>'+evH+'</div>':'')+'</div>';
+    } else {
+      var indH=md.industry.map(function(x){return'<div class="ib" style="padding:10px 14px;font-size:14px;margin-bottom:6px;"><div class="ib-n">'+x[0]+'</div><div class="ib-k" style="font-size:11px;">'+x[1]+'</div></div>';}).join("");
+      var isNow=mi===new Date().getMonth();
+      container.innerHTML='<div class="fm-head" '+(isNow?"":"style=\"background:linear-gradient(135deg,#1C1C1F,#2C2C30);\"")+'><h2>'+mName+' 2026 – '+md.title+'</h2><span>'+md.kw+'</span></div><div class="fm-grid"><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Newsletter '+md.nl+'</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">'+md.title+'</div><div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.5;">'+md.desc+'</div><div style="display:flex;flex-wrap:wrap;gap:4px;">'+md.chips+'</div></div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Industry-Fokus</div>'+indH+'</div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Social Media ('+posts.length+')</div>'+soH+'</div><div class="card"><div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:8px;">Events ('+events.length+')</div>'+(evH||'<div style="font-size:12px;color:var(--t3);">Keine</div>')+'</div></div>';
+    }
+    applySocialStatus();
+  }
+}
+
+// ── RHYTHM ──────────────────────────────────────────
+function renderRhythm(){
+  var now=new Date();
+  var lbl=$("ov-rhythm-label");if(lbl)lbl.textContent="Monatsrhythmus – "+JP_MORD[now.getMonth()]+" "+now.getFullYear();
+  var box=$("ov-rhythm");if(!box)return;
+  var w=Math.min(4,Math.ceil(now.getDate()/7));
+  var ws=[{n:"WOCHE 1",t:"Newsletter",d:"Erstellen & versenden"},{n:"WOCHE 2",t:"6 Social Posts",d:"2 Posts pro Woche ableiten"},{n:"WOCHE 3",t:"Analyse",d:"Klickraten, Traffic, Learnings"},{n:"WOCHE 4",t:"Vorbereitung",d:"Nächste Kampagne vorbereiten"}];
+  box.innerHTML=ws.map(function(x,i){return'<div class="rw'+(i+1===w?" now":"")+'"><div class="rw-n">'+x.n+'</div><div class="rw-t">'+x.t+'</div><div class="rw-d">'+x.d+'</div></div>';}).join("");
+}
+
+// ── HEATMAP ─────────────────────────────────────────
+function renderHeatmap(){
+  var now=new Date(),curKW=getKW(now);
+  var kd=$("kap-date");if(kd)kd.textContent=String(now.getDate()).padStart(2,"0")+"."+String(now.getMonth()+1).padStart(2,"0")+"."+now.getFullYear();
+  var kk=$("kap-kw2");if(kk)kk.textContent="KW "+curKW;
+  var nls={14:1,18:1,23:1,27:1,31:1,36:1,40:1,44:1};
+  var kw={};for(var w=14;w<=48;w++)kw[w]={nl:nls[w]||0,s:0,ev:0};
+  // Events from Jahresplanung
+  jpEvtData.forEach(function(e){var k=getKW(parseDate(e.d));if(kw[k])kw[k].ev++;});
+  // Social from smPosts – distribute per month across its KWs
+  var smByMonth={};
+  smPosts.forEach(function(p){smByMonth[p.m]=(smByMonth[p.m]||0)+1;});
+  var monthKWs={April:[14,15,16,17],Mai:[18,19,20,21,22],Juni:[23,24,25,26],Juli:[27,28,29,30],August:[31,32,33,34,35],September:[36,37,38,39],Oktober:[40,41,42,43,44],November:[45,46,47,48]};
+  Object.keys(smByMonth).forEach(function(m){
+    var ks=monthKWs[m];if(!ks)return;
+    var perWeek=Math.ceil(smByMonth[m]/ks.length);
+    var remaining=smByMonth[m];
+    ks.forEach(function(w){
+      if(kw[w]&&remaining>0){var add=Math.min(perWeek,remaining);kw[w].s+=add;remaining-=add;}
+    });
+  });
+  var tb=$("hm-body");if(!tb)return;tb.innerHTML="";
+  var md=$("kap-months");if(md)md.innerHTML="";
+  var me={};
+  var iKW=function(w){var d=new Date(Date.UTC(2026,0,1));d.setUTCDate(d.getUTCDate()+(w-1)*7);return["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"][d.getUTCMonth()];};
+  for(var w=14;w<=48;w++){
+    var d=kw[w],tot=d.nl+Math.ceil(d.s/2)+d.ev;
+    var past=w<curKW,cur=w===curKW;
+    var lv=tot>=4?4:tot>=3?3:tot>=2?2:tot>=1?1:0;
+    var mn=iKW(w);
+    if(!me[mn])me[mn]={ev:0,nl:0,s:0};me[mn].ev+=d.ev;me[mn].nl+=d.nl;me[mn].s+=d.s;
+    var tr=document.createElement("tr");tr.className=cur?"kw-now":past?"kw-past":"";
+    tr.innerHTML='<td class="hm-kw">KW '+w+'</td><td style="color:var(--t3);font-size:11px;">'+mn+'</td><td class="hm-act">'+(d.nl?'<span style="color:var(--wm);font-weight:700;">NL</span>':"-")+'</td><td class="hm-act">'+(d.s||"-")+'</td><td class="hm-act" style="font-weight:'+(d.ev>=3?"700":"400")+';color:'+(d.ev>=3?"var(--red)":d.ev>=2?"var(--yel)":"var(--t2)")+';">'+(d.ev||"-")+'</td><td><span class="hm-bar '+["hm-g","hm-g","hm-y","hm-o","hm-r"][lv]+'" style="width:'+Math.max(8,tot*14)+'px;"></span></td><td><span class="load-badge '+["lb-0","lb-1","lb-2","lb-3","lb-4"][lv]+'">'+tot+'</span></td>';
+    tb.appendChild(tr);
+  }
+  if(!md)return;
+  ["Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov"].forEach(function(m){
+    var d=me[m]||{ev:0,nl:0,s:0};var tot=d.ev+d.nl+Math.ceil(d.s/3);
+    var pct=Math.min(100,Math.round(tot/10*100));
+    var col=pct>=80?"var(--red)":pct>=60?"#FF9500":pct>=40?"var(--yel)":"var(--grn)";
+    var isN=m===["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"][now.getMonth()];
+    var div=document.createElement("div");div.className="kap-month";
+    if(isN)div.style.cssText="background:var(--wmg);border:1px solid rgba(255,107,0,.12);";
+    div.innerHTML='<div class="kap-month-n" '+(isN?'style="color:var(--wm);"':"")+'>'+m+'</div><div class="kap-month-bar"><div class="kap-month-fill" style="width:'+pct+'%;background:'+col+';"></div></div><div class="kap-month-info">'+d.ev+'E '+d.nl+'N '+d.s+'S</div>';
+    md.appendChild(div);
+  });
+}
+
+// ── SOCIAL MEDIA TAB ────────────────────────────────
+function renderSmTab(){
+  var tb=$("sm-tbody");if(!tb)return;
+  tb.innerHTML="";
+  var mons=["April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+  var total=0,pub=0,wip=0;
+  mons.forEach(function(m){
+    var posts=[];
+    smPosts.forEach(function(p,idx){if(p.m===m)posts.push({p:p,idx:idx});});
+    if(!posts.length)return;
+    var mh=document.createElement("tr");mh.className="sm-month-h";
+    mh.innerHTML='<td colspan="6">'+m.toUpperCase()+" ("+posts.length+" Beiträge)</td>";
+    tb.appendChild(mh);
+    posts.forEach(function(item){
+      total++;
+      var p=item.p,idx=item.idx;
+      var key=socKey(p.n,p.m);
+      var st=socStatuses[key]||"none";
+      if(st==="done")pub++;if(st==="wip")wip++;
+      var tr=document.createElement("tr");
+      // Build cells with createElement – no innerHTML onclick
+      var c0=document.createElement("td");
+      var c1=document.createElement("td");c1.style.fontWeight="500";c1.textContent=p.n;
+      var c2=document.createElement("td");c2.innerHTML='<span class="fmt '+(ART_CSS[p.art]||"fmt-s")+'">'+p.art+"</span>";
+      var c3=document.createElement("td");c3.innerHTML='<span class="chip ck">'+p.plat+"</span>";
+      var c4=document.createElement("td");
+      var sbtn=document.createElement("span");
+      sbtn.className="soc-status ss-"+st;
+      sbtn.style.cssText="position:static;cursor:pointer;";
+      sbtn.textContent=SOC_LABELS[st];
+      (function(k){sbtn.addEventListener("click",function(){
+        var c=socStatuses[k]||"none";
+        var n=SOC_STATES[(SOC_STATES.indexOf(c)+1)%SOC_STATES.length];
+        socStatuses[k]=n;save();refresh();
+      });})(key);
+      c4.appendChild(sbtn);
+      var c5=document.createElement("td");
+      var btns=document.createElement("div");btns.className="act-btns";
+      var eb=document.createElement("button");eb.className="btn-edit";eb.innerHTML="\u270E";
+      (function(ii){eb.addEventListener("click",function(){smEdit(ii);});})(idx);
+      var db=document.createElement("button");db.className="btn-del";db.innerHTML="\u2715";
+      (function(ii){db.addEventListener("click",function(){smDel(ii);});})(idx);
+      btns.appendChild(eb);btns.appendChild(db);c5.appendChild(btns);
+      tr.appendChild(c0);tr.appendChild(c1);tr.appendChild(c2);tr.appendChild(c3);tr.appendChild(c4);tr.appendChild(c5);
+      tb.appendChild(tr);
+    });
+  });
+  var cd=$("sm-counts");
+  if(cd)cd.innerHTML='<div class="sm-count-box"><div class="sm-count-n">'+total+'</div><div class="sm-count-l">Total</div></div><div class="sm-count-box"><div class="sm-count-n" style="color:var(--grn);">'+pub+'</div><div class="sm-count-l">Publiziert</div></div><div class="sm-count-box"><div class="sm-count-n" style="color:var(--wm);">'+(total-pub)+'</div><div class="sm-count-l">Ausstehend</div></div><div class="sm-count-box"><div class="sm-count-n" style="color:var(--blu);">'+wip+'</div><div class="sm-count-l">In Arbeit</div></div>';
+}
+
+function smEdit(i){
+  var p=smPosts[i];if(!p)return;
+  var mons=["April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+  var arts=["Beitrag","Karussell","Reel","Story"];
+  var plats=["LinkedIn","Instagram","LinkedIn + Instagram"];
+  var h='<div class="mod-field"><label>Beitragsname</label><input id="mod-n" value="'+p.n.replace(/"/g,"&quot;")+'"></div><div class="mod-field"><label>Monat</label><select id="mod-m">'+mons.map(function(m){return"<option"+(m===p.m?" selected":"")+">"+m+"</option>";}).join("")+'</select></div><div class="mod-field"><label>Beitragsart</label><select id="mod-a">'+arts.map(function(a){return"<option"+(a===p.art?" selected":"")+">"+a+"</option>";}).join("")+'</select></div><div class="mod-field"><label>Plattform</label><select id="mod-p">'+plats.map(function(x){return"<option"+(x===p.plat?" selected":"")+">"+x+"</option>";}).join("")+"</select></div>";
+  showModal("Beitrag bearbeiten",h,function(){
+    var n=$("mod-n").value.trim();if(!n)return;
+    smPosts[i]={m:$("mod-m").value,n:n,art:$("mod-a").value,plat:$("mod-p").value};
+    save();closeModal();refresh();
+  });
+}
+
+function smDel(i){
+  showModal("Beitrag löschen?",'<p style="font-size:14px;color:var(--t2);">Beitrag <strong style="color:var(--t1);">'+smPosts[i].n+'</strong> wirklich löschen?</p>',function(){
+    smPosts.splice(i,1);save();closeModal();refresh();
+  },"Löschen","var(--red)");
+}
+
+$("btn-sm-add").addEventListener("click",function(){
+  var n=$("sm-name").value.trim();
+  var m=$("sm-month").value;
+  var a=$("sm-type").value;
+  var p=$("sm-plat").value;
+  if(!n||!m||!a||!p)return;
+  smPosts.push({m:m,n:n,art:a,plat:p});
+  save();$("sm-name").value="";$("sm-month").value="";$("sm-type").value="";$("sm-plat").value="";
+  var ok=$("sm-ok");ok.style.display="block";setTimeout(function(){ok.style.display="none";},2000);
+  refresh();
+});
+
+// ── JAHRESPLANUNG ───────────────────────────────────
+function jpRefreshDD(){
+  var types=jpAllTypes();
+  ["jp-t","jp-nv-type"].forEach(function(id){
+    var sel=$(id);if(!sel)return;
+    var cur=sel.value;var isF=id==="jp-t";
+    sel.innerHTML=isF?'<option value="">Alle</option>':'<option value="">Bitte wählen</option>';
+    types.forEach(function(t){var o=document.createElement("option");o.value=t.name;o.textContent=t.name;sel.appendChild(o);});
+    if(Array.from(sel.options).some(function(o){return o.value===cur;}))sel.value=cur;
+  });
+  var tl=$("jp-type-list");if(!tl)return;tl.innerHTML="";
+  JP_BUILTIN.forEach(function(t){
+    var d=document.createElement("div");d.className="jp-type-item";
+    d.innerHTML='<div class="jp-type-swatch" style="background:'+t.color+'"></div><span class="jp-type-name">'+t.name+'</span><span class="jp-builtin-tag">Standard</span>';
+    tl.appendChild(d);
+  });
+  jpCustomTypes.forEach(function(t,i){
+    var d=document.createElement("div");d.className="jp-type-item";
+    d.innerHTML='<div class="jp-type-swatch" style="background:'+t.color+'"></div><span class="jp-type-name">'+t.name+"</span>";
+    var db=document.createElement("button");db.className="jp-type-del";db.textContent="\u2715";
+    (function(ii){db.addEventListener("click",function(){jpCustomTypes.splice(ii,1);save();jpRefreshDD();refresh();});})(i);
+    d.appendChild(db);tl.appendChild(d);
+  });
+}
+
+function renderJpAgenda(){
+  var fm=$("jp-m"),ft=$("jp-t");if(!fm||!ft)return;
+  var sorted=jpEvtData.slice().sort(function(a,b){return parseDate(a.d)-parseDate(b.d);});
+  var dc={};sorted.forEach(function(e){dc[e.d]=(dc[e.d]||0)+1;});
+  var warns={};Object.keys(dc).forEach(function(d){if(dc[d]>1)warns[d]=true;});
+  var filt=sorted.filter(function(e){return(!fm.value||e.m===fm.value)&&(!ft.value||e.t===ft.value);});
+  var tb=$("jp-tbody");if(!tb)return;tb.innerHTML="";
+  var curM="";
+  filt.forEach(function(e){
+    var gi=jpEvtData.indexOf(e);
+    if(e.m!==curM){curM=e.m;var mr=document.createElement("tr");mr.className="jp-mh";mr.innerHTML='<td colspan="6">'+e.m.toUpperCase()+" 2026</td>";tb.appendChild(mr);}
+    var tr=document.createElement("tr");
+    if(warns[e.d])tr.className="jp-warn-row";
+    var c0=document.createElement("td");
+    var c1=document.createElement("td");c1.style.cssText="font-family:var(--mono);font-size:11px;color:var(--jpt2);";c1.textContent=e.d.substring(0,6);
+    var c2=document.createElement("td");c2.style.fontWeight="500";c2.textContent=e.n;
+    var c3=document.createElement("td");var co=jpColor(e.t);c3.innerHTML='<span class="jp-badge" style="background:'+co+'22;color:'+co+';border:1px solid '+co+'44;">'+e.t+"</span>";
+    var c4=document.createElement("td");c4.style.cssText="font-size:11px;color:"+(warns[e.d]?"var(--jpyel)":"var(--jpt3)")+";";c4.textContent=e.note||"";
+    var c5=document.createElement("td");
+    var btns=document.createElement("div");btns.className="act-btns";
+    var eb=document.createElement("button");eb.className="btn-edit";eb.innerHTML="\u270E";
+    (function(ii){eb.addEventListener("click",function(){jpEdit(ii);});})(gi);
+    var db=document.createElement("button");db.className="btn-del";db.innerHTML="\u2715";
+    (function(ii){db.addEventListener("click",function(){jpDel(ii);});})(gi);
+    btns.appendChild(eb);btns.appendChild(db);c5.appendChild(btns);
+    tr.appendChild(c0);tr.appendChild(c1);tr.appendChild(c2);tr.appendChild(c3);tr.appendChild(c4);tr.appendChild(c5);
+    tb.appendChild(tr);
+  });
+  var wc=Object.keys(warns).length;
+  var wp=$("jp-warn");if(wp)wp.style.display=wc?"inline":"none";
+  var tot=sorted.length,byT={};jpAllTypes().forEach(function(t){byT[t.name]=0;});sorted.forEach(function(e){byT[e.t]=(byT[e.t]||0)+1;});
+  var cd=[["Total",tot,""]].concat(jpAllTypes().slice(0,3).map(function(t){return[t.name.split(" ")[0],byT[t.name]||0,""];})).concat([["Überschn.",wc,wc?"color:var(--jpyel)":""]]);
+  var cards=$("jp-cards");if(cards)cards.innerHTML=cd.map(function(c){return'<div class="jp-scard"><div class="jp-lbl">'+c[0]+'</div><div class="jp-num" style="'+c[2]+'">'+c[1]+"</div></div>";}).join("");
+}
+
+function jpEdit(i){
+  var e=jpEvtData[i];if(!e)return;
+  var types=jpAllTypes();
+  var h='<div class="mod-field"><label>Eventname</label><input id="mod-n" value="'+e.n.replace(/"/g,"&quot;")+'"></div><div class="mod-field"><label>Datum</label><input id="mod-d" type="date" value="'+e.d.split(".").reverse().join("-")+'"></div><div class="mod-field"><label>Eventart</label><select id="mod-t">'+types.map(function(t){return"<option"+(t.name===e.t?" selected":"")+">"+t.name+"</option>";}).join("")+'</select></div><div class="mod-field"><label>Notiz</label><input id="mod-no" value="'+(e.note||"").replace(/"/g,"&quot;")+'"></div>';
+  showModal("Event bearbeiten",h,function(){
+    var n=$("mod-n").value.trim();if(!n)return;
+    var d=$("mod-d").value;if(!d)return;
+    var pts=d.split("-");
+    jpEvtData[i]={m:JP_MMAP[pts[1]],d:pts.reverse().join("."),n:n,t:$("mod-t").value,note:$("mod-no").value.trim()};
+    save();closeModal();refresh();jpRefreshDD();renderJpAgenda();
+  });
+}
+
+function jpDel(i){
+  showModal("Event löschen?",'<p style="font-size:14px;color:var(--t2);">Event <strong style="color:var(--t1);">'+jpEvtData[i].n+'</strong> wirklich löschen?</p>',function(){
+    jpEvtData.splice(i,1);save();closeModal();refresh();jpRefreshDD();renderJpAgenda();
+  },"Löschen","var(--red)");
+}
+
+// JP sub-tabs
+["jp-tab-agenda","jp-tab-verteilung","jp-tab-newevent"].forEach(function(id){
+  var el=$(id);if(!el)return;
+  el.addEventListener("click",function(){
+    document.querySelectorAll(".jp-tab").forEach(function(t){t.classList.remove("on");});
+    document.querySelectorAll(".jp-pane").forEach(function(p){p.classList.remove("on");});
+    el.classList.add("on");
+    var pane=$("jp-"+id.replace("jp-tab-",""));if(pane)pane.classList.add("on");
+    if(id==="jp-tab-verteilung")jpRenderChart();
+  });
+});
+
+$("btn-jp-add").addEventListener("click",function(){
+  var n=$("jp-nv-name").value.trim();
+  var d=$("jp-nv-date").value;
+  var t=$("jp-nv-type").value;
+  var no=$("jp-nv-note").value.trim();
+  if(!n||!d||!t)return;
+  var pts=d.split("-");
+  jpEvtData.push({m:JP_MMAP[pts[1]],d:pts.reverse().join("."),n:n,t:t,note:no});
+  save();["jp-nv-name","jp-nv-date","jp-nv-note"].forEach(function(id){$(id).value="";});$("jp-nv-type").value="";
+  var ok=$("jp-nv-ok");ok.style.display="block";setTimeout(function(){ok.style.display="none";},2500);
+  refresh();jpRefreshDD();renderJpAgenda();
+});
+
+$("btn-jp-addtype").addEventListener("click",function(){
+  var n=$("jp-nt-name").value.trim();
+  var c=$("jp-nt-color").value;
+  if(!n)return;
+  if(jpAllTypes().some(function(t){return t.name.toLowerCase()===n.toLowerCase();}))return;
+  jpCustomTypes.push({name:n,color:c});save();jpRefreshDD();$("jp-nt-name").value="";
+  var ok=$("jp-nt-ok");ok.style.display="block";setTimeout(function(){ok.style.display="none";},2000);
+});
+
+// JP filter change
+var jpM=$("jp-m"),jpT=$("jp-t");
+if(jpM)jpM.addEventListener("change",renderJpAgenda);
+if(jpT)jpT.addEventListener("change",renderJpAgenda);
+
+var jpChartInst=null;
+function jpRenderChart(){
+  var types=jpAllTypes();var mc={};JP_MORD.forEach(function(m){mc[m]={};types.forEach(function(t){mc[m][t.name]=0;});});
+  jpEvtData.forEach(function(e){if(mc[e.m])mc[e.m][e.t]=(mc[e.m][e.t]||0)+1;});
+  var active=JP_MORD.filter(function(m){return types.some(function(t){return mc[m][t.name]>0;});});
+  var leg=$("jp-chart-legend");if(leg)leg.innerHTML=types.map(function(t){return'<div class="jp-leg"><div class="jp-dot" style="background:'+t.color+'"></div>'+t.name+"</div>";}).join("");
+  if(jpChartInst){jpChartInst.destroy();jpChartInst=null;}
+  var cv=$("jp-chart");if(!cv)return;
+  jpChartInst=new Chart(cv,{type:"bar",data:{labels:active.map(function(m){return m.substring(0,4)+".";}),datasets:types.map(function(t){return{label:t.name,data:active.map(function(m){return mc[m][t.name]||0;}),backgroundColor:t.color,borderWidth:0,borderRadius:3};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,beginAtZero:true,grid:{color:"rgba(0,0,0,.06)"},ticks:{stepSize:2}}}}});
+}
+
+// ── INIT ────────────────────────────────────────────
+jpRefreshDD();
+renderJpAgenda();
+refresh();
 </script>
+
+
 </body>
 </html>
