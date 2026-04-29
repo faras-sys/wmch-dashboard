@@ -255,7 +255,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 
 <div class="hdr">
   <div class="hdr-l"><div class="logo">W</div><div class="hdr-t">Marketing Dashboard <span>Weidmüller Schweiz</span></div></div>
-  <div class="hdr-r"><div style="font-size:9px;color:#636369;font-family:var(--mono);">V9</div><div class="kwb" id="kw">KW 14</div><div class="clock" id="clock">09:42</div></div>
+  <div class="hdr-r"><div style="font-size:9px;color:#636369;font-family:var(--mono);">V9</div><div class="kwb" id="kw">KW 14</div><span id="sync-indicator" style="font-size:11px;font-family:var(--mono);min-width:80px;font-weight:600;"></span><div class="clock" id="clock">09:42</div></div>
 </div>
 <div class="tabs">
   <div class="tab on" data-t="overview" id="tab-overview">Übersicht</div>
@@ -960,16 +960,88 @@ var SOC_LABELS={none:"\u25CB Offen",wip:"\u25CF In Arbeit",check:"\u25D0 Abklär
 var ART_CSS={Beitrag:"fmt-s",Karussell:"fmt-c",Reel:"fmt-r",Story:"fmt-r"};
 
 // ── LOAD FROM LOCALSTORAGE ──────────────────────────
-function load(k,def){try{var s=localStorage.getItem(k);if(s)return JSON.parse(s);}catch(e){}return def.map(function(x){return Object.assign({},x);});}
-function loadObj(k){try{var s=localStorage.getItem(k);if(s)return JSON.parse(s);}catch(e){}return{};}
-var jpEvtData=load("wch_jp_2026",JP_DEFAULTS);
-var jpCustomTypes=loadObj("wch_jp_types")||[];
-if(!Array.isArray(jpCustomTypes))jpCustomTypes=[];
-var smPosts=load("wch_sm_posts",SM_DEFAULTS);
-var socStatuses=loadObj("wch_soc_status2");
-var msChecks=loadObj("wch_ms_checks");
+// ── GITHUB GIST SPEICHER ─────────────────────────────
+// *** HIER DEINE WERTE EINTRAGEN ***
+var GIST_ID = "2e8fff788fb50f5ba9799387894bb873";          // z.B. "abc123def456..."
+var GIST_TOKEN = "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";    // z.B. "ghp_xxxxxxxxxxxx"
+// *** ENDE KONFIGURATION ***
 
-function save(){try{localStorage.setItem("wch_jp_2026",JSON.stringify(jpEvtData));localStorage.setItem("wch_jp_types",JSON.stringify(jpCustomTypes));localStorage.setItem("wch_sm_posts",JSON.stringify(smPosts));localStorage.setItem("wch_soc_status2",JSON.stringify(socStatuses));localStorage.setItem("wch_ms_checks",JSON.stringify(msChecks));}catch(e){}}
+var GIST_FILE = "wmch_dashboard_data.json";
+var _saveTimer = null;
+var _cloudReady = false;
+
+function localLoad(k,def){try{var s=localStorage.getItem(k);if(s)return JSON.parse(s);}catch(e){}return def?def.map(function(x){return Object.assign({},x);}):{};}
+function localLoadObj(k){try{var s=localStorage.getItem(k);if(s)return JSON.parse(s);}catch(e){}return{};}
+
+// Init from localStorage first (instant)
+var jpEvtData=localLoad("wch_jp_2026",JP_DEFAULTS);
+var jpCustomTypes=localLoadObj("wch_jp_types")||[];
+if(!Array.isArray(jpCustomTypes))jpCustomTypes=[];
+var smPosts=localLoad("wch_sm_posts",SM_DEFAULTS);
+var socStatuses=localLoadObj("wch_soc_status2");
+var msChecks=localLoadObj("wch_ms_checks");
+
+function getAllData(){
+  return {jpEvtData:jpEvtData,jpCustomTypes:jpCustomTypes,smPosts:smPosts,socStatuses:socStatuses,msChecks:msChecks,_ts:new Date().toISOString()};
+}
+
+function applyData(d){
+  if(d.jpEvtData)jpEvtData=d.jpEvtData;
+  if(d.jpCustomTypes)jpCustomTypes=d.jpCustomTypes;
+  if(d.smPosts)smPosts=d.smPosts;
+  if(d.socStatuses)socStatuses=d.socStatuses;
+  if(d.msChecks)msChecks=d.msChecks;
+}
+
+function saveLocal(){
+  try{
+    localStorage.setItem("wch_jp_2026",JSON.stringify(jpEvtData));
+    localStorage.setItem("wch_jp_types",JSON.stringify(jpCustomTypes));
+    localStorage.setItem("wch_sm_posts",JSON.stringify(smPosts));
+    localStorage.setItem("wch_soc_status2",JSON.stringify(socStatuses));
+    localStorage.setItem("wch_ms_checks",JSON.stringify(msChecks));
+  }catch(e){}
+}
+
+function saveToGist(){
+  if(!GIST_TOKEN||GIST_TOKEN.indexOf("HIER")!==-1){console.log("GIST: Token nicht konfiguriert");return;}
+  var body={};body[GIST_FILE]={content:JSON.stringify(getAllData())};
+  var ind=$("sync-indicator");
+  if(ind){ind.textContent="Speichern...";ind.style.color="var(--yel)";}
+  fetch("https://api.github.com/gists/"+GIST_ID,{
+    method:"PATCH",
+    headers:{"Authorization":"Bearer "+GIST_TOKEN,"Content-Type":"application/json","X-GitHub-Api-Version":"2022-11-28"},
+    body:JSON.stringify({files:body})
+  }).then(function(r){
+    console.log("GIST Response:",r.status,r.statusText);
+    if(ind){ind.textContent=r.ok?"\u2713 Gespeichert":"\u2717 "+r.status;ind.style.color=r.ok?"var(--grn)":"var(--red)";
+    setTimeout(function(){ind.textContent="";},3000);}
+    if(!r.ok)r.text().then(function(t){console.log("GIST Error:",t);});
+  }).catch(function(err){
+    console.log("GIST Fetch Error:",err);
+    if(ind){ind.textContent="\u2717 Netzwerk";ind.style.color="var(--red)";setTimeout(function(){ind.textContent="";},3000);}
+  });
+}
+
+function loadFromGist(){
+  if(!GIST_TOKEN||GIST_TOKEN.indexOf("HIER")!==-1){console.log("GIST: Token nicht gesetzt");_cloudReady=true;return Promise.resolve();}
+  console.log("GIST: Lade Daten von Gist",GIST_ID);
+  return fetch("https://api.github.com/gists/"+GIST_ID,{
+    headers:{"Authorization":"Bearer "+GIST_TOKEN,"X-GitHub-Api-Version":"2022-11-28"}
+  }).then(function(r){return r.json();}).then(function(g){
+    if(g.files&&g.files[GIST_FILE]){
+      var d=JSON.parse(g.files[GIST_FILE].content);
+      applyData(d);saveLocal();_cloudReady=true;
+    }
+  }).catch(function(){_cloudReady=true;});
+}
+
+function save(){
+  saveLocal();
+  // Debounce cloud save (wait 1s after last change)
+  if(_saveTimer)clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(saveToGist,1000);
+}
 
 // ── HELPERS ─────────────────────────────────────────
 function getKW(d){var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);var ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return Math.ceil((((t-ys)/864e5)+1)/7);}
@@ -1399,9 +1471,21 @@ function jpRenderChart(){
 }
 
 // ── INIT ────────────────────────────────────────────
-jpRefreshDD();
-renderJpAgenda();
-refresh();
+// Load from Gist, then render
+loadFromGist().then(function(){
+  jpRefreshDD();
+  renderJpAgenda();
+  refresh();
+  // Auto-sync from cloud every 30 seconds
+  setInterval(function(){
+    if(!GIST_TOKEN||GIST_TOKEN.indexOf("HIER")!==-1)return;
+    loadFromGist().then(function(){jpRefreshDD();renderJpAgenda();refresh();});
+  },30000);
+}).catch(function(){
+  jpRefreshDD();
+  renderJpAgenda();
+  refresh();
+});
 </script>
 
 
