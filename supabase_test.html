@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head><title>Supabase Test</title></head>
+<body style="font-family:sans-serif;padding:40px;background:#111;color:#fff;">
+<h2>Supabase Verbindungstest</h2>
+<div id="log" style="background:#222;padding:20px;border-radius:10px;font-family:monospace;font-size:14px;line-height:2;"></div>
+<script>
+var SUPA_URL = "https://fvogcutfwcnfpoabuizz.supabase.co";
+var SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2b2djdXRmd2NuZnBvYWJ1aXp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NTI5NjEsImV4cCI6MjA5MzEyODk2MX0.anGmiKpSjHTovittzJg5KhfakCwVoF6QIYz-UUMiPTU";
+
+var log = document.getElementById("log");
+function addLog(msg, color) {
+  log.innerHTML += '<div style="color:' + (color||"#fff") + ';">' + msg + '</div>';
+}
+
+addLog("1. URL: " + SUPA_URL);
+addLog("2. Key: " + SUPA_KEY.substring(0,20) + "...");
+addLog("3. Teste LESEN...", "#FFD60A");
+
+fetch(SUPA_URL + "/rest/v1/dashboard_data?id=eq.main&select=*", {
+  headers: {"apikey": SUPA_KEY, "Authorization": "Bearer " + SUPA_KEY}
+}).then(function(r) {
+  addLog("   Status: " + r.status + " " + r.statusText, r.ok ? "#30D158" : "#FF453A");
+  return r.text();
+}).then(function(t) {
+  addLog("   Antwort: " + t.substring(0, 200), "#64D2FF");
+  addLog("4. Teste SCHREIBEN...", "#FFD60A");
+  
+  return fetch(SUPA_URL + "/rest/v1/dashboard_data?id=eq.main", {
+    method: "PATCH",
+    headers: {
+      "apikey": SUPA_KEY,
+      "Authorization": "Bearer " + SUPA_KEY,
+      "Content-Type": "application/json",
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify({data: {test: "Hallo vom Dashboard", zeit: new Date().toISOString()}, updated_at: new Date().toISOString()})
+  });
+}).then(function(r) {
+  addLog("   Schreiben Status: " + r.status + " " + r.statusText, r.ok ? "#30D158" : "#FF453A");
+  if (!r.ok) return r.text();
+  return "OK";
+}).then(function(t) {
+  if (t !== "OK") addLog("   Fehler: " + t, "#FF453A");
+  else addLog("5. ALLES FUNKTIONIERT!", "#30D158");
+  
+  addLog("6. Teste erneutes LESEN...", "#FFD60A");
+  return fetch(SUPA_URL + "/rest/v1/dashboard_data?id=eq.main&select=data", {
+    headers: {"apikey": SUPA_KEY, "Authorization": "Bearer " + SUPA_KEY}
+  });
+}).then(function(r) { return r.text(); }).then(function(t) {
+  addLog("   Gelesen: " + t.substring(0, 200), "#64D2FF");
+}).catch(function(err) {
+  addLog("FEHLER: " + err.message, "#FF453A");
+});
+</script>
+</body>
+</html>
