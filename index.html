@@ -1257,14 +1257,26 @@ function saveLocal(){
 function saveToCloud(){
   var ind=$("sync-indicator");
   if(ind){ind.textContent="Speichern...";ind.style.color="var(--yel)";}
+  var payload;
+  try{
+    payload=JSON.stringify({data:getAllData(),updated_at:new Date().toISOString()});
+  }catch(e){
+    console.log("SAVE ERROR serialize:",e);
+    if(ind){ind.textContent="\u2717 Daten";ind.style.color="var(--red)";setTimeout(function(){ind.textContent="";},3000);}
+    return;
+  }
+  console.log("SAVE: sending",payload.length,"bytes, tdTodos:",tdTodos?tdTodos.length:"undefined",", tdInbox:",tdInbox?tdInbox.length:"undefined");
   fetch(SUPA_URL+"/rest/v1/dashboard_data?id=eq.main",{
     method:"PATCH",
     headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
-    body:JSON.stringify({data:getAllData(),updated_at:new Date().toISOString()})
+    body:payload
   }).then(function(r){
+    console.log("SAVE response:",r.status);
     if(ind){ind.textContent=r.ok?"\u2713 Gespeichert":"\u2717 "+r.status;ind.style.color=r.ok?"var(--grn)":"var(--red)";
     setTimeout(function(){ind.textContent="";},3000);}
+    if(!r.ok)r.text().then(function(t){console.log("SAVE error body:",t);});
   }).catch(function(err){
+    console.log("SAVE fetch error:",err);
     if(ind){ind.textContent="\u2717 Netzwerk";ind.style.color="var(--red)";setTimeout(function(){ind.textContent="";},3000);}
   });
 }
@@ -1722,7 +1734,7 @@ var tdTodos=[];
 var tdInbox=[];
 try{var ts=localStorage.getItem("wch_todos");if(ts)tdTodos=JSON.parse(ts);}catch(e){}
 try{var ti=localStorage.getItem("wch_inbox");if(ti)tdInbox=JSON.parse(ti);}catch(e){}
-function saveTodos(){try{localStorage.setItem("wch_todos",JSON.stringify(tdTodos));localStorage.setItem("wch_inbox",JSON.stringify(tdInbox));}catch(e){} if(_saveTimer)clearTimeout(_saveTimer);_saveTimer=setTimeout(saveToCloud,1000);}
+function saveTodos(){console.log("saveTodos called, count:",tdTodos.length);try{localStorage.setItem("wch_todos",JSON.stringify(tdTodos));localStorage.setItem("wch_inbox",JSON.stringify(tdInbox));}catch(e){} if(_saveTimer)clearTimeout(_saveTimer);_saveTimer=setTimeout(saveToCloud,1000);}
 
 var _currentView="board";
 
