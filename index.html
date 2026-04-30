@@ -1213,13 +1213,7 @@ var SOC_LABELS={none:"\u25CB Offen",wip:"\u25CF In Arbeit",check:"\u25D0 Abklär
 var ART_CSS={Beitrag:"fmt-s",Karussell:"fmt-c",Reel:"fmt-r",Story:"fmt-r"};
 
 // ── LOAD FROM LOCALSTORAGE ──────────────────────────
-// ── GITHUB GIST SPEICHER ─────────────────────────────
-// *** HIER DEINE WERTE EINTRAGEN ***
-var GIST_ID = "DEINE_GIST_ID_HIER";          // z.B. "abc123def456..."
-var GIST_TOKEN = "DEIN_GITHUB_TOKEN_HIER";    // z.B. "ghp_xxxxxxxxxxxx"
-// *** ENDE KONFIGURATION ***
-
-var GIST_FILE = "wmch_dashboard_data.json";
+// (Gist entfernt - Supabase aktiv)
 var _saveTimer = null;
 var _cloudReady = false;
 
@@ -1256,36 +1250,29 @@ function saveLocal(){
   }catch(e){}
 }
 
-function saveToGist(){
-  if(!GIST_TOKEN||GIST_TOKEN.indexOf("HIER")!==-1){console.log("GIST: Token nicht konfiguriert");return;}
-  var body={};body[GIST_FILE]={content:JSON.stringify(getAllData())};
+function saveToCloud(){
   var ind=$("sync-indicator");
   if(ind){ind.textContent="Speichern...";ind.style.color="var(--yel)";}
-  fetch("https://api.github.com/gists/"+GIST_ID,{
+  fetch(SUPA_URL+"/rest/v1/dashboard_data?id=eq.main",{
     method:"PATCH",
-    headers:{"Authorization":"Bearer "+GIST_TOKEN,"Content-Type":"application/json","X-GitHub-Api-Version":"2022-11-28"},
-    body:JSON.stringify({files:body})
+    headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+    body:JSON.stringify({data:getAllData(),updated_at:new Date().toISOString()})
   }).then(function(r){
-    console.log("GIST Response:",r.status,r.statusText);
     if(ind){ind.textContent=r.ok?"\u2713 Gespeichert":"\u2717 "+r.status;ind.style.color=r.ok?"var(--grn)":"var(--red)";
     setTimeout(function(){ind.textContent="";},3000);}
-    if(!r.ok)r.text().then(function(t){console.log("GIST Error:",t);});
   }).catch(function(err){
-    console.log("GIST Fetch Error:",err);
     if(ind){ind.textContent="\u2717 Netzwerk";ind.style.color="var(--red)";setTimeout(function(){ind.textContent="";},3000);}
   });
 }
 
-function loadFromGist(){
-  if(!GIST_TOKEN||GIST_TOKEN.indexOf("HIER")!==-1){console.log("GIST: Token nicht gesetzt");_cloudReady=true;return Promise.resolve();}
-  console.log("GIST: Lade Daten von Gist",GIST_ID);
-  return fetch("https://api.github.com/gists/"+GIST_ID,{
-    headers:{"Authorization":"Bearer "+GIST_TOKEN,"X-GitHub-Api-Version":"2022-11-28"}
-  }).then(function(r){return r.json();}).then(function(g){
-    if(g.files&&g.files[GIST_FILE]){
-      var d=JSON.parse(g.files[GIST_FILE].content);
-      applyData(d);saveLocal();_cloudReady=true;
+function loadFromCloud(){
+  return fetch(SUPA_URL+"/rest/v1/dashboard_data?id=eq.main&select=data",{
+    headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY}
+  }).then(function(r){return r.json();}).then(function(rows){
+    if(rows&&rows.length>0&&rows[0].data&&Object.keys(rows[0].data).length>0){
+      applyData(rows[0].data);saveLocal();
     }
+    _cloudReady=true;
   }).catch(function(){_cloudReady=true;});
 }
 
@@ -1293,7 +1280,7 @@ function save(){
   saveLocal();
   // Debounce cloud save (wait 1s after last change)
   if(_saveTimer)clearTimeout(_saveTimer);
-  _saveTimer=setTimeout(saveToGist,1000);
+  _saveTimer=setTimeout(saveToCloud,1000);
 }
 
 // ── HELPERS ─────────────────────────────────────────
@@ -1905,15 +1892,14 @@ $("td-view-person").addEventListener("click",function(){
 });
 
 // ── INIT ────────────────────────────────────────────
-// Load from Gist, then render
-loadFromGist().then(function(){
+// Load from Cloud, then render
+loadFromCloud().then(function(){
   jpRefreshDD();
   renderJpAgenda();
   refresh();
   // Auto-sync from cloud every 30 seconds
   setInterval(function(){
-    if(!GIST_TOKEN||GIST_TOKEN.indexOf("HIER")!==-1)return;
-    loadFromGist().then(function(){jpRefreshDD();renderJpAgenda();refresh();});
+    loadFromCloud().then(function(){jpRefreshDD();renderJpAgenda();refresh();});
   },30000);
 }).catch(function(){
   jpRefreshDD();
