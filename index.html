@@ -263,6 +263,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
   <div class="tab" data-t="month1" id="tab-m1"></div>
   <div class="tab" data-t="month2" id="tab-m2"></div>
   <div class="tab" data-t="team">Team & Prozess</div>
+  <div class="tab" data-t="execution">Execution System</div>
+  <div class="tab" data-t="todos">To-Dos</div>
   <div class="tab" data-t="social">Social Media</div>
   <div class="tab" data-t="kapazitaet">Kapazität</div>
   <div class="tab" data-t="jahresplanung">Jahresplanung</div>
@@ -355,6 +357,257 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
     </div>
   </div>
 </div>
+
+<!-- ===== EXECUTION SYSTEM ===== -->
+<div class="pane" id="p-execution" style="padding:0;">
+<div style="background:#F5F5F7;height:100%;overflow-y:auto;color:#1A1A2E;font-family:var(--sans);">
+<style>
+#p-execution .ex-wrap{max-width:800px;margin:0 auto;padding:28px 32px;}
+#p-execution .ex-head{text-align:center;margin-bottom:32px;}
+#p-execution .ex-head h1{font-size:28px;font-weight:900;letter-spacing:-.5px;color:#1A1A2E;margin-bottom:6px;}
+#p-execution .ex-head .ex-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C0392B;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.15);padding:5px 14px;border-radius:8px;margin-bottom:16px;}
+#p-execution .ex-motto{text-align:center;font-size:14px;font-weight:700;color:#636369;letter-spacing:.5px;padding:16px 20px;background:#fff;border-radius:12px;border:1px solid #E2E2EA;margin-bottom:28px;line-height:1.6;}
+#p-execution .ex-section{background:#fff;border-radius:12px;border:1px solid #E2E2EA;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:14px;overflow:hidden;}
+#p-execution .ex-section-h{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid #E2E2EA;background:#FAFAFA;}
+#p-execution .ex-section-h .ex-num{font-size:13px;font-weight:800;color:#fff;background:#3F00FF;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;}
+#p-execution .ex-section-h h3{font-size:16px;font-weight:800;color:#1A1A2E;letter-spacing:-.2px;}
+#p-execution .ex-section-b{padding:16px 20px;}
+#p-execution .ex-role{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;background:#F5F5F8;margin-bottom:8px;}
+#p-execution .ex-role-name{font-size:14px;font-weight:700;color:#1A1A2E;min-width:140px;}
+#p-execution .ex-role-desc{font-size:13px;color:#636369;line-height:1.5;}
+#p-execution .ex-role-arrow{color:#3F00FF;font-weight:700;margin-right:4px;}
+#p-execution .ex-day{display:flex;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:8px;border-left:3px solid #E2E2EA;}
+#p-execution .ex-day.plan{border-left-color:#0A6FD8;background:rgba(10,111,216,.04);}
+#p-execution .ex-day.prod{border-left-color:#FF6B00;background:rgba(255,107,0,.04);}
+#p-execution .ex-day.ctrl{border-left-color:#1A8A3A;background:rgba(26,138,58,.04);}
+#p-execution .ex-day-name{font-size:14px;font-weight:800;min-width:100px;}
+#p-execution .ex-day.plan .ex-day-name{color:#0A6FD8;}
+#p-execution .ex-day.prod .ex-day-name{color:#FF6B00;}
+#p-execution .ex-day.ctrl .ex-day-name{color:#1A8A3A;}
+#p-execution .ex-day-desc{font-size:13px;color:#636369;line-height:1.6;}
+#p-execution .ex-rule{font-size:14px;font-weight:700;color:#1A1A2E;padding:8px 0;line-height:1.6;}
+#p-execution .ex-rule em{font-style:normal;color:#636369;font-weight:400;}
+#p-execution .ex-traffic{display:flex;gap:10px;margin-bottom:8px;}
+#p-execution .ex-light{flex:1;padding:12px 14px;border-radius:8px;text-align:center;}
+#p-execution .ex-light.green{background:#E3F5EB;border:1px solid #BBF0CC;}
+#p-execution .ex-light.yellow{background:#FEF3E0;border:1px solid #FCD997;}
+#p-execution .ex-light.red{background:#FDECEA;border:1px solid #F5B7B1;}
+#p-execution .ex-light-dot{font-size:20px;margin-bottom:4px;}
+#p-execution .ex-light-txt{font-size:12px;font-weight:600;color:#1A1A2E;line-height:1.4;}
+#p-execution .ex-steps{counter-reset:exstep;}
+#p-execution .ex-step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:13px;color:#1A1A2E;line-height:1.5;}
+#p-execution .ex-step::before{counter-increment:exstep;content:counter(exstep);font-size:11px;font-weight:800;color:#fff;background:#3F00FF;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;margin-top:1px;}
+#p-execution .ex-bottom{text-align:center;padding:24px 20px;margin-top:8px;}
+#p-execution .ex-values{display:flex;gap:12px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+#p-execution .ex-val{font-size:13px;font-weight:700;color:#3F00FF;background:rgba(63,0,255,.06);border:1px solid rgba(63,0,255,.12);padding:8px 16px;border-radius:8px;}
+#p-execution .ex-val em{font-style:normal;color:#636369;font-weight:400;margin:0 4px;}
+#p-execution .ex-claim{font-size:18px;font-weight:900;color:#1A1A2E;line-height:1.6;margin-top:12px;}
+#p-execution .ex-claim span{color:#3F00FF;}
+</style>
+
+<div class="ex-wrap">
+  <div class="ex-head">
+    <div class="ex-badge">Verbindlich ab sofort</div>
+    <h1>Marketing Execution System</h1>
+  </div>
+
+  <div class="ex-motto">🎯 Wir messen uns nicht an Ideen – sondern an dem, was live geht.</div>
+
+  <!-- 1. Klare Rollen -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">1</div><h3>Klare Rollen</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-role"><div class="ex-role-name">Faras</div><div class="ex-role-desc"><span class="ex-role-arrow">→</span> Prioritäten <span class="ex-role-arrow">→</span> Qualität <span class="ex-role-arrow">→</span> Kontrolle<br><em style="font-size:12px;color:#98989F;">Strategie</em></div></div>
+      <div class="ex-role"><div class="ex-role-name">Moreno</div><div class="ex-role-desc"><span class="ex-role-arrow">→</span> Fokus: Events & Live Experience<br><em style="font-size:12px;color:#98989F;">Events</em></div></div>
+      <div class="ex-role"><div class="ex-role-name">Lehrling</div><div class="ex-role-desc"><span class="ex-role-arrow">→</span> Umsetzung Digital (Posts, Versand, etc.)<br><em style="font-size:12px;color:#98989F;">Execution</em></div></div>
+    </div>
+  </div>
+
+  <!-- 2. Fokus -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">2</div><h3>Fokus</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-rule">Wir arbeiten nur an den wichtigsten Themen.<br><em>Kein Multitasking. Keine Nebenschauplätze.</em></div>
+    </div>
+  </div>
+
+  <!-- 3. Wochenstruktur -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">3</div><h3>Wochenstruktur</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-day plan"><div class="ex-day-name">Montag</div><div class="ex-day-desc"><strong>Planung</strong><br>Prioritäten festlegen · Verantwortliche + Deadlines definieren</div></div>
+      <div class="ex-day prod"><div class="ex-day-name">Mittwoch</div><div class="ex-day-desc"><strong>Produktion</strong><br>Umsetzung · Dinge werden fertig gemacht (nicht nur besprochen)</div></div>
+      <div class="ex-day ctrl"><div class="ex-day-name">Freitag</div><div class="ex-day-desc"><strong>Kontrolle</strong><br>Was ist erledigt? Was nicht – und warum?</div></div>
+    </div>
+  </div>
+
+  <!-- 4. Deadlines -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">4</div><h3>Deadlines</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-rule">Deadlines sind verbindlich.<br>Deadlines sind real – oder sie existieren nicht.</div>
+      <div style="padding:10px 14px;border-radius:8px;background:rgba(192,57,43,.05);border:1px solid rgba(192,57,43,.1);margin-top:8px;font-size:13px;color:#C0392B;font-weight:600;line-height:1.6;">👉 Wenn etwas nicht geschafft wird:<br>Frühzeitig melden – nicht danach.</div>
+    </div>
+  </div>
+
+  <!-- 5. Accountability -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">5</div><h3>Accountability</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-rule" style="margin-bottom:12px;">Nicht erledigt = Sichtbar.</div>
+      <div class="ex-steps">
+        <div class="ex-step">Sichtbar machen (Freitag)</div>
+        <div class="ex-step">Neue klare Deadline</div>
+        <div class="ex-step">Wiederholung → Aufgabe wird entzogen / neu verteilt</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Freigabe-System -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">6</div><h3>Freigabe-System</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-traffic">
+        <div class="ex-light green"><div class="ex-light-dot">🟢</div><div class="ex-light-txt">Kleine Tasks<br>Direkt umsetzen</div></div>
+        <div class="ex-light yellow"><div class="ex-light-dot">🟡</div><div class="ex-light-txt">Inhalte<br>Kurzer Review durch Faras</div></div>
+        <div class="ex-light red"><div class="ex-light-dot">🔴</div><div class="ex-light-txt">Wichtige Themen<br>Pflicht-Freigabe von Faras</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Daily Status -->
+  <div class="ex-section">
+    <div class="ex-section-h"><div class="ex-num">7</div><h3>Daily Status</h3></div>
+    <div class="ex-section-b">
+      <div class="ex-rule">Jeder updated täglich seine Tasks (5 Minuten).</div>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="ex-bottom">
+    <div class="ex-values">
+      <div class="ex-val">VERANTWORTUNG <em>&gt;</em> AUSREDEN</div>
+    </div>
+    <div class="ex-claim">Wir liefern. Jede Woche. <span>Sichtbar.</span></div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ===== TO-DOS ===== -->
+<div class="pane" id="p-todos"><div class="scr">
+<style>
+.td-layout{display:grid;grid-template-columns:1fr 340px;gap:14px;height:100%;}
+.td-col{display:flex;flex-direction:column;gap:14px;}
+.td-board{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;flex:1;min-height:0;}
+.td-lane{background:var(--s1);border-radius:12px;border:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;}
+.td-lane-h{padding:12px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+.td-lane-h h3{font-size:13px;font-weight:700;}
+.td-lane-count{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--s3);color:var(--t3);}
+.td-lane-b{padding:8px;flex:1;overflow-y:auto;}
+
+.td-view-btn{font-size:11px;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--s2);color:var(--t3);cursor:pointer;font-family:var(--sans);transition:all .15s;}
+.td-view-btn:hover{color:var(--t2);border-color:var(--bd2);}
+.td-view-on{background:var(--wm);color:#fff;border-color:var(--wm);}
+.td-person-view{display:none;}
+.td-person-view.on{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;min-height:400px;}
+.td-person-col{background:var(--s1);border-radius:12px;border:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;}
+.td-person-h{padding:14px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;}
+.td-person-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.td-person-info h3{font-size:14px;font-weight:700;}
+.td-person-info span{font-size:10px;color:var(--t3);}
+.td-person-b{padding:8px;flex:1;overflow-y:auto;}
+.td-person-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:6px 8px;margin-top:6px;margin-bottom:4px;}
+.td-person-section:first-child{margin-top:0;}
+.td-person-section.overdue{color:var(--red);}
+.td-person-section.active{color:var(--grn);}
+.td-person-section.open{color:var(--t3);}
+.td-card{background:var(--s2);border-radius:10px;border:1px solid var(--bd);padding:14px;margin-bottom:8px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:8px;}
+.td-card:hover{border-color:var(--bd2);background:var(--s3);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.td-card-title{font-size:13px;font-weight:700;line-height:1.3;}
+.td-card-desc{font-size:11px;color:var(--t2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.td-card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.td-card-owner{font-size:10px;font-weight:600;padding:4px 10px;border-radius:6px;}
+.td-owner-f{background:rgba(63,0,255,.1);color:#818CF8;}
+.td-owner-m{background:rgba(255,107,0,.1);color:var(--wm);}
+.td-owner-l{background:rgba(48,209,88,.1);color:var(--grn);}
+.td-card-date{font-size:10px;color:var(--t3);font-family:var(--mono);}
+.td-card-status{font-size:9px;font-weight:700;padding:3px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px;cursor:pointer;}
+.td-st-offen{background:transparent;color:var(--t4);border:1px dashed var(--t4);}
+.td-st-bearbeitung{background:rgba(48,209,88,.12);color:var(--grn);border:1px solid rgba(48,209,88,.2);}
+.td-st-abklaerung{background:rgba(255,214,10,.12);color:var(--yel);border:1px solid rgba(255,214,10,.2);}
+.td-st-erledigt{background:rgba(48,209,88,.08);color:rgba(48,209,88,.5);border:1px solid rgba(48,209,88,.1);}
+.td-card.done{opacity:.35;}
+.td-card.done .td-card-title{text-decoration:line-through;color:var(--t4);}
+.td-form{background:var(--s1);border-radius:12px;border:1px solid var(--bd);padding:16px;margin-bottom:14px;}
+.td-form-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:12px;}
+.td-field{margin-bottom:10px;}
+.td-field label{display:block;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.td-field input,.td-field select,.td-field textarea{width:100%;padding:8px 10px;font-size:12px;border-radius:8px;border:1px solid var(--bd2);background:var(--s2);color:var(--t1);outline:none;font-family:var(--sans);resize:none;}
+.td-field input:focus,.td-field select:focus,.td-field textarea:focus{border-color:var(--wm);}
+.td-add-btn{width:100%;padding:9px;font-size:12px;font-weight:600;border-radius:8px;border:none;background:var(--wm);color:#fff;cursor:pointer;font-family:var(--sans);}
+.td-add-btn:hover{opacity:.85;}
+.td-ok{font-size:11px;color:var(--grn);display:none;margin-top:8px;}
+.td-inbox{background:var(--s1);border-radius:12px;border:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;flex:1;}
+.td-inbox-h{padding:12px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+.td-inbox-h h3{font-size:13px;font-weight:700;color:var(--yel);}
+.td-inbox-b{padding:8px;flex:1;overflow-y:auto;}
+.td-inbox-item{background:var(--s2);border-radius:10px;border:1px solid var(--bd);border-left:3px solid var(--yel);padding:12px;margin-bottom:8px;}
+.td-inbox-item .td-card-title{color:var(--yel);}
+.td-inbox-form{padding:10px 14px;border-top:1px solid var(--bd);display:flex;gap:8px;}
+.td-inbox-form input{flex:1;padding:8px 10px;font-size:12px;border-radius:8px;border:1px solid var(--bd2);background:var(--s2);color:var(--t1);outline:none;font-family:var(--sans);}
+.td-inbox-form button{padding:8px 14px;font-size:11px;font-weight:600;border-radius:8px;border:none;background:var(--yel);color:#1A1A2E;cursor:pointer;font-family:var(--sans);white-space:nowrap;}
+.td-stats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.td-stat{background:var(--s1);border-radius:10px;border:1px solid var(--bd);padding:10px 14px;text-align:center;}
+.td-stat-n{font-size:20px;font-weight:800;}.td-stat-l{font-size:10px;color:var(--t3);margin-top:2px;}
+</style>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+  <div class="td-stats" id="td-stats" style="flex:1;margin-bottom:0;"></div>
+  <div style="display:flex;gap:4px;margin-left:14px;">
+    <button class="td-view-btn td-view-on" id="td-view-board">Board</button>
+    <button class="td-view-btn" id="td-view-person">Nach Person</button>
+  </div>
+</div>
+
+<div class="td-layout" style="grid-template-columns:1fr 300px;">
+<div class="td-col">
+  <!-- Board/Person View -->
+  <div id="td-view-container">
+  <div class="td-board" id="td-board-el" style="grid-template-columns:1fr 1fr 1fr 1fr;">
+    <div class="td-lane" style="border-color:rgba(255,69,58,.2);"><div class="td-lane-h" style="border-bottom-color:rgba(255,69,58,.15);background:rgba(255,69,58,.04);"><h3 style="color:var(--red);">🔥 Überfällig</h3><span class="td-lane-count" id="td-cnt-overdue" style="background:var(--red2);color:var(--red);">0</span></div><div class="td-lane-b" id="td-lane-overdue"></div></div>
+    <div class="td-lane"><div class="td-lane-h"><h3>Offen</h3><span class="td-lane-count" id="td-cnt-offen">0</span></div><div class="td-lane-b" id="td-lane-offen"></div></div>
+    <div class="td-lane"><div class="td-lane-h" style="border-bottom-color:rgba(48,209,88,.15);"><h3 style="color:var(--grn);">In Bearbeitung</h3><span class="td-lane-count" id="td-cnt-bearbeitung">0</span></div><div class="td-lane-b" id="td-lane-bearbeitung"></div></div>
+    <div class="td-lane"><div class="td-lane-h" style="border-bottom-color:rgba(255,214,10,.15);"><h3 style="color:var(--yel);">In Abklärung</h3><span class="td-lane-count" id="td-cnt-abklaerung">0</span></div><div class="td-lane-b" id="td-lane-abklaerung"></div></div>
+  </div>
+  </div>
+</div>
+<div class="td-col">
+  <!-- New To-Do Form -->
+  <div class="td-form">
+    <div class="td-form-title">Neues To-Do</div>
+    <div class="td-field"><label>Titel *</label><input id="td-title" type="text" placeholder="z.B. Newsletter #05 versenden"></div>
+    <div class="td-field"><label>Beschreibung</label><textarea id="td-desc" rows="2" placeholder="Details, Kontext, Links..."></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div class="td-field"><label>Wer *</label><select id="td-owner"><option value="">Wählen</option><option>Faras</option><option>Moreno</option><option>Lehrling</option></select></div>
+      <div class="td-field"><label>Bis wann *</label><input id="td-due" type="date"></div>
+    </div>
+    <button class="td-add-btn" id="td-add-btn">+ To-Do erstellen</button>
+    <div class="td-ok" id="td-ok">✓ To-Do erstellt</div>
+  </div>
+  <!-- Posteingang -->
+  <div class="td-inbox">
+    <div class="td-inbox-h"><h3>📥 Posteingang</h3><span class="td-lane-count" id="td-cnt-inbox">0</span></div>
+    <div class="td-inbox-b" id="td-inbox-list"></div>
+    <div class="td-inbox-form">
+      <input id="td-inbox-input" type="text" placeholder="Schnellnotiz eingeben...">
+      <button id="td-inbox-add">Hinzufügen</button>
+    </div>
+  </div>
+</div>
+</div>
+
+</div></div>
 
 <!-- ===== SOCIAL MEDIA ===== -->
 <div class="pane" id="p-social"><div class="scr">
@@ -833,16 +1086,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);-webkit-font-s
 <div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M02 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Freelancer-Netzwerk</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-done">✓ Erledigt</span><span class="ms-card-date">Sofort · April 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Moreno + Rita (Mi/Do) haben keinen Puffer für Kapazitäts-Peaks.</li><li>Ein definiertes Netzwerk ermöglicht gezielte Aktivierung ohne interne Überlastung.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Roster dokumentiert: Film, Grafik, Webseite, Social Media.</li><li>Steckbriefe erstellt: Leistungsumfang, Konditionen, Reaktionszeit.</li><li>Beauftragungsprozess festgelegt — Moreno beauftragt eigenständig.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Roster dokumentiert und für alle einsehbar.</span></li><li><div class="ms-cb"></div><span>Moreno beauftragt Freelancer ohne Rücksprache.</span></li><li><div class="ms-cb"></div><span>Erster Freelancer-Einsatz dokumentiert.</span></li></ul></div></div><div style="padding:0 24px 16px;border-top:1px solid var(--bd);"><div style="font-size:12px;font-weight:700;padding:14px 0 8px;">Aktueller Roster</div><table class="ms-roster"><thead><tr><th>Bereich</th><th>Personen</th><th>Einsatz</th></tr></thead><tbody><tr><td class="r-tag">Film / Video</td><td class="r-names">Valerio Raponi, Ibi, Alen</td><td class="r-desc">Kunden-Videos, Event-Doku, Boris bringt's</td></tr><tr><td class="r-tag">Grafik / Design</td><td class="r-names">Annalisa, Manu</td><td class="r-desc">Layout, Kampagnen-Visuals, Drucksachen</td></tr><tr><td class="r-tag">Webseite</td><td class="r-names">Annalisa, Klaus</td><td class="r-desc">Homepage-Anpassungen, SEO-Inhalte</td></tr><tr><td class="r-tag">Social Media</td><td class="r-names">Rita (intern)</td><td class="r-desc">LinkedIn + IG via Metricool</td></tr></tbody></table></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M02 / 11</span></div></div>
 
 <!-- M03 -->
-<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M03 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Metricool</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-start">◐ Gestartet</span><span class="ms-card-date">15. Juni 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Account ist angelegt, aber noch nicht vollständig eingerichtet.</li><li>Metricool ist das fehlende Bindeglied: Newsletter-Derivate werden damit geplant, publiziert und ausgewertet.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Account vollständig einrichten: LinkedIn und Instagram verbinden.</li><li>Redaktionsplan aufsetzen: 6 Posts pro Monat, Freigabe-Workflow definieren.</li><li>Reporting-Dashboard konfigurieren: Reichweite, Engagement, Link-Klicks.</li><li>Derivations-Vorlage: 1 NL-Artikel → 1 LinkedIn + 1 Reel + 1 Karussell.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Alle Posts laufen über Metricool — kein Ad-hoc-Posten.</span></li><li><div class="ms-cb"></div><span>Monatliches Reporting steht automatisch.</span></li><li><div class="ms-cb"></div><span>Rita plant eigenständig nach dem Freigabe-Prozess.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M03 / 11</span></div></div>
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M03 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Metricool</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-start">◐ Gestartet</span><span class="ms-card-date">5. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Account ist angelegt, aber noch nicht vollständig eingerichtet.</li><li>Metricool ist das fehlende Bindeglied: Newsletter-Derivate werden damit geplant, publiziert und ausgewertet.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Account vollständig einrichten: LinkedIn und Instagram verbinden.</li><li>Redaktionsplan aufsetzen: 6 Posts pro Monat, Freigabe-Workflow definieren.</li><li>Reporting-Dashboard konfigurieren: Reichweite, Engagement, Link-Klicks.</li><li>Derivations-Vorlage: 1 NL-Artikel → 1 LinkedIn + 1 Reel + 1 Karussell.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Alle Posts laufen über Metricool — kein Ad-hoc-Posten.</span></li><li><div class="ms-cb"></div><span>Monatliches Reporting steht automatisch.</span></li><li><div class="ms-cb"></div><span>Rita plant eigenständig nach dem Freigabe-Prozess.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M03 / 11</span></div></div>
 
 <!-- M04 -->
-<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M04 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Raumumbau</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">31. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Der Arbeitsraum soll die neue Arbeitsweise physisch widerspiegeln.</li><li>Sichtbare Strukturen — Whiteboard, Kit-Regal — ersetzen unsichtbare Prozesse.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Konzept: Whiteboard-Wand für Kampagnenplanung, Fokuszone für Deep Work.</li><li>Moreno koordiniert mit Facility, Faras gibt Konzept am nächsten Mittwoch frei.</li><li>Symbolischer Kick-off beim Einzug: neuer Raum, neue Arbeitsweise.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Raum ist physisch neu gestaltet.</span></li><li><div class="ms-cb"></div><span>Whiteboard-Wand für Kampagnenplanung steht.</span></li><li><div class="ms-cb"></div><span>Moreno und Rita identifizieren sich mit dem neuen Modus.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M04 / 11</span></div></div>
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M04 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Raumumbau</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">8. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Der Arbeitsraum soll die neue Arbeitsweise physisch widerspiegeln.</li><li>Sichtbare Strukturen — Whiteboard, Kit-Regal — ersetzen unsichtbare Prozesse.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Konzept: Whiteboard-Wand für Kampagnenplanung, Fokuszone für Deep Work.</li><li>Moreno koordiniert mit Facility, Faras gibt Konzept am nächsten Mittwoch frei.</li><li>Symbolischer Kick-off beim Einzug: neuer Raum, neue Arbeitsweise.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Raum ist physisch neu gestaltet.</span></li><li><div class="ms-cb"></div><span>Whiteboard-Wand für Kampagnenplanung steht.</span></li><li><div class="ms-cb"></div><span>Moreno und Rita identifizieren sich mit dem neuen Modus.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M04 / 11</span></div></div>
 
 <!-- M05 -->
 <div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M05 <span class="ms-bb ms-bb-s">Struktur</span></div><div class="ms-card-title">Dashboard & Juli-Handoff</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">30. Juni 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Das Marketing Dashboard (55"-Screen) wird zur permanenten Sichtbarkeitsebene.</li><li>Im Juli fehlt Faras: Was jetzt nicht vorbereitet wird, entsteht im Juli unter Druck.</li></ul><span class="ms-sec-label">Umsetzung — Dashboard</span><ul class="ms-bl"><li>55"-Screen mit Marketing Dashboard V9 permanent laufend einrichten.</li><li>Dashboard-Inhalte: KPIs, aktive Kampagnen, Events, Social-Performance.</li></ul><span class="ms-sec-label">Umsetzung — Juli-Handoff</span><ul class="ms-bl"><li>4 Wochenziele + Cover-Cards für alle Juli-Aktivitäten im Planner vorbereiten.</li><li>Rita-Briefing: 4-Wochen-Plan mit klaren Deliverables.</li><li>Eskalationsregel definieren: Was kann warten, was muss eskaliert werden?</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Dashboard läuft dauerhaft auf dem 55"-Screen.</span></li><li><div class="ms-cb"></div><span>KPIs und Kampagnenstatus jederzeit sichtbar.</span></li><li><div class="ms-cb"></div><span>Juli-Playbook als Dokument fertig.</span></li><li><div class="ms-cb"></div><span>Planner für Juli zu über 80% vorbefüllt.</span></li><li><div class="ms-cb"></div><span>Moreno und Rita kennen ihren Plan für 4 Wochen.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M05 / 11</span></div></div>
 
 <!-- M06 -->
-<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M06 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Newsletter-Kit</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-active">→ Laufend</span><span class="ms-card-date">31. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Newsletter ist der Taktgeber — Social, Events und Lead-Aktionen folgen daraus.</li><li>Klickrate heute: unter 5%. Ziel: über 8–10%. Das Kit ist der Hebel.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Kit erstellen: Briefing-Template, NL-Vorlage, Redaktionsplan, Bild-Briefing für Rita.</li><li>NL #05 (Data Flow / SNAP IN) als erster vollständiger Durchlauf via Kit.</li><li>6 Social Posts aus Newsletter ableiten — Derivations-Routine für Metricool.</li><li>CX Dynamics: Non-Opener-Reminder einrichten (48h, neuer Betreff).</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Newsletter-Kit in Sharepoint abgelegt.</span></li><li><div class="ms-cb"></div><span>NL #05 vollständig via Kit produziert und versendet.</span></li><li><div class="ms-cb"></div><span>Erste Klickrate-Messung mit Non-Opener als Datenpunkt.</span></li><li><div class="ms-cb"></div><span>Derivations-Routine für Social steht.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M06 / 11</span></div></div>
+<div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M06 <span class="ms-bb ms-bb-d">Digital</span></div><div class="ms-card-title">Newsletter-Kit</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-active">→ Laufend</span><span class="ms-card-date">8. Mai 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Newsletter ist der Taktgeber — Social, Events und Lead-Aktionen folgen daraus.</li><li>Klickrate heute: unter 5%. Ziel: über 8–10%. Das Kit ist der Hebel.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Kit erstellen: Briefing-Template, NL-Vorlage, Redaktionsplan, Bild-Briefing für Rita.</li><li>NL #05 (Data Flow / SNAP IN) als erster vollständiger Durchlauf via Kit.</li><li>6 Social Posts aus Newsletter ableiten — Derivations-Routine für Metricool.</li><li>CX Dynamics: Non-Opener-Reminder einrichten (48h, neuer Betreff).</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Newsletter-Kit in Sharepoint abgelegt.</span></li><li><div class="ms-cb"></div><span>NL #05 vollständig via Kit produziert und versendet.</span></li><li><div class="ms-cb"></div><span>Erste Klickrate-Messung mit Non-Opener als Datenpunkt.</span></li><li><div class="ms-cb"></div><span>Derivations-Routine für Social steht.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M06 / 11</span></div></div>
 
 <!-- M07 -->
 <div class="ms-card"><div class="ms-card-h"><div class="ms-card-h-l"><div class="ms-card-num">M07 <span class="ms-bb ms-bb-l">Live Exp.</span></div><div class="ms-card-title">Event-Kit</div></div><div class="ms-card-h-r"><span class="ms-sb ms-sb-open">○ Offen</span><span class="ms-card-date">30. Juni 2026</span></div></div><div class="ms-card-accent"></div><div class="ms-card-body"><div class="ms-card-left"><span class="ms-sec-label">Strategie</span><ul class="ms-bl"><li>Events laufen reaktiv: Vorbereitung, Material und Nachbearbeitung fehlen als Standard.</li><li>Pflicht: Jeder Event braucht 3 Outlook-Blöcke — Vorbereitung, Durchführung, Nachbearbeitung.</li></ul><span class="ms-sec-label">Umsetzung</span><ul class="ms-bl"><li>Kit aufbauen: Briefing, 8-Wochen-Checkliste, Kommunikationsplan, Materialliste.</li><li>SIAMS und Orange Day als Vorlagen-Basis nutzen.</li><li>SnapAddy-Workflow: Messekontakte → CRM → Journey automatisch.</li></ul></div><div class="ms-card-right"><span class="ms-sec-label">Erwartung</span><ul class="ms-cl"><li><div class="ms-cb"></div><span>Event-Kit in Sharepoint abgelegt.</span></li><li><div class="ms-cb"></div><span>Jeder Event hat 3 Outlook-Termine.</span></li><li><div class="ms-cb"></div><span>Moreno plant Events eigenständig via Kit.</span></li><li><div class="ms-cb"></div><span>SnapAddy überführt Kontakte automatisch ins CRM.</span></li></ul></div></div><div class="ms-card-foot"><span>Eleven Minds · Weidmüller Schweiz AG · 2026</span><span>M07 / 11</span></div></div>
@@ -962,8 +1215,8 @@ var ART_CSS={Beitrag:"fmt-s",Karussell:"fmt-c",Reel:"fmt-r",Story:"fmt-r"};
 // ── LOAD FROM LOCALSTORAGE ──────────────────────────
 // ── GITHUB GIST SPEICHER ─────────────────────────────
 // *** HIER DEINE WERTE EINTRAGEN ***
-var GIST_ID = "2e8fff788fb50f5ba9799387894bb873";          // z.B. "abc123def456..."
-var GIST_TOKEN = "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";    // z.B. "ghp_xxxxxxxxxxxx"
+var GIST_ID = "DEINE_GIST_ID_HIER";          // z.B. "abc123def456..."
+var GIST_TOKEN = "DEIN_GITHUB_TOKEN_HIER";    // z.B. "ghp_xxxxxxxxxxxx"
 // *** ENDE KONFIGURATION ***
 
 var GIST_FILE = "wmch_dashboard_data.json";
@@ -1469,6 +1722,187 @@ function jpRenderChart(){
   var cv=$("jp-chart");if(!cv)return;
   jpChartInst=new Chart(cv,{type:"bar",data:{labels:active.map(function(m){return m.substring(0,4)+".";}),datasets:types.map(function(t){return{label:t.name,data:active.map(function(m){return mc[m][t.name]||0;}),backgroundColor:t.color,borderWidth:0,borderRadius:3};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,beginAtZero:true,grid:{color:"rgba(0,0,0,.06)"},ticks:{stepSize:2}}}}});
 }
+
+
+// === TO-DOS ===
+var TD_STATES=["offen","bearbeitung","abklaerung","erledigt"];
+var TD_LABELS={offen:"Offen",bearbeitung:"In Bearbeitung",abklaerung:"In Abklärung",erledigt:"Erledigt"};
+var tdTodos=[];
+var tdInbox=[];
+try{var ts=localStorage.getItem("wch_todos");if(ts)tdTodos=JSON.parse(ts);}catch(e){}
+try{var ti=localStorage.getItem("wch_inbox");if(ti)tdInbox=JSON.parse(ti);}catch(e){}
+function saveTodos(){try{localStorage.setItem("wch_todos",JSON.stringify(tdTodos));localStorage.setItem("wch_inbox",JSON.stringify(tdInbox));}catch(e){}}
+
+var _currentView="board";
+
+function buildCard(t,idx,inLane){
+  var card=document.createElement("div");
+  card.className="td-card"+(t.status==="erledigt"?" done":"");
+  var ownerCls=t.owner==="Faras"?"td-owner-f":t.owner==="Moreno"?"td-owner-m":"td-owner-l";
+  var dueStr=t.due?t.due.split("-").reverse().join("."):"";
+  var overdue=false;
+  if(t.due&&t.status!=="erledigt"){var dp=t.due.split("-");var dd=new Date(dp[0],dp[1]-1,dp[2]);dd.setHours(0,0,0,0);var now=new Date();now.setHours(0,0,0,0);overdue=dd<now;}
+  card.innerHTML='<div class="td-card-title">'+t.title+'</div>'+(t.desc?'<div class="td-card-desc">'+t.desc+'</div>':'')+'<div class="td-card-meta"><span class="td-card-owner '+ownerCls+'">'+t.owner+'</span><span class="td-card-date"'+(overdue?' style="color:var(--red);font-weight:700;"':'')+'>'+dueStr+'</span></div>';
+  var stBtn=document.createElement("span");
+  stBtn.className="td-card-status td-st-"+t.status;
+  stBtn.textContent=TD_LABELS[t.status];
+  (function(ii){
+    stBtn.addEventListener("click",function(ev){ev.stopPropagation();var cur=tdTodos[ii].status;var nxt=TD_STATES[(TD_STATES.indexOf(cur)+1)%TD_STATES.length];tdTodos[ii].status=nxt;saveTodos();renderTodos();if(_currentView==="person")renderPersonView();});
+    card.addEventListener("click",function(){tdEditTodo(ii);});
+  })(idx);
+  card.querySelector(".td-card-meta").appendChild(stBtn);
+  return card;
+}
+
+function renderTodos(){
+  if(_currentView!=="board")return;
+  var vc=$("td-view-container");
+  if(!vc)return;
+  // Ensure board HTML exists
+  if(!$("td-board-el")){
+    vc.innerHTML='<div class="td-board" id="td-board-el" style="grid-template-columns:1fr 1fr 1fr 1fr;"><div class="td-lane" style="border-color:rgba(255,69,58,.2);"><div class="td-lane-h" style="border-bottom-color:rgba(255,69,58,.15);background:rgba(255,69,58,.04);"><h3 style="color:var(--red);">\ud83d\udd25 Überfällig</h3><span class="td-lane-count" id="td-cnt-overdue" style="background:var(--red2);color:var(--red);">0</span></div><div class="td-lane-b" id="td-lane-overdue"></div></div><div class="td-lane"><div class="td-lane-h"><h3>Offen</h3><span class="td-lane-count" id="td-cnt-offen">0</span></div><div class="td-lane-b" id="td-lane-offen"></div></div><div class="td-lane"><div class="td-lane-h" style="border-bottom-color:rgba(48,209,88,.15);"><h3 style="color:var(--grn);">In Bearbeitung</h3><span class="td-lane-count" id="td-cnt-bearbeitung">0</span></div><div class="td-lane-b" id="td-lane-bearbeitung"></div></div><div class="td-lane"><div class="td-lane-h" style="border-bottom-color:rgba(255,214,10,.15);"><h3 style="color:var(--yel);">In Abklärung</h3><span class="td-lane-count" id="td-cnt-abklaerung">0</span></div><div class="td-lane-b" id="td-lane-abklaerung"></div></div></div>';
+  }
+  var lanes={overdue:[],offen:[],bearbeitung:[],abklaerung:[]};
+  var erledigtCount=0;
+  var today=new Date();today.setHours(0,0,0,0);
+  tdTodos.forEach(function(t,i){
+    if(t.status==="erledigt"){erledigtCount++;return;}
+    if(t.due&&t.status!=="erledigt"){var dp=t.due.split("-");var dd=new Date(dp[0],dp[1]-1,dp[2]);dd.setHours(0,0,0,0);if(dd<today){lanes.overdue.push({t:t,i:i});return;}}
+    if(lanes[t.status])lanes[t.status].push({t:t,i:i});
+  });
+  var statsEl=$("td-stats");
+  if(statsEl)statsEl.innerHTML='<div class="td-stat"><div class="td-stat-n" style="color:var(--red);">'+lanes.overdue.length+'</div><div class="td-stat-l">Überfällig</div></div><div class="td-stat"><div class="td-stat-n">'+tdTodos.length+'</div><div class="td-stat-l">Total</div></div><div class="td-stat"><div class="td-stat-n" style="color:var(--grn);">'+lanes.bearbeitung.length+'</div><div class="td-stat-l">In Bearbeitung</div></div><div class="td-stat"><div class="td-stat-n" style="color:var(--grn);opacity:.5;">'+erledigtCount+'</div><div class="td-stat-l">Erledigt</div></div>';
+  ["overdue","offen","bearbeitung","abklaerung"].forEach(function(status){
+    var lane=$("td-lane-"+status);var cnt=$("td-cnt-"+status);
+    if(!lane)return;lane.innerHTML="";if(cnt)cnt.textContent=lanes[status].length;
+    lanes[status].forEach(function(item){lane.appendChild(buildCard(item.t,item.i,true));});
+  });
+  renderInbox();
+}
+
+function renderInbox(){
+  var inboxList=$("td-inbox-list");var inboxCnt=$("td-cnt-inbox");
+  if(!inboxList)return;inboxList.innerHTML="";
+  if(inboxCnt)inboxCnt.textContent=tdInbox.length;
+  tdInbox.forEach(function(note,i){
+    var item=document.createElement("div");item.className="td-inbox-item";
+    item.innerHTML='<div class="td-card-title">'+note.text+'</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;"><span class="td-card-date">'+note.date+'</span></div>';
+    var btns=document.createElement("div");btns.className="act-btns";
+    var convBtn=document.createElement("button");convBtn.className="btn-edit";convBtn.innerHTML="\u2192 To-Do";convBtn.style.fontSize="9px";
+    (function(ii){convBtn.addEventListener("click",function(ev){ev.stopPropagation();$("td-title").value=tdInbox[ii].text;tdInbox.splice(ii,1);saveTodos();renderInbox();});})(i);
+    var delBtn=document.createElement("button");delBtn.className="btn-del";delBtn.innerHTML="\u2715";
+    (function(ii){delBtn.addEventListener("click",function(ev){ev.stopPropagation();tdInbox.splice(ii,1);saveTodos();renderInbox();});})(i);
+    btns.appendChild(convBtn);btns.appendChild(delBtn);
+    item.querySelector("div:last-child").appendChild(btns);
+    inboxList.appendChild(item);
+  });
+}
+
+function renderPersonView(){
+  var pv=$("td-view-container");if(!pv)return;
+  var people=[
+    {name:"Faras",role:"Strategie",color:"#6366F1"},
+    {name:"Moreno",role:"Events & Live Experience",color:"#FF6B00"},
+    {name:"Lehrling",role:"Execution Digital",color:"#30D158"}
+  ];
+  var today=new Date();today.setHours(0,0,0,0);
+  var html2="";
+  people.forEach(function(p){
+    var overdue=[],active=[],open=[];
+    tdTodos.forEach(function(t,i){
+      if(t.owner!==p.name||t.status==="erledigt")return;
+      var isOd=false;
+      if(t.due){var dp=t.due.split("-");var dd=new Date(dp[0],dp[1]-1,dp[2]);dd.setHours(0,0,0,0);isOd=dd<today;}
+      if(isOd)overdue.push({t:t,i:i});
+      else if(t.status==="bearbeitung"||t.status==="abklaerung")active.push({t:t,i:i});
+      else open.push({t:t,i:i});
+    });
+    var total=overdue.length+active.length+open.length;
+    html2+='<div class="td-person-col"><div class="td-person-h"><div class="td-person-avatar" style="background:'+p.color+';">'+p.name.charAt(0)+'</div><div class="td-person-info"><h3>'+p.name+'</h3><span>'+p.role+' \u00B7 '+total+' Tasks</span></div></div><div class="td-person-b" data-person="'+p.name+'">';
+    if(overdue.length)html2+='<div class="td-person-section overdue">\ud83d\udd25 Überfällig ('+overdue.length+')</div>';
+    overdue.forEach(function(item){html2+='<div class="td-card" data-idx="'+item.i+'"><div class="td-card-title">'+item.t.title+'</div><div class="td-card-meta"><span class="td-card-date" style="color:var(--red);font-weight:700;">'+(item.t.due?item.t.due.split("-").reverse().join("."):"")+'</span><span class="td-card-status td-st-'+item.t.status+'" data-idx="'+item.i+'">'+TD_LABELS[item.t.status]+'</span></div></div>';});
+    if(active.length)html2+='<div class="td-person-section active">In Arbeit ('+active.length+')</div>';
+    active.forEach(function(item){html2+='<div class="td-card" data-idx="'+item.i+'"><div class="td-card-title">'+item.t.title+'</div><div class="td-card-meta"><span class="td-card-date">'+(item.t.due?item.t.due.split("-").reverse().join("."):"")+'</span><span class="td-card-status td-st-'+item.t.status+'" data-idx="'+item.i+'">'+TD_LABELS[item.t.status]+'</span></div></div>';});
+    if(open.length)html2+='<div class="td-person-section open">Offen ('+open.length+')</div>';
+    open.forEach(function(item){html2+='<div class="td-card" data-idx="'+item.i+'"><div class="td-card-title">'+item.t.title+'</div><div class="td-card-meta"><span class="td-card-date">'+(item.t.due?item.t.due.split("-").reverse().join("."):"")+'</span><span class="td-card-status td-st-'+item.t.status+'" data-idx="'+item.i+'">'+TD_LABELS[item.t.status]+'</span></div></div>';});
+    if(total===0)html2+='<div style="text-align:center;padding:20px;color:var(--t4);font-size:12px;">Keine offenen To-Dos</div>';
+    html2+='</div></div>';
+  });
+  pv.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;min-height:400px;">'+html2+'</div>';
+  // Bind click handlers
+  pv.querySelectorAll(".td-card").forEach(function(card){
+    var idx=parseInt(card.getAttribute("data-idx"));
+    card.addEventListener("click",function(){tdEditTodo(idx);});
+  });
+  pv.querySelectorAll(".td-card-status").forEach(function(btn){
+    var idx=parseInt(btn.getAttribute("data-idx"));
+    btn.addEventListener("click",function(ev){
+      ev.stopPropagation();
+      var cur=tdTodos[idx].status;var nxt=TD_STATES[(TD_STATES.indexOf(cur)+1)%TD_STATES.length];
+      tdTodos[idx].status=nxt;saveTodos();renderPersonView();
+    });
+  });
+  // Update stats
+  var statsEl=$("td-stats");
+  var overdue2=0,total2=0,bearbeitung2=0,erledigt2=0;
+  tdTodos.forEach(function(t){
+    if(t.status==="erledigt"){erledigt2++;return;}
+    total2++;
+    if(t.due){var dp=t.due.split("-");var dd=new Date(dp[0],dp[1]-1,dp[2]);dd.setHours(0,0,0,0);if(dd<today)overdue2++;}
+    if(t.status==="bearbeitung")bearbeitung2++;
+  });
+  if(statsEl)statsEl.innerHTML='<div class="td-stat"><div class="td-stat-n" style="color:var(--red);">'+overdue2+'</div><div class="td-stat-l">Überfällig</div></div><div class="td-stat"><div class="td-stat-n">'+(total2+erledigt2)+'</div><div class="td-stat-l">Total</div></div><div class="td-stat"><div class="td-stat-n" style="color:var(--grn);">'+bearbeitung2+'</div><div class="td-stat-l">In Bearbeitung</div></div><div class="td-stat"><div class="td-stat-n" style="color:var(--grn);opacity:.5;">'+erledigt2+'</div><div class="td-stat-l">Erledigt</div></div>';
+}
+
+function tdEditTodo(i){
+  var t=tdTodos[i];if(!t)return;
+  var owners=["Faras","Moreno","Lehrling"];
+  var states=["offen","bearbeitung","abklaerung","erledigt"];
+  var h='<div class="mod-field"><label>Titel</label><input id="mod-n" value="'+t.title.replace(/"/g,"&quot;")+'"></div><div class="mod-field"><label>Beschreibung</label><textarea id="mod-desc" rows="3" style="width:100%;padding:8px 10px;font-size:12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:var(--s2);color:var(--t1);font-family:var(--sans);resize:none;">'+(t.desc||"").replace(/"/g,"&quot;")+'</textarea></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div class="mod-field"><label>Wer</label><select id="mod-owner">'+owners.map(function(o){return"<option"+(o===t.owner?" selected":"")+">"+o+"</option>";}).join("")+'</select></div><div class="mod-field"><label>Bis wann</label><input id="mod-due" type="date" value="'+(t.due||"")+'"></div></div><div class="mod-field"><label>Status</label><select id="mod-status">'+states.map(function(s){return"<option value=\""+s+"\""+(s===t.status?" selected":"")+">"+TD_LABELS[s]+"</option>";}).join("")+'</select></div><div style="margin-top:12px;"><button id="mod-del-todo" style="width:100%;padding:8px;font-size:11px;font-weight:600;border-radius:8px;border:1px solid rgba(255,69,58,.2);background:rgba(255,69,58,.08);color:var(--red);cursor:pointer;font-family:var(--sans);">To-Do löschen</button></div>';
+  showModal("To-Do bearbeiten",h,function(){
+    var n=$("mod-n").value.trim();if(!n)return;
+    tdTodos[i]={title:n,desc:$("mod-desc").value.trim(),owner:$("mod-owner").value,due:$("mod-due").value,status:$("mod-status").value};
+    saveTodos();closeModal();if(_currentView==="board")renderTodos();else renderPersonView();
+  });
+  setTimeout(function(){var delBtn=$("mod-del-todo");if(delBtn)delBtn.addEventListener("click",function(){tdTodos.splice(i,1);saveTodos();closeModal();if(_currentView==="board")renderTodos();else renderPersonView();});},50);
+}
+
+// Bind add button
+$("td-add-btn").addEventListener("click",function(){
+  var title=$("td-title").value.trim();var desc=$("td-desc").value.trim();
+  var owner=$("td-owner").value;var due=$("td-due").value;
+  if(!title||!owner||!due)return;
+  tdTodos.push({title:title,desc:desc,owner:owner,due:due,status:"offen"});
+  saveTodos();if(_currentView==="board")renderTodos();else renderPersonView();
+  $("td-title").value="";$("td-desc").value="";$("td-owner").value="";$("td-due").value="";
+  var ok=$("td-ok");ok.style.display="block";setTimeout(function(){ok.style.display="none";},2000);
+});
+$("td-inbox-add").addEventListener("click",function(){
+  var input=$("td-inbox-input");var text=input.value.trim();if(!text)return;
+  var now=new Date();
+  tdInbox.push({text:text,date:String(now.getDate()).padStart(2,"0")+"."+String(now.getMonth()+1).padStart(2,"0")+"."+now.getFullYear()});
+  saveTodos();renderInbox();input.value="";
+});
+$("td-inbox-input").addEventListener("keydown",function(ev){if(ev.key==="Enter"){$("td-inbox-add").click();}});
+
+renderTodos();
+
+// === TO-DO VIEW TOGGLE ===
+
+$("td-view-board").addEventListener("click",function(){
+  if(_currentView==="board")return;
+  _currentView="board";
+  $("td-view-board").classList.add("td-view-on");
+  $("td-view-person").classList.remove("td-view-on");
+  renderTodos();
+});
+$("td-view-person").addEventListener("click",function(){
+  if(_currentView==="person")return;
+  _currentView="person";
+  $("td-view-person").classList.add("td-view-on");
+  $("td-view-board").classList.remove("td-view-on");
+  renderPersonView();
+});
 
 // ── INIT ────────────────────────────────────────────
 // Load from Gist, then render
